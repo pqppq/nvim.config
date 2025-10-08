@@ -1,0 +1,136 @@
+{
+  "Log to the console": {
+    "prefix": "log",
+    "body": [
+      "console.log($1);"
+    ],
+    "description": "Log to the console"
+  },
+  "Log warning to console": {
+    "prefix": "warn",
+    "body": [
+      "console.warn($1);"
+    ],
+    "description": "Log warning to the console"
+  },
+  "Log error to console": {
+    "prefix": "error",
+    "body": [
+      "console.error($1);"
+    ],
+    "description": "Log error to the console"
+  },
+  "Arrow Function": {
+    "prefix": "ar",
+    "body": [
+      "($1) => {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Arrow Function"
+  },
+  "Callback": {
+    "prefix": "cb",
+    "body": [
+      "'$1', ($2) => {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Callback"
+  },
+  "JSDoc Comment": {
+    "prefix": "/*",
+    "body": [
+      "/**\n",
+      " * ${1:Comment}$0\n",
+      "*/"
+    ],
+    "description": "A JSDoc comment"
+  },
+  "Tag": {
+    "prefix": "tg",
+    "body": [
+      "<$1 $2>$0</$1>"
+    ],
+    "description": "xml, html tag"
+  },
+  "Tag single": {
+    "prefix": "tgs",
+    "body": [
+      "<$1 />"
+    ],
+    "description": "xml, html single tag"
+  },
+  "author email": {
+    "prefix": "@au",
+    "body": [
+      "@author ${1:author_name} [${2:author_email}]"
+    ],
+    "description": "@author email (First Last)"
+  },
+  "Lisense desc": {
+    "prefix": "@li",
+    "body": [
+      "@license ${1:MIT}$0"
+    ],
+    "description": "@lisence Description"
+  },
+  "Semantic version": {
+    "prefix": "@ver",
+    "body": [
+      "@version ${1:0.1.0}$0"
+    ],
+    "description": "@version Semantic version"
+  },
+  "File overview": {
+    "prefix": "@fileo",
+    "body": [
+      "/**\n",
+      " * @fileoverview ${1:Description_of_the_file}$0",
+      "*/"
+    ],
+    "description": "@fileoverview Description"
+  },
+  "Contructor": {
+    "prefix": "@constr",
+    "body": [
+      "@contructor"
+    ],
+    "description": "@constructor"
+  },
+  "varname": {
+    "prefix": "@p",
+    "body": [
+      "@param ${1:Type} ${2:varname} ${3:Description}"
+    ],
+    "description": "@param {Type} varname Description"
+  },
+  "return type desc": {
+    "prefix": "@ret",
+    "body": [
+      "@return ${1:Type} ${2:Description}"
+    ],
+    "description": "@return {Type} Description"
+  },
+  "private": {
+    "prefix": "@pri",
+    "body": [
+      "@private"
+    ],
+    "description": "@private"
+  },
+  "override": {
+    "prefix": "@over",
+    "body": [
+      "@override"
+    ],
+    "description": "@override"
+  },
+  "protected": {
+    "prefix": "@pro",
+    "body": [
+      "@protected"
+    ],
+    "description": "@protected"
+  }
+}

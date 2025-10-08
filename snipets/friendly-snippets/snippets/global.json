@@ -1,0 +1,51 @@
+{
+  "time": {
+    "prefix": "time",
+    "body": [
+      "${CURRENT_HOUR}:${CURRENT_MINUTE}"
+    ],
+    "description": "I give you back the time (H:M)"
+  },
+  "today": {
+    "prefix": "date",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}"
+    ]
+  },
+  "now": {
+    "prefix": "datetime",
+    "body": [
+      "${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE} ${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}"
+    ]
+  },
+  "uuid": {
+    "prefix": "uuid",
+    "body": [
+      "${UUID}"
+    ]
+  },
+  "random": {
+    "prefix": "rand",
+    "body": [
+      "${RANDOM}"
+    ]
+  },
+  "random hex": {
+    "prefix": "hex",
+    "body": [
+      "${RANDOM_HEX}"
+    ]
+  },
+  "absolute path": {
+    "prefix": "path",
+    "body": [
+      "${TM_FILEPATH}"
+    ]
+  },
+  "relative path": {
+    "prefix": "rel",
+    "body": [
+      "${RELATIVE_FILEPATH}"
+    ]
+  }
+}

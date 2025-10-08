@@ -1,0 +1,172 @@
+{
+  "struct": {
+    "prefix": "ts",
+    "body": "type ${1:Name} struct {\n\t$0\n}",
+    "description": "struct"
+  },
+  "interface": {
+    "prefix": "ti",
+    "body": "type ${1:Name} interface {\n\t$0\n}",
+    "description": "interface"
+  },
+  "log.Println": {
+    "prefix": "lp",
+    "body": "log.Println($1)",
+    "description": "log.Println"
+  },
+  "log.Fatal": {
+    "prefix": "lf",
+    "body": "log.Fatal($1)",
+    "description": "log.Fatal"
+  },
+  "fmt.Print": {
+    "prefix": "pr",
+    "body": "fmt.Print($1)",
+    "description": "fmt.Print"
+  },
+  "fmt.Println": {
+    "prefix": "prl",
+    "body": "fmt.Println($1)",
+    "description": "fmt.Println"
+  },
+  "fmt.Printf": {
+    "prefix": "prf",
+    "body": "fmt.Printf(\"$1\", $0)",
+    "description": "fmt.Println"
+  },
+  "fmt.Fprint": {
+    "prefix": "pf",
+    "body": "fmt.Fprint($1, $0)",
+    "description": "fmt.Fprint"
+  },
+  "fmt.Fprintln": {
+    "prefix": "pfl",
+    "body": "fmt.Fprintln($1, $0)",
+    "description": "fmt.Fprintln"
+  },
+  "fmt.Fprintf": {
+    "prefix": "pff",
+    "body": "fmt.Fprintf($1, \"$2\", $0)",
+    "description": "fmt.Fprintf"
+  },
+  "fmt.Sprint": {
+    "prefix": "ps",
+    "body": "fmt.Sprint($1)",
+    "description": "fmt.Sprint"
+  },
+  "fmt.Sprintln": {
+    "prefix": "psl",
+    "body": "fmt.Sprintln($1)",
+    "description": "fmt.Sprintln"
+  },
+  "fmt.Sprintf": {
+    "prefix": "psf",
+    "body": "fmt.Sprintf(\"$1\", $0)",
+    "description": "fmt.Sprintf"
+  },
+  "map": {
+    "prefix": "mp",
+    "body": "map[${1:type}]${2:type}",
+    "description": "map"
+  },
+  "make": {
+    "prefix": "mk",
+    "body": "make(${1:type}, ${2:0})",
+    "description": "Snippet for make statement"
+  },
+  "test function": {
+    "prefix": "t",
+    "body": "func Test$1(t *testing.T) {\n\t$0\n}",
+    "description": "Snippet for Test function"
+  },
+  "t.Fatal": {
+    "prefix": "tff",
+    "body": "t.Fatalf(\"$1\", $2)",
+    "description": "t.Fatal"
+  },
+  "if": {
+    "prefix": "if",
+    "body": "if $1 {\n\t$0\n}",
+    "description": "Snippet for if statement"
+  },
+  "t.Error": {
+    "prefix": "te",
+    "body": "if err != nil {\n\tt.Error(err)\n}",
+    "description": "t.Error"
+  },
+  "t.Errorf": {
+    "prefix": "tef",
+    "body": "if err != nil {\n\tt.Errorf($1)\n}",
+    "description": "t.Error"
+  },
+  "test cases": {
+    "prefix": "tdc",
+    "body": "tests := []struct {\n\t\tname\tstring\n\t\t$2\n\t}{\n\t\t{\n\t\t\tname: \"$3\",\n\t\t\t$4\n\t\t},\n\t}\n\tfor _, tc := range tests {\n\t\tt.Run(tc.name, func(t *testing.T) {\n\t\t\t$0\n\t\t})\n\t}\n}",
+    "nameription": "Test cases"
+  },
+  "table driven test": {
+    "prefix": "tdt",
+    "body": "func Test$1(t *testing.T) {\n\ttests := []struct {\n\t\tname\tstring\n\t\t$2\n\t}{\n\t\t{\n\t\t\tname: \"$3\",\n\t\t\t$4\n\t\t},\n\t}\n\tfor _, tc := range tests {\n\t\tt.Run(tc.name, func(t *testing.T) {\n\t\t\t$0\n\t\t})\n\t}\n}",
+    "nameription": "Snippet for table driven test"
+  },
+  "if err exp": {
+    "prefix": "ife",
+    "body": "if $1, err := $2; err != nil {\n\t$0\n}",
+    "description": "Snippet for if statement"
+  },
+  "if !=": {
+    "prefix": "ne",
+    "body": "if $1 != $2 {\n\t$0\n}",
+    "description": "if !="
+  },
+  ":=": {
+    "prefix": "we",
+    "body": "$2, err := $1$3",
+    "description": ""
+  },
+  "function": {
+    "prefix": "f",
+    "body": "func $1($2) $3 {\n\t$0\n}",
+    "description": "function"
+  },
+  "receiver": {
+    "prefix": "re",
+    "body": "func ($1) $2($3) $4 {\n\t$0\n}",
+    "description": "function"
+  },
+  "for": {
+    "prefix": "for",
+    "body": "for ${1}{\n\t$0\n}",
+    "description": "for"
+  },
+  "for range": {
+    "prefix": "forr",
+    "body": "for ${1:_, }${2:v} := range ${3:v} {\n\t$0\n}",
+    "description": "for range"
+  },
+  "select": {
+    "prefix": "sl",
+    "body": "select {\ncase $1:\n\t$0\n}",
+    "description": "select"
+  },
+  "switch": {
+    "prefix": "sw",
+    "body": "switch $1 {\ncase $2:\n\t$0\n}",
+    "description": "switch"
+  },
+  "case": {
+    "prefix": "c",
+    "body": "case $1:$0",
+    "description": "case"
+  },
+  "json tag": {
+	"prefix": "j",
+	"body": "`json:\"$1\"`",
+	"description": "Snippet for struct json tag"
+  },
+  "http handler": {
+	"prefix": "httph",
+	"body": "func $1(w http.ResponseWriter, r *http.Request) {\n\t$0\n}",
+	"description": "http handler"
+  }
+}
