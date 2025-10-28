@@ -1,10 +1,8 @@
 return {
 	{
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
+		'neovim/nvim-lspconfig',
 		dependencies = {
 			-- LSP Support
-			{ 'neovim/nvim-lspconfig' }, -- Required
 			{
 				-- Optional
 				'williamboman/mason.nvim',
@@ -91,7 +89,7 @@ return {
 						formatting = {
 							-- fields = {'abbr', 'kind', 'menu'},
 							format = require("lspkind").cmp_format({
-								with_text = true,
+								mode = "symbol_text",
 								menu = {
 									buffer = "[Buffer]",
 									nvim_lsp = "[LSP]",
@@ -155,10 +153,9 @@ return {
 							},
 						},
 						sources = cmp.config.sources({
-							{ name = 'nvim_lsp', max_item_count = 20, priority = 100 },
-							{ name = 'orgmode' },
+							{ name = 'luasnip', max_item_count = 10, priority = 100 },
+							{ name = 'nvim_lsp', max_item_count = 20, priority = 90 },
 						}, {
-							{ name = 'luasnip', max_item_count = 20, priority = 90 },
 							{ name = 'path',    max_item_count = 5,  priority = 70 },
 						}, {
 							{
@@ -175,12 +172,17 @@ return {
 									end
 								}
 							},
-							{ name = 'path',       max_item_count = 5, priority = 40 },
-							{ name = 'dictionary', priority = 10,      keyword_length = 3 },
+							{ name = 'dictionary', priority = 10, keyword_length = 3 },
 							{ name = 'crates',     priority = 10 }, -- for rust crate
 						}),
-						mapping = {
-						},
+						mapping = cmp.mapping.preset.insert({
+							['<C-d>'] = cmp.mapping.scroll_docs(-4),
+							['<C-f>'] = cmp.mapping.scroll_docs(4),
+							['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+							['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+							['<C-y>'] = cmp.mapping.confirm({ select = true }),
+							['<C-k>'] = cmp.mapping.confirm({ select = true }),
+						}),
 					})
 					require("cmp_dictionary").setup({
 						paths = { vim.fn.stdpath("config") .. "/words" },
@@ -226,7 +228,7 @@ return {
 					require("mason").setup()
 					require("null-ls").setup()
 					require("mason-null-ls").setup({
-						automatic_setup = true,
+						automatic_installation = true,
 						handlers = {}
 					})
 				end,
@@ -234,30 +236,10 @@ return {
 		},
 		config = function()
 			require("mason").setup()
-			local lsp = require('lsp-zero').preset({})
-			local lspconfig = require('lspconfig')
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			local cmp_select = { behavior = cmp.SelectBehavior.Select }
-
-			local cmp_mappings = lsp.defaults.cmp_mappings({
-				['<C-d>'] = cmp.mapping.scroll_docs(-4),
-				['<C-f>'] = cmp.mapping.scroll_docs(4),
-				['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-				['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-				['<C-y>'] = cmp.mapping.confirm({ select = true }),
-			})
-
-			cmp_mappings['<Tab>'] = nil
-			cmp_mappings['<S-Tab>'] = nil
-
-			lsp.setup_nvim_cmp({
-				mapping = cmp_mappings
-			})
-
-			lsp.on_attach(function(client, bufnr)
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+			local on_attach = function(client, bufnr)
 				local opts = { buffer = bufnr, remap = false }
-
+				local luasnip = require('luasnip')
 				vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 				vim.keymap.set('n', 'L', vim.diagnostic.open_float, opts)
 				vim.keymap.set('n', 'F', vim.lsp.buf.format, opts)
@@ -273,23 +255,32 @@ return {
 						luasnip.expand_or_jump()
 					end
 				end, opts)
-			end)
+			end
 
-			-- (Optional) Configure lua language server for neovim
-			lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
-			local util = lspconfig.util
+			vim.lsp.config('lua_ls', {
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					Lua = {
+						diagnostics = { globals = { 'vim' } },
+						completion = { callSnippet = 'Replace' },
+					},
+				},
+			})
+			vim.lsp.enable('lua_ls')
+			vim.lsp.config('*', { on_attach = on_attach, capabilities = capabilities })
 
 			-- server settings
-			local node_root_dir = util.root_pattern("package.json", "node_modules")
-			local deno_root_dir = util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
-			lspconfig["tsserver"].setup({ root_dir = node_root_dir, autostart = true })
-			lspconfig["eslint"].setup({
-				root_dir = node_root_dir,
-				autostart = util.root_pattern(".eslintrc.js", ".eslint.cjs", ".eslintrc.yaml", ".eslintrc.yml",
-					"package.json") ~= nil
+			vim.lsp.config('ts_ls', {
+				root_markers = { 'package.json', 'tsconfig.json', 'jsconfig.json', 'node_modules' },
 			})
-			lspconfig["denols"].setup({
-				root_dir = deno_root_dir,
+			vim.lsp.enable('ts_ls')
+			vim.lsp.config('eslint', {
+				root_markers = { '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.yaml', '.eslintrc.yml', 'package.json' },
+			})
+			vim.lsp.enable('eslint')
+			vim.lsp.config('denols', {
+				root_markers = { 'deno.json', 'deno.jsonc', 'deps.ts', 'import_map.json' },
 				autostart = false,
 				init_options = {
 					lint = true,
@@ -305,24 +296,30 @@ return {
 					}
 				}
 			})
-			lspconfig["rust_analyzer"].setup({
-				imports = {
-					granularity = {
-						group = "module",
+			vim.lsp.enable('denols')
+			vim.lsp.config("rust_analyzer", {
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					["rust-analyzer"] = {
+						imports = {
+							granularity = {
+								group = "module",
+							},
+							prefix = "self",
+						},
+						cargo = {
+							buildScripts = {
+								enable = true,
+							},
+						},
+						procMacro = {
+							enable = true
+						},
 					},
-					prefix = "self",
-				},
-				cargo = {
-					buildScripts = {
-						enable = true,
-					},
-				},
-				procMacro = {
-					enable = true
 				},
 			})
-
-			lsp.setup()
+			vim.lsp.enable('rust_analyzer')
 		end
 	},
 	{
@@ -378,7 +375,6 @@ return {
 
 			-- You can also do this inside lsp on_attach
 			-- note: on_attach deprecated
-			require 'lsp_signature'.on_attach(cfg, bufnr) -- no need to specify bufnr if you don't use toggle_key
 		end
 	},
 }

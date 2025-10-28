@@ -1,27 +1,5 @@
 return {
 	{
-		'nvim-orgmode/orgmode',
-		config = function()
-			-- Treesitter configuration
-			require('nvim-treesitter.configs').setup {
-				-- If TS highlights are not enabled at all, or disabled via `disable` prop,
-				-- highlighting will fallback to default Vim syntax highlighting
-				highlight = {
-					enable = true,
-					-- Required for spellcheck, some LaTex highlights and
-					-- code block highlights that do not have ts grammar
-					additional_vim_regex_highlighting = { 'org' },
-				},
-				ensure_installed = { 'org' }, -- Or run :TSUpdate org
-			}
-
-			require('orgmode').setup({
-				org_agenda_files = { '~/orgmode/*' },
-				org_todo_keywords = { 'TODO', 'STARTED', 'WAITING', '|', 'DONE', 'CANCELLED' },
-			})
-		end
-	},
-	{
 		"kosayoda/nvim-lightbulb",
 		config = function()
 			require("nvim-lightbulb").setup({
@@ -160,6 +138,10 @@ return {
 	},
 	{
 		'L3MON4D3/LuaSnip',
+		-- follow latest release.
+		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
+		build = "make install_jsregexp",
 		lazy = true,
 		config = function()
 			local ls = require("luasnip")
@@ -213,16 +195,8 @@ return {
 
 			-- The directories will have to be structured like eg. <https://github.com/rafamadriz/friendly-snippets> (include
 			-- a similar `package.json`)
-			require("luasnip.loaders.from_vscode").load({ paths = "~/.config/nvim/snipets/friendly-snippets" }) -- Load snippets from my-snippets folder
-
-			require("luasnip.loaders.from_lua").lazy_load({ paths = "~/.config/nvim/snipets/luasnip" })
-
-			-- You can also use lazy loading so snippets are loaded on-demand, not all at once (may interfere with lazy-loading luasnip itself).
-			-- require("luasnip.loaders.from_vscode").lazy_load() -- You can pass { paths = "./my-snippets/"} as well
-			require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/vscode-snippets" } }) -- You can pass { paths = "./my-snippets/"} as well
-			require("luasnip.loaders.from_vscode").lazy_load({
-				paths = { vim.fn.stdpath("data") .. "/site/pack/packer/opt/friendly-snippets" },
-			}) -- You can pass { paths = "./my-snippets/"} as well
+			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/repos/nvim.config/snipets/friendly-snippets/" } })
 
 			-- You can also use snippets in snipmate format, for example <https://github.com/honza/vim-snippets>.
 			-- The usage is similar to vscode.
