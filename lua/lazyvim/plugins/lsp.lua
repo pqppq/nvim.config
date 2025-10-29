@@ -153,10 +153,10 @@ return {
 							},
 						},
 						sources = cmp.config.sources({
-							{ name = 'luasnip', max_item_count = 10, priority = 100 },
+							{ name = 'luasnip',  max_item_count = 10, priority = 100 },
 							{ name = 'nvim_lsp', max_item_count = 20, priority = 90 },
 						}, {
-							{ name = 'path',    max_item_count = 5,  priority = 70 },
+							{ name = 'path', max_item_count = 5, priority = 70 },
 						}, {
 							{
 								name = 'buffer',
@@ -320,6 +320,20 @@ return {
 				},
 			})
 			vim.lsp.enable('rust_analyzer')
+			vim.lsp.config("gopls", {
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					["gopls"] = {
+						completionEnabled = true,
+						usePlaceholders = true,
+						analyses = {
+							usedparams = true
+						}
+					},
+				},
+			})
+			vim.lsp.enable('gopls')
 		end
 	},
 	{
