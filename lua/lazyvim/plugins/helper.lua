@@ -1,4 +1,5 @@
 return {
+	-- Git diff
 	{
 		'sindrets/diffview.nvim',
 		dependencies = { 'plenary.nvim' },
@@ -20,13 +21,7 @@ return {
 			})
 		end
 	},
-	'markonm/traces.vim',
-	'nvim-lua/plenary.nvim',
-	'MunifTanjim/nui.nvim',
-	'nvim-tree/nvim-web-devicons',
-	'tpope/vim-repeat',
-	"terryma/vim-expand-region",
-	'dhruvasagar/vim-table-mode',
+	-- Motion
 	{
 		'nvim-treesitter/nvim-treesitter',
 		lazy = true,
@@ -40,14 +35,6 @@ return {
 					disable = {},
 				},
 			}
-		end
-	},
-	{
-		"windwp/nvim-ts-autotag",
-		lazy = true,
-		dependencies = { "nvim-treesitter" },
-		config = function()
-			require("nvim-ts-autotag").setup()
 		end
 	},
 	{
@@ -84,6 +71,7 @@ return {
 			},
 		},
 	},
+	-- Filer
 	{
 		'nvim-tree/nvim-tree.lua',
 		dependencies = {
@@ -184,8 +172,14 @@ return {
 			})
 		end
 	},
-	-- install without yarn or npm
+	-- MISC
+	'markonm/traces.vim',        -- live preview of replaces
+	'nvim-lua/plenary.nvim',     -- dependency for many plugins
+	'tpope/vim-repeat',          -- enhance . repeat
+	"terryma/vim-expand-region", -- expand visual selection with +/_
+	'dhruvasagar/vim-table-mode', -- markdown table mode
 	{
+		-- Preview markdown on browser
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		ft = { "markdown" },
