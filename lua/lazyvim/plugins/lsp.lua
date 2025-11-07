@@ -333,13 +333,8 @@ return {
 					end, opts)
 					vim.keymap.set(
 						"n",
-						"gfr",
-						"<Cmd>TSToolsFileReferences<CR>",
-						{ buffer = bufnr })
-					vim.keymap.set(
-						"n",
-						"<space>rf",
-						"<Cmd>TSToolsRenameFile<CR>",
+						"<space>rF",
+						":TSToolsRenameFile sync<CR>",
 						{ buffer = bufnr }
 					)
 				end,
@@ -389,6 +384,16 @@ return {
 				},
 			}
 		end
+	},
+	{
+		"antosha417/nvim-lsp-file-operations",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-tree.lua",
+		},
+		config = function()
+			require("lsp-file-operations").setup()
+		end,
 	},
 	{
 		'ray-x/lsp_signature.nvim',
