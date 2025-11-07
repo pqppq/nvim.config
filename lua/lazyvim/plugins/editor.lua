@@ -58,7 +58,12 @@ return {
 			{ "nvim-treesitter/nvim-treesitter" }
 		},
 		config = function()
-
+			vim.keymap.set({ 'x', 'n' }, '<space>dv', function()
+				require('refactoring').debug.print_var()
+			end)
+			vim.keymap.set('n', '<space>dc', function()
+				require('refactoring').debug.cleanup {}
+			end)
 		end
 	},
 	'jiangmiao/auto-pairs',
