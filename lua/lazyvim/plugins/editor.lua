@@ -146,7 +146,7 @@ return {
 			-- The directories will have to be structured like eg. <https://github.com/rafamadriz/friendly-snippets> (include
 			-- a similar `package.json`)
 			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/dotfiles/.config/nvim/snipets/friendly-snippets/" } })
+			require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/repos/nvim.config/snipets/friendly-snippets/" } })
 
 			-- You can also use snippets in snipmate format, for example <https://github.com/honza/vim-snippets>.
 			-- The usage is similar to vscode.
