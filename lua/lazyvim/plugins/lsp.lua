@@ -284,7 +284,6 @@ return {
 				capabilities = capabilities,
 				settings = {
 					["gopls"] = {
-						completionEnabled = true,
 						usePlaceholders = true,
 						analyses = {
 							usedparams = true

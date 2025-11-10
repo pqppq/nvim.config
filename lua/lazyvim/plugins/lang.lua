@@ -1,23 +1,35 @@
 return {
 	{
-		'fatih/vim-go',
-		config = function()
-			-- disable all default setting
-			vim.cmd('let g:go_def_mapping_enabled= 0')
-			vim.cmd('let g:go_doc_keywordprg_enabled = 0')
-			vim.cmd('let g:go_doc_popup_window = 0')
-			vim.cmd('let g:go_doc_balloon = 0')
-			vim.cmd('let g:go_code_completion_enabled = 0')
-			vim.cmd('let g:go_diagnostics_enabled = 0')
-
-			vim.cmd('autocmd FileType go nnoremap gb  <Plug>(go-build)')
-			vim.cmd('autocmd FileType go nnoremap gr  <Plug>(go-run)')
-			vim.cmd('autocmd FileType go nnoremap gtt  <Plug>(go-test)')
-			vim.cmd('autocmd FileType go nnoremap gtf  <Plug>(go-test-file)')
-			vim.cmd('autocmd FileType go nnoremap gts  <Plug>(go-test-func)')
-			vim.cmd('autocmd FileType go nnoremap ge  <Plug>(go-iferr)')
-			vim.cmd('autocmd FileType go nnoremap gk <Plug>(go-doc-split)')
-		end
+		"ray-x/go.nvim",
+		dependencies = { -- optional packages
+			"ray-x/guihua.lua",
+			"neovim/nvim-lspconfig",
+			"nvim-treesitter/nvim-treesitter",
+		},
+		opts = {
+			-- lsp_keymaps = false,
+			-- other options
+		},
+		ft = { "go", 'gomod' },
+		keys = {
+			{ "<Space>gd",  mode = { "n" }, ":GoDocBrowser<CR>" },
+			{ "<Space>gi", mode = { "n" }, ":GoImpl " },
+			{ "<Space>gs", mode = { "n" }, ":GoFillStruct<CR>" },
+			{ "<Space>gt",  mode = { "n" }, ":GoAddTag<CR>" },
+		},
+		config = function(lp, opts)
+			require("go").setup(opts)
+			local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				pattern = "*.go",
+				callback = function()
+					require('go.format').goimports()
+				end,
+				group = format_sync_grp,
+			})
+		end,
+		event = { "CmdlineEnter" },
+		build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
 	},
 	{
 		'mrcjkb/rustaceanvim',
