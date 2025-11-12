@@ -40,9 +40,9 @@ return {
 	{
 		'phaazon/hop.nvim',
 		keys = {
-			{ "<Space>s", "<cmd>HopWord<CR>", mode = { "n", "v" }, noremap = true },
+			{ "<Space>s", "<cmd>HopWord<CR>",            mode = { "n", "v" }, noremap = true },
 			{ "<Space>l", "<cmd>HopWordCurrentLine<CR>", mode = { "n", "v" }, noremap = true },
-			{ "<Space>k", "<cmd>HopLine<CR>", mode = { "n", "v" }, noremap = true },
+			{ "<Space>k", "<cmd>HopLine<CR>",            mode = { "n", "v" }, noremap = true },
 		},
 		config = function()
 			require('hop').setup({})
@@ -190,7 +190,9 @@ return {
 		'Wansmer/treesj',
 		dependencies = { 'nvim-treesitter/nvim-treesitter' },
 		config = function()
-			require('treesj').setup({})
+			require('treesj').setup({
+				use_default_keymaps = false
+			})
 			vim.keymap.set('n', '<space>m', require('treesj').toggle)
 		end,
 	},
