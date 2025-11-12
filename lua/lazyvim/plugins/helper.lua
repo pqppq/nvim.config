@@ -40,9 +40,9 @@ return {
 	{
 		'phaazon/hop.nvim',
 		keys = {
-			{ "<Space>s", "<cmd>HopWord<CR>" },
-			{ "<Space>l", "<cmd>HopWordCurrentLine<CR>", mode = { "n", "v" } },
-			{ "<Space>k", "<cmd>HopLine<CR>" },
+			{ "<Space>s", "<cmd>HopWord<CR>", mode = { "n", "v" }, noremap = true },
+			{ "<Space>l", "<cmd>HopWordCurrentLine<CR>", mode = { "n", "v" }, noremap = true },
+			{ "<Space>k", "<cmd>HopLine<CR>", mode = { "n", "v" }, noremap = true },
 		},
 		config = function()
 			require('hop').setup({})
