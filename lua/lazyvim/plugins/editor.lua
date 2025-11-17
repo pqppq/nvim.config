@@ -49,7 +49,7 @@ return {
 			end)
 		end
 	},
-	'jiangmiao/auto-pairs', -- auto close brackets
+	'windwp/nvim-autopairs', -- auto close brackets
 	-- surround words, paragraphs, etc
 	-- ysaw [, Ctrl-V + S + <tag>, ds', yss {, yss <tag,  cs" ', ...
 	'tpope/vim-surround',
