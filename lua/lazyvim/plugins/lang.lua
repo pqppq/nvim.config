@@ -42,7 +42,11 @@ return {
 		},
 	},
 	{
-		'Saecki/crates.nvim',
+		"maxandron/goplements.nvim",
+		ft = "go",
+		opts = {}
+	},
+	{ 'Saecki/crates.nvim',
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		event = { "BufRead Cargo.toml" },
 		config = function()

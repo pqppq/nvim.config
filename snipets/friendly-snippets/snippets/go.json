@@ -9,6 +9,21 @@
     "body": "type ${1:Name} interface {\n\t$0\n}",
     "description": "interface"
   },
+  "if err != nil": {
+    "prefix": "er",
+    "body": "if err != nil {\n\t$0\n}",
+    "description": "if err != nil"
+  },
+  "if err exp": {
+    "prefix": "era",
+    "body": "if err := $1; err != nil {\n\t$0\n}",
+    "description": "Snippet for if statement"
+  },
+  "if err value": {
+    "prefix": "erb",
+    "body": "if $1, err := $2; err != nil {\n\t$0\n}",
+    "description": "Snippet for if statement"
+  },
   "log.Println": {
     "prefix": "lp",
     "body": "log.Println($1)",
@@ -68,46 +83,6 @@
     "prefix": "mk",
     "body": "make(${1:type}, ${2:0})",
     "description": "Snippet for make statement"
-  },
-  "test function": {
-    "prefix": "t",
-    "body": "func Test$1(t *testing.T) {\n\t$0\n}",
-    "description": "Snippet for Test function"
-  },
-  "t.Fatal": {
-    "prefix": "tff",
-    "body": "t.Fatalf(\"$1\", $2)",
-    "description": "t.Fatal"
-  },
-  "if": {
-    "prefix": "if",
-    "body": "if $1 {\n\t$0\n}",
-    "description": "Snippet for if statement"
-  },
-  "t.Error": {
-    "prefix": "te",
-    "body": "if err != nil {\n\tt.Error(err)\n}",
-    "description": "t.Error"
-  },
-  "t.Errorf": {
-    "prefix": "tef",
-    "body": "if err != nil {\n\tt.Errorf($1)\n}",
-    "description": "t.Error"
-  },
-  "test cases": {
-    "prefix": "tdc",
-    "body": "tests := []struct {\n\t\tname\tstring\n\t\t$2\n\t}{\n\t\t{\n\t\t\tname: \"$3\",\n\t\t\t$4\n\t\t},\n\t}\n\tfor _, tc := range tests {\n\t\tt.Run(tc.name, func(t *testing.T) {\n\t\t\t$0\n\t\t})\n\t}\n}",
-    "nameription": "Test cases"
-  },
-  "table driven test": {
-    "prefix": "tdt",
-    "body": "func Test$1(t *testing.T) {\n\ttests := []struct {\n\t\tname\tstring\n\t\t$2\n\t}{\n\t\t{\n\t\t\tname: \"$3\",\n\t\t\t$4\n\t\t},\n\t}\n\tfor _, tc := range tests {\n\t\tt.Run(tc.name, func(t *testing.T) {\n\t\t\t$0\n\t\t})\n\t}\n}",
-    "nameription": "Snippet for table driven test"
-  },
-  "if err exp": {
-    "prefix": "ife",
-    "body": "if $1, err := $2; err != nil {\n\t$0\n}",
-    "description": "Snippet for if statement"
   },
   "if !=": {
     "prefix": "ne",
@@ -173,5 +148,40 @@
 	"prefix": "httph",
 	"body": "func $1(w http.ResponseWriter, r *http.Request) {\n\t$0\n}",
 	"description": "http handler"
+  },
+  "test function": {
+    "prefix": "t",
+    "body": "func Test$1(t *testing.T) {\n\t$0\n}",
+    "description": "Snippet for Test function"
+  },
+  "t.Fatal": {
+    "prefix": "tff",
+    "body": "t.Fatalf(\"$1\", $2)",
+    "description": "t.Fatal"
+  },
+  "if": {
+    "prefix": "if",
+    "body": "if $1 {\n\t$0\n}",
+    "description": "Snippet for if statement"
+  },
+  "t.Error": {
+    "prefix": "te",
+    "body": "if err != nil {\n\tt.Error(err)\n}",
+    "description": "t.Error"
+  },
+  "t.Errorf": {
+    "prefix": "tef",
+    "body": "if err != nil {\n\tt.Errorf($1)\n}",
+    "description": "t.Error"
+  },
+  "test cases": {
+    "prefix": "tdc",
+    "body": "tests := []struct {\n\t\tname\tstring\n\t\t$2\n\t}{\n\t\t{\n\t\t\tname: \"$3\",\n\t\t\t$4\n\t\t},\n\t}\n\tfor _, tc := range tests {\n\t\tt.Run(tc.name, func(t *testing.T) {\n\t\t\t$0\n\t\t})\n\t}\n}",
+    "nameription": "Test cases"
+  },
+  "table driven test": {
+    "prefix": "tdt",
+    "body": "func Test$1(t *testing.T) {\n\ttests := []struct {\n\t\tname\tstring\n\t\t$2\n\t}{\n\t\t{\n\t\t\tname: \"$3\",\n\t\t\t$4\n\t\t},\n\t}\n\tfor _, tc := range tests {\n\t\tt.Run(tc.name, func(t *testing.T) {\n\t\t\t$0\n\t\t})\n\t}\n}",
+    "nameription": "Snippet for table driven test"
   }
 }

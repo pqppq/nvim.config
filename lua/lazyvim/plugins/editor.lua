@@ -460,8 +460,8 @@ return {
 						['<Up>'] = actions.previous,
 						['<Tab>'] = actions.next_location,    -- Next location (skips groups, cycles)
 						['<S-Tab>'] = actions.previous_location, -- Previous location (skips groups, cycles)
-						['<C-u>'] = actions.preview_scroll_win(5), -- Scroll up the preview window
-						['<C-d>'] = actions.preview_scroll_win(-5), -- Scroll down the preview window
+						['<C-f>'] = actions.preview_scroll_win(5), -- Scroll up the preview window
+						['<C-b>'] = actions.preview_scroll_win(-5), -- Scroll down the preview window
 						['v'] = actions.jump_vsplit,          -- Open location in vertical split
 						['s'] = actions.jump_split,           -- Open location in horizontal split
 						['t'] = actions.jump_tab,             -- Open in new tab
