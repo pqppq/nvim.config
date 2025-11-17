@@ -11,38 +11,49 @@ return {
 		end
 	},
 	{
-		"NickvanDyke/opencode.nvim",
-		dependencies = {
-			-- Recommended for `ask()` and `select()`.
-			-- Required for `snacks` provider.
-			---@module 'snacks' <- Loads `snacks.nvim` types for configuration intellisense.
-			{ "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+		"folke/sidekick.nvim",
+		opts = {
+			-- cli = {
+			-- 	mux = {
+			-- 		enabled = true,
+			-- 		backend = "tmux",
+			-- 	},
+			-- },
 		},
-		config = function()
-			---@type opencode.Opts
-			vim.g.opencode_oets = {
-				-- Your configuration, if any — see `lua/opencode/config.lua`, or "goto definition".
-			}
-
-			-- Required for `opts.auto_reload`.
-			vim.o.autoread = true
-
-			-- Recommended/example keymaps.
-			-- toggle opencode term
-			vim.keymap.set({ "n", "t" }, "<space>oo", function() require("opencode").toggle() end, { desc = "Toggle opencode" })
-			vim.keymap.set({ "n", "x" }, "<space>oa", function() require("opencode").ask("@this: ", { submit = true }) end,
-				{ desc = "Ask opencode" })
-			vim.keymap.set({ "n", "x" }, "<space>ox", function() require("opencode").select() end,
-				{ desc = "Execute opencode action…" })
-			vim.keymap.set({ "n", "x" }, "<space>oA", function() require("opencode").prompt("@this") end,
-				{ desc = "Add to opencode" })
-			vim.keymap.set("t", "<S-u>", function() require("opencode").command("session.half.page.up") end,
-				{ desc = "opencode half page up" })
-			vim.keymap.set("t", "<S-d>", function() require("opencode").command("session.half.page.down") end,
-				{ desc = "opencode half page down" })
-			-- You may want these if you stick with the opinionated "<C-a>" and "<C-x>" above — otherwise consider "<leader>o".
-			vim.keymap.set('n', '+', '<C-a>', { desc = 'Increment', noremap = true })
-			vim.keymap.set('n', '-', '<C-x>', { desc = 'Decrement', noremap = true })
-		end,
-	}
+		keys = {
+			{
+				"<space>aa",
+				function() require("sidekick.cli").toggle({ name = "opencode", focus = true }) end,
+				desc = "Sidekick Toggle CLI",
+			},
+			{
+				"<space>ad",
+				function() require("sidekick.cli").close() end,
+				desc = "Detach a CLI Session",
+			},
+			{
+				"<space>af",
+				function() require("sidekick.cli").send({ msg = "{file}" }) end,
+				desc = "Send File",
+			},
+			{
+				"<space>at",
+				function() require("sidekick.cli").send({ msg = "{this}" }) end,
+				mode = { "x", "n" },
+				desc = "Send This Block(Function, Class, etc.)",
+			},
+			{
+				"<space>av",
+				function() require("sidekick.cli").send({ msg = "{selection}" }) end,
+				mode = { "x" },
+				desc = "Send Visual Selection",
+			},
+			{
+				"<space>ap",
+				function() require("sidekick.cli").prompt() end,
+				mode = { "n", "x" },
+				desc = "Sidekick Select Prompt",
+			},
+		},
+	},
 }
