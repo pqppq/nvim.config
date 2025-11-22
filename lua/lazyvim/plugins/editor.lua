@@ -476,7 +476,7 @@ return {
 			})
 		end
 	},
-	{ -- Git diff
+	{ -- Diff view
 		'sindrets/diffview.nvim',
 		dependencies = { 'plenary.nvim' },
 		config = function()
@@ -575,6 +575,7 @@ return {
 
 				local preview = require('nvim-tree-preview')
 				vim.keymap.set('n', 'p', preview.watch, opts 'Preview (Watch)')
+				vim.keymap.set('n', 'P', api.fs.paste, opts 'Paste')
 				vim.keymap.set('n', '<Esc>', preview.unwatch, opts 'Close Preview/Unwatch')
 				vim.keymap.set('n', '<C-f>', function() return preview.scroll(4) end, opts 'Scroll Down')
 				vim.keymap.set('n', '<C-b>', function() return preview.scroll(-4) end, opts 'Scroll Up')
@@ -586,7 +587,6 @@ return {
 				vim.keymap.set('n', 'D', api.fs.trash, opts('Trash'))
 				vim.keymap.set('n', 'e', api.tree.expand_all, opts('Expand All'))
 				vim.keymap.set('n', 'E', api.tree.collapse_all, opts('Collapse'))
-				vim.keymap.set('n', 'P', api.node.navigate.parent, opts('Parent Directory'))
 				vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
 				vim.keymap.set('n', 'fs', api.tree.close, opts('Close'))
 				vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
