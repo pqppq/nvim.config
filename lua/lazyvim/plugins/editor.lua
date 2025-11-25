@@ -664,7 +664,7 @@ return {
 	},
 	{
 		-- remove trailing whitespaces
-		-- Disable with `:DisableWhitespace `
+		-- disable with `:DisableWhitespace `
 		'ntpeters/vim-better-whitespace',
 		config = function()
 			vim.cmd('let g:better_whitespace_enabled=1')
@@ -719,5 +719,17 @@ return {
 		-- D2 renderer
 		"terrastruct/d2-vim",
 		ft = { "d2" },
+	},
+	{
+		-- document generator
+		"danymat/neogen",
+		config = function()
+			require('neogen').setup {
+				enabled = true,
+				input_after_comment = false,
+			}
+			local opts = { noremap = true, silent = true }
+			vim.api.nvim_set_keymap("n", "<space>cm", ":Neogen<CR>", opts)
+		end
 	}
 }
