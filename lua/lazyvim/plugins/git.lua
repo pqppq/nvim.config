@@ -7,6 +7,7 @@ return {
 	},
 	{
 		'airblade/vim-gitgutter',
+		event = { 'BufReadPre', 'BufNewFile' },
 		keys = {
 			{ 'ghp', "<Plug>(GitGutterPreviewHunk)" },
 			{ 'ghs', "<Plug>(GitGutterStageHunk)" },
@@ -15,11 +16,12 @@ return {
 	},
 	{
 		"lewis6991/gitsigns.nvim",
+		event = { 'BufReadPre', 'BufNewFile' },
 		config = function()
 			require('gitsigns').setup {
-				signs = {
+				signs                        = {
 					add          = { text = '┃' },
-		 			change       = { text = '┃' },
+					change       = { text = '┃' },
 					delete       = { text = '▁' },
 					topdelete    = { text = '▔' },
 					changedelete = { text = '~' },
@@ -79,14 +81,12 @@ return {
 					-- Actions
 					map({ 'n', 'v' }, '<Space>hs', ':Gitsigns stage_hunk<CR>')
 					map({ 'n', 'v' }, '<Space>hr', ':Gitsigns reset_hunk<CR>')
+					map('n', '<Space>gb', function() gs.blame_line { full = true } end)
+					map('n', '<Space>df', function() gs.diffthis('~') end)
 					map('n', '<Space>hS', gs.stage_buffer)
 					map('n', '<Space>hu', gs.undo_stage_hunk)
 					map('n', '<Space>hR', gs.reset_buffer)
 					map('n', '<Space>hp', gs.preview_hunk)
-					map('n', '<Space>hb', function() gs.blame_line { full = true } end)
-					map('n', '<Space>tb', gs.toggle_current_line_blame)
-					map('n', '<Space>hd', gs.diffthis)
-					map('n', '<Space>hD', function() gs.diffthis('~') end)
 					map('n', '<Space>td', gs.toggle_deleted)
 
 					-- Text object

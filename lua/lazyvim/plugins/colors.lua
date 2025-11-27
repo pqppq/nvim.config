@@ -1,8 +1,7 @@
 return {
-	'cocopon/iceberg.vim',
-	'rose-pine/neovim',
-	'catppuccin/nvim',
-	'Mofiqul/dracula.nvim',
-	"catppuccin/nvim",
-	"rebelot/kanagawa.nvim"
+	{ 'cocopon/iceberg.vim',   lazy = true },
+	{ 'rose-pine/neovim',      lazy = true, name = 'rose-pine' },
+	{ 'catppuccin/nvim',       lazy = true, name = 'catppuccin' },
+	{ 'Mofiqul/dracula.nvim',  lazy = true, name = 'dracula' },
+	{ 'rebelot/kanagawa.nvim', lazy = true, name = 'kanagawa' },
 }

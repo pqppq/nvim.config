@@ -6,6 +6,7 @@ return {
 			"neovim/nvim-lspconfig",
 			"nvim-treesitter/nvim-treesitter",
 		},
+		lazy = true,
 		opts = {
 			-- lsp_keymaps = false,
 			-- other options
@@ -35,7 +36,7 @@ return {
 		'mrcjkb/rustaceanvim',
 		version = '^4', -- Recommended
 		ft = { 'rust' },
-		lazy = false,
+		lazy = true,
 		keys = {
 			{
 				"<Space>e", mode = { "n" }, ":RustLsp expandMacro<CR>" },
@@ -46,34 +47,26 @@ return {
 		ft = "go",
 		opts = {}
 	},
-	{ 'Saecki/crates.nvim',
+	{
+		'Saecki/crates.nvim',
 		dependencies = { 'nvim-lua/plenary.nvim' },
+		lazy = true,
 		event = { "BufRead Cargo.toml" },
-		config = function()
-			local crates = require("crates")
-			local opts = { silent = true }
-
-			vim.keymap.set("n", "<Space>ct", crates.toggle, opts)
-			vim.keymap.set("n", "<Space>cr", crates.reload, opts)
-
-			vim.keymap.set("n", "<Space>cv", crates.show_versions_popup, opts)
-			vim.keymap.set("n", "<Space>cf", crates.show_features_popup, opts)
-			vim.keymap.set("n", "<Space>cd", crates.show_dependencies_popup, opts)
-
-			vim.keymap.set("n", "<Space>cu", crates.update_crate, opts)
-			vim.keymap.set("v", "<Space>cu", crates.update_crates, opts)
-			vim.keymap.set("n", "<Space>cU", crates.upgrade_crate, opts)
-			vim.keymap.set("v", "<Space>cU", crates.upgrade_crates, opts)
-			-- vim.keymap.set("n", "<Space>ca", crates.update_all_crates, opts)
-			vim.keymap.set("n", "<Space>cA", crates.upgrade_all_crates, opts)
-
-			vim.keymap.set("n", "<Space>cx", crates.expand_plain_crate_to_inline_table, opts)
-			vim.keymap.set("n", "<Space>cX", crates.extract_crate_into_table, opts)
-
-			vim.keymap.set("n", "<Space>cH", crates.open_homepage, opts)
-			vim.keymap.set("n", "<Space>cR", crates.open_repository, opts)
-			vim.keymap.set("n", "<Space>cD", crates.open_documentation, opts)
-			vim.keymap.set("n", "<Space>cC", crates.open_crates_io, opts)
-		end
+		keys = {
+			{ "<Space>ct", ":lua require('crates').toggle()<CR>",                             mode = { "n" } },
+			{ "<Space>cr", ":lua require('crates').reload()<CR>",                             mode = { "n" } },
+			{ "<Space>cv", ":lua require('crates').show_versions_popup()<CR>",                mode = { "n" } },
+			{ "<Space>cf", ":lua require('crates').show_features_popup()<CR>",                mode = { "n" } },
+			{ "<Space>cd", ":lua require('crates').show_dependencies_popup()<CR>",            mode = { "n" } },
+			{ "<Space>cu", ":lua require('crates').update_crate()<CR>",                       mode = { "n" } },
+			{ "<Space>cu", ":lua require('crates').update_crates()<CR>",                      mode = { "v" } },
+			{ "<Space>cA", ":lua require('crates').upgrade_all_crates()<CR>",                 mode = { "n" } },
+			{ "<Space>cx", ":lua require('crates').expand_plain_crate_to_inline_table()<CR>", mode = { "n" } },
+			{ "<Space>cX", ":lua require('crates').extract_crate_into_table()<CR>",           mode = { "n" } },
+			{ "<Space>cH", ":lua require('crates').open_homepage()<CR>",                      mode = { "n" } },
+			{ "<Space>cR", ":lua require('crates').open_repository()<CR>",                    mode = { "n" } },
+			{ "<Space>cD", ":lua require('crates').open_documentation()<CR>",                 mode = { "n" } },
+			{ "<Space>cC", ":lua require('crates').open_crates_io()<CR>",                     mode = { "n" } },
+		},
 	}
 }
