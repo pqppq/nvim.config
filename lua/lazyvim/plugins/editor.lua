@@ -1,6 +1,14 @@
 return {
 	"mg979/vim-visual-multi", -- multi cursor selection with Ctrl-n
-	"kevinhwang91/nvim-bqf", -- Quicfix preview
+	"kevinhwang91/nvim-bqf", -- Quickfix preview
+	{
+		-- Quickfix enhance
+		'stevearc/quicker.nvim',
+		ft = "qf",
+		---@module "quicker"
+		---@type quicker.SetupOptions
+		opts = {},
+	},
 	{
 		'monaqa/dial.nvim',
 		keys = {
@@ -152,7 +160,7 @@ return {
 			{ "<Space>b",  "<cmd>Telescope buffers theme=dropdown<CR>" },
 			{ "<Space>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>" },
 			-- refactoring
-			{ "<Space>R",  mode = { "v" },                                               "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>" },
+			{ "<Space>R",  "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", mode = { "v" } },
 		},
 		config = function()
 			require('telescope').setup {
@@ -173,7 +181,6 @@ return {
 							-- map actions.which_key to <C-h> (default: <C-/>)
 							-- actions.which_key shows the mappings for your picker,
 							-- e.g. git_{create, delete, ...}_branch for the git_branches picker
-							["<C-h>"] = "which_key",
 							["<esc>"] = require('telescope.actions').close,
 							["jk"] = require('telescope.actions').close,
 						},
