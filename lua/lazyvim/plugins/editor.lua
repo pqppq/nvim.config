@@ -1,6 +1,5 @@
-return {
-	"mg979/vim-visual-multi", -- multi cursor selection with Ctrl-n
-	"kevinhwang91/nvim-bqf", -- Quickfix preview
+return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi cursor selection with Ctrl-n
+	{ "kevinhwang91/nvim-bqf",  ft = "qf" },                      -- Quickfix preview
 	{
 		-- Quickfix enhance
 		'stevearc/quicker.nvim',
@@ -11,6 +10,7 @@ return {
 	},
 	{
 		'monaqa/dial.nvim',
+		lazy = true,
 		keys = {
 			{ "<C-a>", mode = { "n" }, "<Plug>(dial-increment)" },
 			{ "<C-x>", mode = { "n" }, "<Plug>(dial-decrement)" },
@@ -29,33 +29,42 @@ return {
 	},
 	{
 		"folke/zen-mode.nvim",
-		config = function()
-			vim.keymap.set("n", '<Space>zz', function()
-				require("zen-mode").setup {
-					window = {
-						width = 90,
-						options = {}
-					},
-				}
-				require("zen-mode").toggle()
-			end
-			)
-		end
+		lazy = true,
+		keys = {
+			{
+				"<Space>zz",
+				function()
+					require("zen-mode").setup {
+						window = {
+							width = 90,
+							options = {}
+						},
+					}
+					require("zen-mode").toggle()
+				end
+				,
+				mode = { "n" }
+			},
+		},
 	},
 	{
 		"ThePrimeagen/refactoring.nvim",
-		requires = {
-			{ "nvim-lua/plenary.nvim" },
+		requires = { { "nvim-lua/plenary.nvim" },
 			{ "nvim-treesitter/nvim-treesitter" }
 		},
-		config = function()
-			vim.keymap.set({ 'x', 'n' }, '<space>dv', function()
+		lazy = true,
+		keys = {
+			{
+				"<space>dv", function()
 				require('refactoring').debug.print_var()
-			end)
-			vim.keymap.set('n', '<space>dc', function()
+			end
+			},
+			{
+				"<space>dc", function()
 				require('refactoring').debug.cleanup {}
-			end)
-		end
+			end
+			},
+		},
 	},
 	{
 		-- auto close brackets
@@ -154,6 +163,7 @@ return {
 		-- telescope
 		"nvim-telescope/telescope.nvim",
 		dependeicies = { "plenary.nvim" },
+		lazy = true,
 		keys = {
 			{ "<Space>ff", "<cmd>Telescope find_files hidden=true theme=dropdown<CR>" },
 			{ "<Space>fj", "<cmd>Telescope live_grep theme=dropdown<CR>" },
@@ -236,6 +246,7 @@ return {
 	{
 		-- quick teminal
 		"akinsho/toggleterm.nvim",
+		lazy = true,
 		keys = {
 			{ "<Esc>", mode = { "t" },                        "<C-\\><C-n>" },
 			{ "<C-t>", mode = { "t" },                        "<Cmd>exe v:count1 . 'ToggleTerm'<CR>" },
@@ -285,10 +296,7 @@ return {
 					highlight = { border = "ColorColumn", background = "ColorColumn" },
 				},
 				winbar = {
-					enabled = false,
-					-- name_formatter = function(term) --  term: Terminal
-					--   return term.name
-					-- end
+					enabled = false, -- Enable winbar for the preview (requires neovim-0.8+)
 				},
 			}
 		end,
@@ -296,6 +304,10 @@ return {
 	{
 		-- code outline
 		"stevearc/aerial.nvim",
+		lazy = true,
+		keys = {
+			{ "<Space>a", "<cmd>AerialToggle<CR>", mode = { "n" } },
+		},
 		config = function()
 			require("aerial").setup({
 				-- optionally use on_attach to set keymaps when aerial has attached to a buffer
@@ -308,7 +320,7 @@ return {
 				end,
 			})
 			-- You probably also want to set a keymap to toggle aerial
-			vim.keymap.set("n", "<Space>a", "<cmd>AerialToggle!<CR>")
+			-- vim.keymap.set("n", "<Space>a", "<cmd>AerialToggle!<CR>")
 		end
 	},
 	{
@@ -328,6 +340,7 @@ return {
 	{
 		'dnlhc/glance.nvim',
 		cmd = 'Glance',
+		lazy = true,
 		keys = {
 			{ "gld", mode = { "n" }, "<cmd>Glance definitions<CR>" },
 			{ "glr", mode = { "n" }, "<cmd>Glance references<CR>" },
@@ -434,6 +447,7 @@ return {
 	{ -- Diff view
 		'sindrets/diffview.nvim',
 		dependencies = { 'plenary.nvim' },
+		cmd = { 'DiffviewOpen', 'DiffviewFileHistory', 'DiffviewClose', 'DiffviewFocusFiles' },
 		config = function()
 			require("diffview").setup({
 				enhanced_diff_hl = true,
@@ -469,6 +483,7 @@ return {
 	},
 	{ -- Motion
 		'phaazon/hop.nvim',
+		lazy = true,
 		keys = {
 			{ "<Space>k", "<cmd>HopWord<CR>",            mode = { "n", "v" }, noremap = true },
 			{ "<Space>l", "<cmd>HopWordCurrentLine<CR>", mode = { "n", "v" }, noremap = true },
@@ -481,6 +496,7 @@ return {
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
+		lazy = true,
 		opts = {
 			modes = {
 				search = {
@@ -506,10 +522,9 @@ return {
 		'nvim-tree/nvim-tree.lua',
 		dependencies = {
 			'b0o/nvim-tree-preview.lua',
-			dependencies = {
-				'nvim-lua/plenary.nvim',
-			},
+			'nvim-lua/plenary.nvim',
 		},
+		lazy = true,
 		keys = {
 			{ "fs", ":NvimTreeToggle<CR>" },
 		},
@@ -566,7 +581,7 @@ return {
 				vim.keymap.set('n', ']c', api.node.navigate.git.next, opts('Next Git'))
 				vim.keymap.set('n', ']e', api.node.navigate.diagnostics.next, opts('Next Diagnostic'))
 				vim.keymap.set('n', '[e', api.node.navigate.diagnostics.prev, opts('Prev Diagnostic'))
-				vim.keymap.set('n', 'F', api.live_filter.clear, opts('Clean Filter'))
+				vim.keymap.set('n', 'F', api.live_filter.clear, opts 'Clean Filter')
 				vim.keymap.set('n', 'g?', api.tree.toggle_help, opts('Help'))
 				vim.keymap.set('n', 'gy', api.fs.copy.absolute_path, opts('Copy Absolute Path'))
 				vim.keymap.set('n', 'I', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore'))
@@ -603,15 +618,15 @@ return {
 		end
 	},
 	-- MISC
-	'markonm/traces.vim',        -- live preview of replaces
-	'nvim-lua/plenary.nvim',     -- dependency for many plugins
-	'tpope/vim-repeat',          -- enhance . repeat
-	"terryma/vim-expand-region", -- expand visual selection with +/_
-	'dhruvasagar/vim-table-mode', -- markdown table mode
-	'djoshea/vim-autoread',      -- auto reload edited file
-	'tpope/vim-surround',        -- ysaw [, Ctrl-V + S + <tag>, ds', yss {, yss <tag,  cs" ', ...
-	'tpope/vim-commentary',      -- comment/uncomment with visual selection + gc
-	{                            -- Preview markdown on browser
+	{ 'markonm/traces.vim',         lazy = true, event = 'VeryLazy' },                      -- live preview of replaces
+	{ 'nvim-lua/plenary.nvim',      lazy = true },                                          -- dependency for many plugins
+	{ 'tpope/vim-repeat',           lazy = true, event = 'VeryLazy' },                      -- enhance . repeat
+	{ "terryma/vim-expand-region",  lazy = true, event = 'VeryLazy' },                      -- expand visual selection with +/_
+	{ 'dhruvasagar/vim-table-mode', lazy = true, cmd = { 'TableModeToggle' } },             -- markdown table mode
+	{ 'djoshea/vim-autoread',       lazy = true, event = 'VeryLazy' },                      -- auto reload edited file
+	{ 'tpope/vim-surround',         lazy = true, event = 'VeryLazy' },                      -- ysaw [, Ctrl-V + S + <tag>, ds', yss {, yss <tag,  cs" ', ...
+	{ 'tpope/vim-commentary',       lazy = true, keys = { { 'gc', mode = { 'n', 'v' } } } }, -- comment/uncomment with visual selection + gc
+	{                                                                                       -- Preview markdown on browser
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		ft = { "markdown" },
@@ -621,6 +636,7 @@ return {
 		-- remove trailing whitespaces
 		-- disable with `:DisableWhitespace `
 		'ntpeters/vim-better-whitespace',
+		event = { 'BufReadPre', 'BufNewFile' },
 		config = function()
 			vim.cmd('let g:better_whitespace_enabled=1')
 			vim.cmd('let g:strip_whitespace_on_save=1')
@@ -630,6 +646,7 @@ return {
 	{
 		-- align selection
 		'junegunn/vim-easy-align',
+		lazy = true,
 		keys = {
 			{ "ga", mode = { "n", "v" }, "<Plug>(EasyAlign)" },
 		},
@@ -640,6 +657,7 @@ return {
 		opts = {
 			parser = { comments = { "#", "//" } },
 		},
+		lazy = true,
 		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
 		keys = {
 			{
@@ -650,13 +668,15 @@ return {
 	{
 		-- document generator
 		"danymat/neogen",
+		lazy = true,
+		keys = {
+			{ "<Space>cm", ":Neogen<CR>", mode = { "n" } },
+		},
 		config = function()
 			require('neogen').setup {
 				enabled = true,
 				input_after_comment = false,
 			}
-			local opts = { noremap = true, silent = true }
-			vim.api.nvim_set_keymap("n", "<space>cm", ":Neogen<CR>", opts)
 		end
 	}
 }

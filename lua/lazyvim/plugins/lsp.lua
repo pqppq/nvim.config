@@ -2,6 +2,7 @@ return {
 	{
 		-- Completion
 		'hrsh7th/nvim-cmp',
+		event = { 'InsertEnter', 'CmdlineEnter' },
 		dependencies = {
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-buffer',
@@ -174,6 +175,7 @@ return {
 	},
 	{
 		'neovim/nvim-lspconfig',
+		event = { 'BufReadPre', 'BufNewFile' },
 		dependencies = {
 			-- LSP manage
 			{
@@ -187,7 +189,6 @@ return {
 			},
 			{
 				'williamboman/mason-lspconfig.nvim',
-				after = 'mason.nvim',
 				config = function()
 					require("mason-lspconfig").setup({
 						automatic_enable = true,
@@ -201,27 +202,91 @@ return {
 			-- Snippets
 			{ 'L3MON4D3/LuaSnip' },
 		},
+		keys = {
+			{
+				'K',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.hover() end
+				end,
+				mode = 'n',
+				desc = 'LSP Hover'
+			},
+			{
+				'L',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.diagnostic.open_float() end
+				end,
+				mode = 'n',
+				desc = 'Diagnostics Float'
+			},
+			{
+				'F',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.format() end
+				end,
+				mode = 'n',
+				desc = 'LSP Format'
+			},
+			{
+				'gd',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.definition() end
+				end,
+				mode = 'n',
+				desc = 'Goto Definition'
+			},
+			{
+				'gD',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.declaration() end
+				end,
+				mode = 'n',
+				desc = 'Goto Declaration'
+			},
+			{
+				'gr',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.references() end
+				end,
+				mode = 'n',
+				desc = 'References'
+			},
+			{
+				'gi',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.implementation() end
+				end,
+				mode = 'n',
+				desc = 'Goto Implementation'
+			},
+			{
+				'gs',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.signature_help() end
+				end,
+				mode = 'n',
+				desc = 'Signature Help'
+			},
+			{
+				'<space>rn',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.rename() end
+				end,
+				mode = 'n',
+				desc = 'LSP Rename'
+			},
+			{
+				'<space>ca',
+				function()
+					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.code_action() end
+				end,
+				mode = { 'n', 'v' },
+				desc = 'LSP Code Action'
+			},
+		},
 		config = function()
 			local capabilities = require('cmp_nvim_lsp').default_capabilities()
-			local on_attach = function(client, bufnr)
-				local opts = { buffer = bufnr, remap = false }
-				local luasnip = require('luasnip')
-				vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-				vim.keymap.set('n', 'L', vim.diagnostic.open_float, opts)
-				vim.keymap.set('n', 'F', vim.lsp.buf.format, opts)
-				vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-				vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-				vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-				vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-				vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
-				vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-				vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-				vim.keymap.set({ 'i' }, '<C-k>', function()
-					if luasnip.expand_or_jumpable() then
-						luasnip.expand_or_jump()
-					end
-				end, opts)
-			end
+			local on_attach = function(_, _) end
 
 			vim.lsp.config('*', { on_attach = on_attach, capabilities = capabilities })
 
@@ -269,9 +334,12 @@ return {
 	{
 		"pmizio/typescript-tools.nvim",
 		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+		keys = {
+			{ "<space>rF", ":TSToolsRenameFile sync<CR>", mode = "n", desc = "TS Rename File" },
+		},
 		opts = {
 			tsserver_file_preferences = {
-				-- Inlay Hints
 				includeInlayParameterNameHints = "all",
 				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
 				includeInlayFunctionParameterTypeHints = true,
@@ -279,82 +347,47 @@ return {
 				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
 				includeInlayPropertyDeclarationTypeHints = true,
 				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
 			},
 		},
 		config = function()
 			require("typescript-tools").setup {
-				on_attach = function(client, bufnr)
-					local opts = { buffer = bufnr, remap = false }
-					local luasnip = require('luasnip')
-					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-					vim.keymap.set('n', 'L', vim.diagnostic.open_float, opts)
-					vim.keymap.set('n', 'F', vim.lsp.buf.format, opts)
-					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-					vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-					vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, opts)
-					vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-					vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-					vim.keymap.set({ 'i' }, '<C-k>', function()
-						if luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
-						end
-					end, opts)
-					vim.keymap.set(
-						"n",
-						"<space>rF",
-						":TSToolsRenameFile sync<CR>",
-						{ buffer = bufnr }
-					)
-				end,
+				on_attach = function(_, _) end,
 				handlers = {},
 				settings = {
-					-- spawn additional tsserver instance to calculate diagnostics on it
 					separate_diagnostic_server = true,
-					-- "change"|"insert_leave" determine when the client asks the server about diagnostic
 					publish_diagnostic_on = "insert_leave",
-					-- array of strings("fix_all"|"add_missing_imports"|"remove_unused"|
-					-- "remove_unused_imports"|"organize_imports") -- or string "all"
-					-- to include all supported code actions
-					-- specify commands exposed as code_actions
 					expose_as_code_action = {},
-					-- string|nil - specify a custom path to `tsserver.js` file, if this is nil or file under path
-					-- not exists then standard path resolution strategy is applied
 					tsserver_path = nil,
-					-- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
-					-- (see 💅 `styled-components` support section)
 					tsserver_plugins = {},
-					-- this value is passed to: https://nodejs.org/api/cli.html#--max-old-space-sizesize-in-megabytes
-					-- memory limit in megabytes or "auto"(basically no limit)
 					tsserver_max_memory = "auto",
-					-- described below
 					tsserver_format_options = {},
 					tsserver_file_preferences = {},
-					-- locale of all tsserver messages, supported locales you can find here:
-					-- https://github.com/microsoft/TypeScript/blob/3c221fc086be52b19801f6e8d82596d04607ede6/src/compiler/utilitiesPublic.ts#L620
 					tsserver_locale = "en",
-					-- mirror of VSCode's `typescript.suggest.completeFunctionCalls`
 					complete_function_calls = true,
 					include_completions_with_insert_text = true,
-					-- CodeLens
-					-- WARNING: Experimental feature also in VSCode, because it might hit performance of server.
-					-- possible values: ("off"|"all"|"implementations_only"|"references_only")
 					code_lens = "off",
-					-- by default code lenses are displayed on all referencable values and for some of you it can
-					-- be too much this option reduce count of them by removing member references from lenses
 					disable_member_code_lens = true,
-					-- JSXCloseTag
-					-- WARNING: it is disabled by default (maybe you configuration or distro already uses nvim-ts-autotag,
-					-- that maybe have a conflict if enable this feature. )
 					jsx_close_tag = {
 						enable = true,
 						filetypes = { "javascriptreact", "typescriptreact" },
-					}
+					},
 				},
 			}
 		end
+	},
+	{
+		'L3MON4D3/LuaSnip',
+		keys = {
+			{
+				'<C-k>',
+				function()
+					local ok, ls = pcall(require, 'luasnip')
+					if ok and ls.expand_or_jumpable() then ls.expand_or_jump() end
+				end,
+				mode = 'i',
+				desc = 'LuaSnip Expand/Jump'
+			},
+		},
 	},
 	{
 		"antosha417/nvim-lsp-file-operations",
@@ -362,12 +395,14 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-tree.lua",
 		},
+		event = { 'VeryLazy' },
 		config = function()
 			require("lsp-file-operations").setup()
 		end,
 	},
 	{
 		'ray-x/lsp_signature.nvim',
+		event = { 'LspAttach' },
 		config = function()
 			local cfg = {
 				debug = false,                                          -- set to true to enable debug logging
