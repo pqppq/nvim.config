@@ -4,4 +4,5 @@ return {
 	'catppuccin/nvim',
 	'Mofiqul/dracula.nvim',
 	"catppuccin/nvim",
+	"rebelot/kanagawa.nvim"
 }
