@@ -4,7 +4,6 @@ require("lazyvim")
 -- set options
 vim.api.nvim_set_keymap('n', '<Space><Space>', ":let @/ = '\\<' . expand('<cword>') . '\\>'<CR>:set hlsearch<CR>", { noremap = true })
 vim.api.nvim_set_keymap('n', 'R', ":%s/<C-r>=expand('<cword>')<CR>//g<Left><Left>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-l>', ':<C-u>nohlsearch<CR><C-l>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'm', 'daw', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-I>', '<Tab>', { noremap = true })
 vim.api.nvim_set_keymap('n', 'X', ':bdelete<CR>', { noremap = true })
@@ -20,8 +19,8 @@ vim.api.nvim_set_keymap('v', 'J', ":move '>+1<CR>gv-gv", { noremap = true })
 vim.api.nvim_set_keymap('v', 'K', ":move '<-2<CR>gv-gv", { noremap = true })
 
 vim.cmd('autocmd FileType go inoremap <C-e> :=')
-vim.cmd('autocmd FileType rust inoremap <C-s> ::')
-vim.cmd('autocmd FileType haskell inoremap <C-s> ::')
+vim.cmd('autocmd FileType rust inoremap <C-e> ::')
+vim.cmd('autocmd FileType haskell inoremap <C-e> ::')
 vim.cmd('autocmd FileType haskell set expandtab')
 
 vim.cmd('filetype plugin indent on')
