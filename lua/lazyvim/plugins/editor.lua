@@ -1,5 +1,5 @@
 return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi cursor selection with Ctrl-n
-	{ "kevinhwang91/nvim-bqf",  ft = "qf" },                      -- Quickfix preview
+	{ "kevinhwang91/nvim-bqf",      ft = "qf" },                          -- Quickfix preview
 	{
 		-- Quickfix enhance
 		"stevearc/quicker.nvim",
@@ -523,6 +523,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		dependencies = {
 			"b0o/nvim-tree-preview.lua",
 			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
 		},
 		lazy = true,
 		keys = {
@@ -543,56 +544,47 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = false, silent = true, nowait = true }
 				end
 
+				-- open/close
+				vim.keymap.set("n", "fs", api.tree.toggle, opts("Toggle"))
+				vim.keymap.set("n", "q", api.tree.close, opts("Close"))
+
+				-- preview
 				local preview = require("nvim-tree-preview")
-				vim.keymap.set("n", "p", preview.watch, opts "Preview (Watch)")
-				vim.keymap.set("n", "P", api.fs.paste, opts "Paste")
-				vim.keymap.set("n", "<Esc>", preview.unwatch, opts "Close Preview/Unwatch")
+				vim.keymap.set("n", "P", preview.watch, opts "Preview (Watch)")
 				vim.keymap.set("n", "<C-f>", function() return preview.scroll(4) end, opts "Scroll Down")
 				vim.keymap.set("n", "<C-b>", function() return preview.scroll(-4) end, opts "Scroll Up")
+				vim.keymap.set("n", "<Esc>", preview.unwatch, opts "Close Preview/Unwatch")
 
+				-- move
 				vim.keymap.set("n", "l", api.tree.change_root_to_node, opts("CD"))
 				vim.keymap.set("n", "h", api.tree.change_root_to_parent, opts("Up"))
+
+				-- file ops
 				vim.keymap.set("n", "a", api.fs.create, opts("Create"))
 				vim.keymap.set("n", "d", api.fs.remove, opts("Delete"))
 				vim.keymap.set("n", "D", api.fs.trash, opts("Trash"))
-				vim.keymap.set("n", "e", api.tree.expand_all, opts("Expand All"))
-				vim.keymap.set("n", "E", api.tree.collapse_all, opts("Collapse"))
-				vim.keymap.set("n", "q", api.tree.close, opts("Close"))
-				vim.keymap.set("n", "fs", api.tree.close, opts("Close"))
+				vim.keymap.set("n", "c", api.fs.copy.node, opts("Copy"))
+				vim.keymap.set("n", "C", api.tree.toggle_git_clean_filter, opts("Toggle Git Clean"))
+				vim.keymap.set("n", "F", api.live_filter.clear, opts "Clean Filter")
+				vim.keymap.set("n", "y", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
+				vim.keymap.set("n", "Y", api.fs.copy.filename, opts("Copy Name"))
+				vim.keymap.set("n", "p", api.fs.paste, opts "Paste")
 				vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
-				vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
-				vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
-				vim.keymap.set("n", "O", api.node.open.no_window_picker, opts("Open: No Window Picker"))
+				vim.keymap.set("n", "<C-r>", api.fs.rename_sub, opts("Rename: Omit Filename"))
 				vim.keymap.set("n", "M", api.marks.bulk.move, opts("Move Bookmarked"))
 				vim.keymap.set("n", "m", api.marks.toggle, opts("Toggle Bookmark"))
 
-
-				vim.keymap.set("n", "<C-e>", api.node.open.replace_tree_buffer, opts("Open: In Place"))
-				vim.keymap.set("n", "<C-k>", api.node.show_info_popup, opts("Info"))
-				vim.keymap.set("n", "<C-r>", api.fs.rename_sub, opts("Rename: Omit Filename"))
-				vim.keymap.set("n", "<C-v>", api.node.open.vertical, opts("Open: Vertical Split"))
-				vim.keymap.set("n", "<BS>", api.node.navigate.parent_close, opts("Close Directory"))
+				-- tree ops
 				vim.keymap.set("n", "<CR>", api.node.open.no_window_picker, opts("Open"))
-				vim.keymap.set("n", "<C-o>", api.node.open.no_window_picker, opts("Open"))
-				vim.keymap.set("n", "B", api.tree.toggle_no_buffer_filter, opts("Toggle No Buffer"))
-				vim.keymap.set("n", "c", api.fs.copy.node, opts("Copy"))
-				vim.keymap.set("n", "C", api.tree.toggle_git_clean_filter, opts("Toggle Git Clean"))
-				vim.keymap.set("n", "[c", api.node.navigate.git.prev, opts("Prev Git"))
-				vim.keymap.set("n", "]c", api.node.navigate.git.next, opts("Next Git"))
-				vim.keymap.set("n", "]e", api.node.navigate.diagnostics.next, opts("Next Diagnostic"))
-				vim.keymap.set("n", "[e", api.node.navigate.diagnostics.prev, opts("Prev Diagnostic"))
-				vim.keymap.set("n", "F", api.live_filter.clear, opts "Clean Filter")
-				vim.keymap.set("n", "g?", api.tree.toggle_help, opts("Help"))
-				vim.keymap.set("n", "gy", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
-				vim.keymap.set("n", "I", api.tree.toggle_gitignore_filter, opts("Toggle Git Ignore"))
-				vim.keymap.set("n", "J", api.node.navigate.sibling.last, opts("Last Sibling"))
-				vim.keymap.set("n", "K", api.node.navigate.sibling.first, opts("First Sibling"))
-				vim.keymap.set("n", "R", api.tree.reload, opts("Refresh"))
-				vim.keymap.set("n", "S", api.tree.search_node, opts("Search"))
-				vim.keymap.set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Hidden"))
-				vim.keymap.set("n", "x", api.fs.cut, opts("Cut"))
-				vim.keymap.set("n", "y", api.fs.copy.filename, opts("Copy Name"))
-				vim.keymap.set("n", "Y", api.fs.copy.relative_path, opts("Copy Relative Path"))
+				vim.keymap.set("n", "o", api.node.open.vertical, opts("Open: Vertical Split"))
+				vim.keymap.set("n", "<C-o>", api.node.open.edit, opts("Open"))
+				vim.keymap.set("n", "e", api.tree.expand_all, opts("Expand All"))
+				vim.keymap.set("n", "E", api.tree.collapse_all, opts("Collapse"))
+				vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
+				vim.keymap.set("n", "O", api.node.open.no_window_picker, opts("Open: No Window Picker"))
+
+				-- meta
+				vim.keymap.set("n", "<C-i>", api.node.show_info_popup, opts("Info"))
 			end
 
 			-- OR setup with some options
@@ -600,7 +592,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 				on_attach = my_on_attach,
 				sort_by = "case_sensitive",
 				view = {
-					width = 30,
+					width = 50,
 				},
 				renderer = {
 					group_empty = true,
