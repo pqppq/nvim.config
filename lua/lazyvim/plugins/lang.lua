@@ -11,7 +11,7 @@ return {
 			-- lsp_keymaps = false,
 			-- other options
 		},
-		ft = { "go", 'gomod' },
+		ft = { "go", "gomod" },
 		keys = {
 			{ "<Space>gd", mode = { "n" }, ":GoDocBrowser<CR>" },
 			{ "<Space>gi", mode = { "n" }, ":GoImpl " },
@@ -24,18 +24,18 @@ return {
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				pattern = "*.go",
 				callback = function()
-					require('go.format').goimports()
+					require("go.format").goimports()
 				end,
 				group = format_sync_grp,
 			})
 		end,
 		event = { "CmdlineEnter" },
-		build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+		build = ":lua require('go.install').update_all_sync()" -- if you need to install/update all binaries
 	},
 	{
-		'mrcjkb/rustaceanvim',
-		version = '^4', -- Recommended
-		ft = { 'rust' },
+		"mrcjkb/rustaceanvim",
+		version = "^4", -- Recommended
+		ft = { "rust" },
 		lazy = true,
 		keys = {
 			{
@@ -48,8 +48,8 @@ return {
 		opts = {}
 	},
 	{
-		'Saecki/crates.nvim',
-		dependencies = { 'nvim-lua/plenary.nvim' },
+		"Saecki/crates.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
 		lazy = true,
 		event = { "BufRead Cargo.toml" },
 		keys = {

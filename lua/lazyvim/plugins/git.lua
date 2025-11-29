@@ -2,30 +2,30 @@ return {
 	{
 		"tpope/vim-fugitive",
 		keys = {
-			{ '<C-g><C-g>', mode = { 'n' }, ':Git<CR>', silent = true },
+			{ "<C-g><C-g>", mode = { "n" }, ":Git<CR>", silent = true },
 		}
 	},
 	{
-		'airblade/vim-gitgutter',
-		event = { 'BufReadPre', 'BufNewFile' },
+		"airblade/vim-gitgutter",
+		event = { "BufReadPre", "BufNewFile" },
 		keys = {
-			{ 'ghp', "<Plug>(GitGutterPreviewHunk)" },
-			{ 'ghs', "<Plug>(GitGutterStageHunk)" },
-			{ 'ghu', "<Plug>(GitGutterUndoHunk)" },
+			{ "ghp", "<Plug>(GitGutterPreviewHunk)" },
+			{ "ghs", "<Plug>(GitGutterStageHunk)" },
+			{ "ghu", "<Plug>(GitGutterUndoHunk)" },
 		}
 	},
 	{
 		"lewis6991/gitsigns.nvim",
-		event = { 'BufReadPre', 'BufNewFile' },
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			require('gitsigns').setup {
+			require("gitsigns").setup {
 				signs                        = {
-					add          = { text = '┃' },
-					change       = { text = '┃' },
-					delete       = { text = '▁' },
-					topdelete    = { text = '▔' },
-					changedelete = { text = '~' },
-					untracked    = { text = '┆' },
+					add          = { text = "┃" },
+					change       = { text = "┃" },
+					delete       = { text = "▁" },
+					topdelete    = { text = "▔" },
+					changedelete = { text = "~" },
+					untracked    = { text = "┆" },
 				},
 				signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
 				numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -39,20 +39,20 @@ return {
 				current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
 				current_line_blame_opts      = {
 					virt_text = true,
-					virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+					virt_text_pos = "eol", -- "eol" | "overlay" | "right_align"
 					delay = 1000,
 					ignore_whitespace = false,
 				},
-				current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
+				current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
 				sign_priority                = 100,
 				update_debounce              = 100,
 				status_formatter             = nil, -- Use default
 				max_file_length              = 40000, -- Disable if file is longer than this (in lines)
 				preview_config               = {
 					-- Options passed to nvim_open_win
-					border = 'single',
-					style = 'minimal',
-					relative = 'cursor',
+					border = "single",
+					style = "minimal",
+					relative = "cursor",
 					row = 0,
 					col = 1
 				},
@@ -66,36 +66,36 @@ return {
 					end
 
 					-- Navigation
-					map('n', ']c', function()
-						if vim.wo.diff then return ']c' end
+					map("n", "]c", function()
+						if vim.wo.diff then return "]c" end
 						vim.schedule(function() gs.next_hunk() end)
-						return '<Ignore>'
+						return "<Ignore>"
 					end, { expr = true })
 
-					map('n', '[c', function()
-						if vim.wo.diff then return '[c' end
+					map("n", "[c", function()
+						if vim.wo.diff then return "[c" end
 						vim.schedule(function() gs.prev_hunk() end)
-						return '<Ignore>'
+						return "<Ignore>"
 					end, { expr = true })
 
 					-- Actions
-					map({ 'n', 'v' }, '<Space>hs', ':Gitsigns stage_hunk<CR>')
-					map({ 'n', 'v' }, '<Space>hr', ':Gitsigns reset_hunk<CR>')
-					map('n', '<Space>gb', function() gs.blame_line { full = true } end)
-					map('n', '<Space>df', function() gs.diffthis('~', {split = "botright"}) end)
-					map('n', '<Space>hS', gs.stage_buffer)
-					map('n', '<Space>hu', gs.undo_stage_hunk)
-					map('n', '<Space>hR', gs.reset_buffer)
-					map('n', '<Space>hp', gs.preview_hunk)
-					map('n', '<Space>td', gs.toggle_deleted)
+					map({ "n", "v" }, "<Space>hs", ":Gitsigns stage_hunk<CR>")
+					map({ "n", "v" }, "<Space>hr", ":Gitsigns reset_hunk<CR>")
+					map("n", "<Space>gb", function() gs.blame_line { full = true } end)
+					map("n", "<Space>df", function() gs.diffthis("~", {split = "botright"}) end)
+					map("n", "<Space>hS", gs.stage_buffer)
+					map("n", "<Space>hu", gs.undo_stage_hunk)
+					map("n", "<Space>hR", gs.reset_buffer)
+					map("n", "<Space>hp", gs.preview_hunk)
+					map("n", "<Space>td", gs.toggle_deleted)
 
 					-- Text object
-					map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+					map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 				end
 			}
 		end,
 	},
-	-- {'pwntester/octo.nvim',
-	-- dependencies = { 'plenary.nvim', 'telescope.nvim', 'nvim-web-devicons' },
+	-- {"pwntester/octo.nvim",
+	-- dependencies = { "plenary.nvim", "telescope.nvim", "nvim-web-devicons" },
 	-- },
 }

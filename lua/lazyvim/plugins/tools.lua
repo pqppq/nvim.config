@@ -41,19 +41,19 @@ return {
 		},
 	},
 	{ -- fond/unfold
-		'Wansmer/treesj',
-		dependencies = { 'nvim-treesitter/nvim-treesitter' },
+		"Wansmer/treesj",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		lazy = true,
 		keys = {
 			{ "<space>m", mode = { "n" }, ":lua require('treesj').toggle()<CR>" },
 		},
 		config = function()
-			require('treesj').setup({ use_default_keymaps = false })
+			require("treesj").setup({ use_default_keymaps = false })
 		end,
 	},
 	{
-		'kevinhwang91/nvim-ufo',
-		dependencies = { 'kevinhwang91/promise-async' },
+		"kevinhwang91/nvim-ufo",
+		dependencies = { "kevinhwang91/promise-async" },
 		lazy = true,
 		keys = {
 			{
@@ -70,19 +70,19 @@ return {
 				end,
 				mode = { "n" }
 			},
-			{ "zF", function() require('ufo').closeAllFolds() end,        mode = { "n" } },
-			{ "zo", function() require('ufo').openFoldsExceptKinds() end, mode = { "n" } },
-			{ "zO", function() require('ufo').openAllFolds() end,         mode = { "n" } },
+			{ "zF", function() require("ufo").closeAllFolds() end,        mode = { "n" } },
+			{ "zo", function() require("ufo").openFoldsExceptKinds() end, mode = { "n" } },
+			{ "zO", function() require("ufo").openAllFolds() end,         mode = { "n" } },
 		},
 		config = function()
-			-- vim.o.foldcolumn = '1' -- '0' is not bad
+			-- vim.o.foldcolumn = "1" -- "0" is not bad
 			vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 			vim.o.foldlevelstart = 99
 			vim.o.foldenable = true
 
-			require('ufo').setup({
+			require("ufo").setup({
 				provider_selector = function(bufnr, filetype, buftype)
-					return { 'treesitter', 'indent' }
+					return { "treesitter", "indent" }
 				end
 			})
 		end
@@ -96,7 +96,7 @@ return {
 			{ "<space>c", "<cmd>SnipClose<CR>", mode = { "n" } },
 		},
 		build = "sh install.sh",
-		-- do 'sh install.sh 1' if you want to force compile locally
+		-- do "sh install.sh 1" if you want to force compile locally
 		-- (instead of fetching a binary from the github release). Requires Rust >= 1.65
 		config = function()
 			require("sniprun").setup({

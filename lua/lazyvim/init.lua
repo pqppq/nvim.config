@@ -11,11 +11,11 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
-vim.g.mapleader = '<Space>'
+vim.g.mapleader = "<Space>"
 
-require('lazy').setup('lazyvim/plugins')
--- vim.cmd.colorscheme('iceberg')
--- vim.cmd.colorscheme('catppuccin')vim
+require("lazy").setup("lazyvim/plugins")
+-- vim.cmd.colorscheme("iceberg")
+-- vim.cmd.colorscheme("catppuccin")vim
 
 vim.cmd("hi clear")
 -- vim.cmd("colorscheme vim")

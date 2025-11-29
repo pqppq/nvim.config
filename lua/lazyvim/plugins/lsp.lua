@@ -1,19 +1,19 @@
 return {
 	{
 		-- Completion
-		'hrsh7th/nvim-cmp',
-		event = { 'InsertEnter', 'CmdlineEnter' },
+		"hrsh7th/nvim-cmp",
+		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
-			'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-buffer',
-			'hrsh7th/cmp-path',
-			'hrsh7th/cmp-cmdline',
-			'uga-rosa/cmp-dictionary',
-			'lukas-reineke/cmp-under-comparator',
-			'onsails/lspkind.nvim',
-			'L3MON4D3/LuaSnip',
-			'saadparwaiz1/cmp_luasnip',
-			'Saecki/crates.nvim'
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-cmdline",
+			"uga-rosa/cmp-dictionary",
+			"lukas-reineke/cmp-under-comparator",
+			"onsails/lspkind.nvim",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+			"Saecki/crates.nvim"
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -25,7 +25,7 @@ return {
 				lsp = {
 					enabled = true,
 					on_attach = function(client, bufnr)
-						-- the same on_attach function as for your other lsp's
+						-- the same on_attach function as for your other lsp"s
 					end,
 					actions = true,
 					completion = true,
@@ -43,7 +43,7 @@ return {
 				},
 				preselect = cmp.PreselectMode.None,
 				formatting = {
-					-- fields = {'abbr', 'kind', 'menu'},
+					-- fields = {"abbr", "kind", "menu"},
 					format = require("lspkind").cmp_format({
 						mode = "symbol_text",
 						menu = {
@@ -68,8 +68,8 @@ return {
 					-- REQUIRED - you must specify a snippet engine
 					expand = function(args)
 						-- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-						require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-						-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+						require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+						-- require("snippy").expand_snippet(args.body) -- For `snippy` users.
 						-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
 					end,
 				},
@@ -109,13 +109,13 @@ return {
 					},
 				},
 				sources = cmp.config.sources({
-					{ name = 'luasnip',  max_item_count = 10, priority = 100 },
-					{ name = 'nvim_lsp', max_item_count = 20, priority = 90 },
+					{ name = "luasnip",  max_item_count = 10, priority = 100 },
+					{ name = "nvim_lsp", max_item_count = 20, priority = 90 },
 				}, {
-					{ name = 'path', max_item_count = 5, priority = 70 },
+					{ name = "path", max_item_count = 5, priority = 70 },
 				}, {
 					{
-						name = 'buffer',
+						name = "buffer",
 						max_item_count = 5,
 						priority = 80,
 						option = {
@@ -128,16 +128,16 @@ return {
 							end
 						}
 					},
-					{ name = 'dictionary', priority = 10, keyword_length = 3 },
-					{ name = 'crates',     priority = 10 }, -- for rust crate
+					{ name = "dictionary", priority = 10, keyword_length = 3 },
+					{ name = "crates",     priority = 10 }, -- for rust crate
 				}),
 				mapping = cmp.mapping.preset.insert({
-					['<C-d>'] = cmp.mapping.scroll_docs(-4),
-					['<C-f>'] = cmp.mapping.scroll_docs(4),
-					['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-					['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-					['<C-y>'] = cmp.mapping.confirm({ select = true }),
-					['<C-k>'] = cmp.mapping.confirm({ select = true }),
+					["<C-d>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+					["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+					["<C-y>"] = cmp.mapping.confirm({ select = true }),
+					["<C-k>"] = cmp.mapping.confirm({ select = true }),
 				}),
 			})
 			require("cmp_dictionary").setup({
@@ -146,49 +146,49 @@ return {
 			})
 
 			-- Set configuration for specific filetype.
-			cmp.setup.filetype('gitcommit', {
+			cmp.setup.filetype("gitcommit", {
 				sources = cmp.config.sources({
-					{ name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+					{ name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
 				}, {
-					{ name = 'buffer' },
+					{ name = "buffer" },
 				})
 			})
 
-			-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-			cmp.setup.cmdline('/', {
+			-- Use buffer source for `/` (if you enabled `native_menu`, this won"t work anymore).
+			cmp.setup.cmdline("/", {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = {
-					{ name = 'buffer', max_item_count = 10 }
+					{ name = "buffer", max_item_count = 10 }
 				}
 			})
 
-			-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-			cmp.setup.cmdline(':', {
+			-- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
+			cmp.setup.cmdline(":", {
 				mapping = cmp.mapping.preset.cmdline(),
 				sources = cmp.config.sources({
-					{ name = 'path', max_item_count = 10 }
+					{ name = "path", max_item_count = 10 }
 				}, {
-					{ name = 'cmdline', max_item_count = 10 }
+					{ name = "cmdline", max_item_count = 10 }
 				})
 			})
 		end
 	},
 	{
-		'neovim/nvim-lspconfig',
-		event = { 'BufReadPre', 'BufNewFile' },
+		"neovim/nvim-lspconfig",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			-- LSP manage
 			{
-				'williamboman/mason.nvim',
+				"williamboman/mason.nvim",
 				build = function()
-					pcall(vim.cmd, 'MasonUpdate')
+					pcall(vim.cmd, "MasonUpdate")
 				end,
 				config = function()
 					require("mason").setup()
 				end
 			},
 			{
-				'williamboman/mason-lspconfig.nvim',
+				"williamboman/mason-lspconfig.nvim",
 				config = function()
 					require("mason-lspconfig").setup({
 						automatic_enable = true,
@@ -197,105 +197,105 @@ return {
 				end
 			},
 			-- Completion
-			{ 'hrsh7th/cmp-nvim-lsp' },
-			{ 'hrsh7th/nvim-cmp' },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/nvim-cmp" },
 			-- Snippets
-			{ 'L3MON4D3/LuaSnip' },
+			{ "L3MON4D3/LuaSnip" },
 		},
 		keys = {
 			{
-				'K',
+				"K",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.hover() end
 				end,
-				mode = 'n',
-				desc = 'LSP Hover'
+				mode = "n",
+				desc = "LSP Hover"
 			},
 			{
-				'L',
+				"L",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.diagnostic.open_float() end
 				end,
-				mode = 'n',
-				desc = 'Diagnostics Float'
+				mode = "n",
+				desc = "Diagnostics Float"
 			},
 			{
-				'F',
+				"F",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.format() end
 				end,
-				mode = 'n',
-				desc = 'LSP Format'
+				mode = "n",
+				desc = "LSP Format"
 			},
 			{
-				'gd',
+				"gd",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.definition() end
 				end,
-				mode = 'n',
-				desc = 'Goto Definition'
+				mode = "n",
+				desc = "Goto Definition"
 			},
 			{
-				'gD',
+				"gD",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.declaration() end
 				end,
-				mode = 'n',
-				desc = 'Goto Declaration'
+				mode = "n",
+				desc = "Goto Declaration"
 			},
 			{
-				'gr',
+				"gr",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.references() end
 				end,
-				mode = 'n',
-				desc = 'References'
+				mode = "n",
+				desc = "References"
 			},
 			{
-				'gi',
+				"gi",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.implementation() end
 				end,
-				mode = 'n',
-				desc = 'Goto Implementation'
+				mode = "n",
+				desc = "Goto Implementation"
 			},
 			{
-				'gs',
+				"gs",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.signature_help() end
 				end,
-				mode = 'n',
-				desc = 'Signature Help'
+				mode = "n",
+				desc = "Signature Help"
 			},
 			{
-				'<space>rn',
+				"<space>rn",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.rename() end
 				end,
-				mode = 'n',
-				desc = 'LSP Rename'
+				mode = "n",
+				desc = "LSP Rename"
 			},
 			{
-				'<space>ca',
+				"<space>ca",
 				function()
 					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.code_action() end
 				end,
-				mode = { 'n', 'v' },
-				desc = 'LSP Code Action'
+				mode = { "n", "v" },
+				desc = "LSP Code Action"
 			},
 		},
 		config = function()
-			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			local on_attach = function(_, _) end
 
-			vim.lsp.config('*', { on_attach = on_attach, capabilities = capabilities })
+			vim.lsp.config("*", { on_attach = on_attach, capabilities = capabilities })
 
 			-- server settings
-			vim.lsp.config('lua_ls', {
+			vim.lsp.config("lua_ls", {
 				settings = {
 					Lua = {
-						diagnostics = { globals = { 'vim' } },
-						completion = { callSnippet = 'Replace' },
+						diagnostics = { globals = { "vim" } },
+						completion = { callSnippet = "Replace" },
 					},
 				},
 			})
@@ -376,16 +376,16 @@ return {
 		end
 	},
 	{
-		'L3MON4D3/LuaSnip',
+		"L3MON4D3/LuaSnip",
 		keys = {
 			{
-				'<C-k>',
+				"<C-k>",
 				function()
-					local ok, ls = pcall(require, 'luasnip')
+					local ok, ls = pcall(require, "luasnip")
 					if ok and ls.expand_or_jumpable() then ls.expand_or_jump() end
 				end,
-				mode = 'i',
-				desc = 'LuaSnip Expand/Jump'
+				mode = "i",
+				desc = "LuaSnip Expand/Jump"
 			},
 		},
 	},
@@ -395,21 +395,21 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-tree.lua",
 		},
-		event = { 'VeryLazy' },
+		event = { "VeryLazy" },
 		config = function()
 			require("lsp-file-operations").setup()
 		end,
 	},
 	{
-		'ray-x/lsp_signature.nvim',
-		event = { 'LspAttach' },
+		"ray-x/lsp_signature.nvim",
+		event = { "LspAttach" },
 		config = function()
 			local cfg = {
 				debug = false,                                          -- set to true to enable debug logging
 				log_path = vim.fn.stdpath("cache") .. "/lsp_signature.log", -- log dir when debug is on
 				-- default is  ~/.cache/nvim/lsp_signature.log
 				verbose = false,                                        -- show debug line number
-				bind = true,                                            -- This is mandatory, otherwise border config won't get registered.
+				bind = true,                                            -- This is mandatory, otherwise border config won"t get registered.
 				-- If you want to hook lspsaga or other signature handler, pls set to false
 				doc_lines = 10,                                         -- will show two lines of comment/doc(if there are more than two lines in doc, will be truncated);
 				-- set to 0 if you DO NOT want any API comments be shown
@@ -439,18 +439,18 @@ return {
 				auto_close_after = nil, -- autoclose signature float win after x sec, disabled if nil.
 				extra_trigger_chars = {}, -- Array of extra characters that will trigger signature completion, e.g., {"(", ","}
 				zindex = 200, -- by default it will be on top of all floating windows, set to <= 50 send it to bottom
-				padding = '', -- character to pad on left and right of signature can be ' ', or '|'  etc
+				padding = "", -- character to pad on left and right of signature can be " ", or "|"  etc
 				transparency = nil, -- disabled by default, allow floating win transparent value 1~100
 				shadow_blend = 36, -- if you using shadow as border use this set the opacity
-				shadow_guibg = 'Black', -- if you using shadow as border use this set the color e.g. 'Green' or '#121315'
+				shadow_guibg = "Black", -- if you using shadow as border use this set the color e.g. "Green" or "#121315"
 				timer_interval = 200, -- default timer check interval set to lower value if you want to reduce latency
-				toggle_key = nil, -- toggle signature on and off in insert mode,  e.g. toggle_key = '<M-x>'
-				select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
+				toggle_key = nil, -- toggle signature on and off in insert mode,  e.g. toggle_key = "<M-x>"
+				select_signature_key = nil, -- cycle to next signature, e.g. "<M-n>" function overloading
 				move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
 			}
 
 			-- recommended:
-			require 'lsp_signature'.setup(cfg) -- no need to specify bufnr if you don't use toggle_key
+			require "lsp_signature".setup(cfg) -- no need to specify bufnr if you don"t use toggle_key
 
 			-- You can also do this inside lsp on_attach
 			-- note: on_attach deprecated

@@ -2,14 +2,14 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 	{ "kevinhwang91/nvim-bqf",  ft = "qf" },                      -- Quickfix preview
 	{
 		-- Quickfix enhance
-		'stevearc/quicker.nvim',
+		"stevearc/quicker.nvim",
 		ft = "qf",
 		---@module "quicker"
 		---@type quicker.SetupOptions
 		opts = {},
 	},
 	{
-		'monaqa/dial.nvim',
+		"monaqa/dial.nvim",
 		lazy = true,
 		keys = {
 			{ "<C-a>", mode = { "n" }, "<Plug>(dial-increment)" },
@@ -56,25 +56,25 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		keys = {
 			{
 				"<space>dv", function()
-				require('refactoring').debug.print_var()
+				require("refactoring").debug.print_var()
 			end
 			},
 			{
 				"<space>dc", function()
-				require('refactoring').debug.cleanup {}
+				require("refactoring").debug.cleanup {}
 			end
 			},
 		},
 	},
 	{
 		-- auto close brackets
-		'windwp/nvim-autopairs',
+		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true
 	},
 	{
 		-- snippet engine
-		'L3MON4D3/LuaSnip',
+		"L3MON4D3/LuaSnip",
 		-- follow latest release.
 		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
 		-- install jsregexp (optional!).
@@ -84,7 +84,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 			local ls = require("luasnip")
 			local types = require("luasnip.util.types")
 
-			-- If you're reading this file for the first time, best skip to around line 190
+			-- If you"re reading this file for the first time, best skip to around line 190
 			-- where the actual snippet-definitions start.
 
 			-- Every unspecified option will be set to the default.
@@ -92,7 +92,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 				history = true,
 				-- Update more often, :h events for more info.
 				updateevents = "TextChanged,TextChangedI",
-				-- Snippets aren't automatically removed if their text is deleted.
+				-- Snippets aren"t automatically removed if their text is deleted.
 				-- `delete_check_events` determines on which events (:h events) a check for
 				-- deleted snippets is performed.
 				-- This can be especially useful when `history` is enabled.
@@ -103,11 +103,11 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 				-- minimal increase in priority.
 				ext_prio_increase = 1,
 				enable_autosnippets = true,
-				-- mapping for cutting selected text so it's usable as SELECT_DEDENT,
+				-- mapping for cutting selected text so it"s usable as SELECT_DEDENT,
 				-- SELECT_RAW or TM_SELECTED_TEXT (mapped via xmap).
 				-- store_selection_keys = "<Tab>",
 				-- luasnip uses this function to get the currently active filetype. This
-				-- is the (rather uninteresting) default, but it's possible to use
+				-- is the (rather uninteresting) default, but it"s possible to use
 				-- eg. treesitter for getting the current filetype by setting ft_func to
 				-- require("luasnip.extras.filetype_functions").from_cursor (requires
 				-- `nvim-treesitter/nvim-treesitter`). This allows correctly resolving
@@ -173,7 +173,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 			{ "<Space>R",  "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", mode = { "v" } },
 		},
 		config = function()
-			require('telescope').setup {
+			require("telescope").setup {
 				defaults = {
 					file_ignore_patterns = { "node_modules", ".git" },
 					vimgrep_arguments = {
@@ -191,8 +191,8 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 							-- map actions.which_key to <C-h> (default: <C-/>)
 							-- actions.which_key shows the mappings for your picker,
 							-- e.g. git_{create, delete, ...}_branch for the git_branches picker
-							["<esc>"] = require('telescope.actions').close,
-							["jk"] = require('telescope.actions').close,
+							["<esc>"] = require("telescope.actions").close,
+							["jk"] = require("telescope.actions").close,
 						},
 					},
 					pickers = {
@@ -205,7 +205,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 						-- builtin picker
 					},
 					extensions = {
-						'refactoring'
+						"refactoring"
 					},
 				},
 				prompt = "> ",
@@ -270,7 +270,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 				-- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string) -- function to run when terminal process exits
 				hide_numbers = true,  -- hide the number column in toggleterm buffers
 				shade_filetypes = {},
-				autochdir = false,    -- when neovim changes it current directory the terminal will change it's own when next it's opened
+				autochdir = false,    -- when neovim changes it current directory the terminal will change it"s own when next it"s opened
 				shade_terminals = false, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
 				shading_factor = 1,   -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
 				start_in_insert = true,
@@ -278,17 +278,17 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 				terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
 				persist_size = true,
 				persist_mode = true,  -- if set to true (default) the previous terminal mode will be remembered
-				direction = 'float',  -- 'vertical' | 'horizontal' | 'tab' | 'float',
+				direction = "float",  -- "vertical" | "horizontal" | "tab" | "float",
 				close_on_exit = true, -- close the terminal window when the process exits
-				-- shell = '/bin/zsh',   -- change the default shell
+				-- shell = "/bin/zsh",   -- change the default shell
 				auto_scroll = true,   -- automatically scroll to the bottom on terminal output
-				-- This field is only relevant if direction is set to 'float'
+				-- This field is only relevant if direction is set to "float"
 				float_opts = {
-					-- The border key is *almost* the same as 'nvim_open_win'
+					-- The border key is *almost* the same as "nvim_open_win"
 					-- see :h nvim_open_win for details on borders however
-					-- the 'curved' border is a custom border type
+					-- the "curved" border is a custom border type
 					-- not natively supported but implemented in this plugin.
-					border = 'single', -- 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
+					border = "single", -- "single" | "double" | "shadow" | "curved" | ... other options supported by win open
 					-- like `size`, width and height can be a number or function which is passed the current terminal
 					width = math.floor(vim.o.columns * 0.8),
 					height = math.floor(vim.o.columns * 1),
@@ -314,7 +314,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 				layout = { width = 40 },
 				autojump = true,
 				on_attach = function(bufnr)
-					-- Jump forwards/backwards with '{' and '}'
+					-- Jump forwards/backwards with "{" and "}"
 					vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
 					vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
 				end,
@@ -338,8 +338,8 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		end
 	},
 	{
-		'dnlhc/glance.nvim',
-		cmd = 'Glance',
+		"dnlhc/glance.nvim",
+		cmd = "Glance",
 		lazy = true,
 		keys = {
 			{ "gld", mode = { "n" }, "<cmd>Glance definitions<CR>" },
@@ -349,7 +349,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		},
 		config = function()
 			-- Lua configuration
-			local glance = require('glance')
+			local glance = require("glance")
 			local actions = glance.actions
 
 			glance.setup({
@@ -376,64 +376,64 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 
 				border = {
 					enable = false, -- Show window borders. Only horizontal borders allowed
-					top_char = '―',
-					bottom_char = '―',
+					top_char = "―",
+					bottom_char = "―",
 				},
 
 				list = {
-					position = 'right', -- Position of the list window 'left'|'right'
+					position = "right", -- Position of the list window "left"|"right"
 					width = 0.33,  -- Width as percentage (0.1 to 0.5)
 				},
 
 				theme = {
 					enable = true, -- Generate colors based on current colorscheme
-					mode = 'auto', -- 'brighten'|'darken'|'auto', 'auto' will set mode based on the brightness of your colorscheme
+					mode = "auto", -- "brighten"|"darken"|"auto", "auto" will set mode based on the brightness of your colorscheme
 				},
 
 				mappings = {
 					list = {
-						['j'] = actions.next, -- Next item
-						['k'] = actions.previous, -- Previous item
-						['<Down>'] = actions.next,
-						['<Up>'] = actions.previous,
-						['<Tab>'] = actions.next_location,    -- Next location (skips groups, cycles)
-						['<S-Tab>'] = actions.previous_location, -- Previous location (skips groups, cycles)
-						['<C-f>'] = actions.preview_scroll_win(5), -- Scroll up the preview window
-						['<C-b>'] = actions.preview_scroll_win(-5), -- Scroll down the preview window
-						['v'] = actions.jump_vsplit,          -- Open location in vertical split
-						['s'] = actions.jump_split,           -- Open location in horizontal split
-						['t'] = actions.jump_tab,             -- Open in new tab
-						['<CR>'] = actions.jump,              -- Jump to location
-						['o'] = actions.jump,
-						['l'] = actions.open_fold,
-						['h'] = actions.close_fold,
-						['<space>l'] = actions.enter_win('preview'), -- Focus preview window
-						['q'] = actions.close,                 -- Closes Glance window
-						['Q'] = actions.close,
-						['<Esc>'] = actions.close,
-						['<C-q>'] = actions.quickfix, -- Send all locations to quickfix list
-						-- ['<Esc>'] = false -- Disable a mapping
+						["j"] = actions.next, -- Next item
+						["k"] = actions.previous, -- Previous item
+						["<Down>"] = actions.next,
+						["<Up>"] = actions.previous,
+						["<Tab>"] = actions.next_location,    -- Next location (skips groups, cycles)
+						["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
+						["<C-f>"] = actions.preview_scroll_win(5), -- Scroll up the preview window
+						["<C-b>"] = actions.preview_scroll_win(-5), -- Scroll down the preview window
+						["v"] = actions.jump_vsplit,          -- Open location in vertical split
+						["s"] = actions.jump_split,           -- Open location in horizontal split
+						["t"] = actions.jump_tab,             -- Open in new tab
+						["<CR>"] = actions.jump,              -- Jump to location
+						["o"] = actions.jump,
+						["l"] = actions.open_fold,
+						["h"] = actions.close_fold,
+						["<space>l"] = actions.enter_win("preview"), -- Focus preview window
+						["q"] = actions.close,                 -- Closes Glance window
+						["Q"] = actions.close,
+						["<Esc>"] = actions.close,
+						["<C-q>"] = actions.quickfix, -- Send all locations to quickfix list
+						-- ["<Esc>"] = false -- Disable a mapping
 					},
 
 					preview = {
-						['Q'] = actions.close,
-						['<Tab>'] = actions.next_location,  -- Next location (skips groups, cycles)
-						['<S-Tab>'] = actions.previous_location, -- Previous location (skips groups, cycles)
-						['<space>l'] = actions.enter_win('list'), -- Focus list window
+						["Q"] = actions.close,
+						["<Tab>"] = actions.next_location,  -- Next location (skips groups, cycles)
+						["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
+						["<space>l"] = actions.enter_win("list"), -- Focus list window
 					},
 				},
 
 				hooks = {}, -- Described in Hooks section
 
 				folds = {
-					fold_closed = '',
-					fold_open = '',
+					fold_closed = "",
+					fold_open = "",
 					folded = true, -- Automatically fold list on startup
 				},
 
 				indent_lines = {
 					enable = true, -- Show indent guidelines
-					icon = '│',
+					icon = "│",
 				},
 
 				winbar = {
@@ -445,9 +445,9 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		end
 	},
 	{ -- Diff view
-		'sindrets/diffview.nvim',
-		dependencies = { 'plenary.nvim' },
-		cmd = { 'DiffviewOpen', 'DiffviewFileHistory', 'DiffviewClose', 'DiffviewFocusFiles' },
+		"sindrets/diffview.nvim",
+		dependencies = { "plenary.nvim" },
+		cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose", "DiffviewFocusFiles" },
 		config = function()
 			require("diffview").setup({
 				enhanced_diff_hl = true,
@@ -467,11 +467,11 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		end
 	},
 	{
-		'nvim-treesitter/nvim-treesitter',
+		"nvim-treesitter/nvim-treesitter",
 		lazy = true,
-		event = { 'BufReadPost', 'BufNewFile' },
+		event = { "BufReadPost", "BufNewFile" },
 		config = function()
-			require 'nvim-treesitter.configs'.setup {
+			require "nvim-treesitter.configs".setup {
 				ensure_installed = { "python", "lua", "javascript", "typescript", "tsx", "html", "css", "json", "yaml", "toml",
 					"bash", "cpp", "rust", "go", "dockerfile" },
 				highlight = {
@@ -482,7 +482,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		end
 	},
 	{ -- Motion
-		'phaazon/hop.nvim',
+		"phaazon/hop.nvim",
 		lazy = true,
 		keys = {
 			{ "<Space>k", "<cmd>HopWord<CR>",            mode = { "n", "v" }, noremap = true },
@@ -490,7 +490,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 			-- { "<Space>k", "<cmd>HopLine<CR>",            mode = { "n", "v" }, noremap = true },
 		},
 		config = function()
-			require('hop').setup({})
+			require("hop").setup({})
 		end
 	},
 	{
@@ -519,10 +519,10 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 	},
 	-- Filer
 	{
-		'nvim-tree/nvim-tree.lua',
+		"nvim-tree/nvim-tree.lua",
 		dependencies = {
-			'b0o/nvim-tree-preview.lua',
-			'nvim-lua/plenary.nvim',
+			"b0o/nvim-tree-preview.lua",
+			"nvim-lua/plenary.nvim",
 		},
 		lazy = true,
 		keys = {
@@ -543,56 +543,56 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = false, silent = true, nowait = true }
 				end
 
-				local preview = require('nvim-tree-preview')
-				vim.keymap.set('n', 'p', preview.watch, opts 'Preview (Watch)')
-				vim.keymap.set('n', 'P', api.fs.paste, opts 'Paste')
-				vim.keymap.set('n', '<Esc>', preview.unwatch, opts 'Close Preview/Unwatch')
-				vim.keymap.set('n', '<C-f>', function() return preview.scroll(4) end, opts 'Scroll Down')
-				vim.keymap.set('n', '<C-b>', function() return preview.scroll(-4) end, opts 'Scroll Up')
+				local preview = require("nvim-tree-preview")
+				vim.keymap.set("n", "p", preview.watch, opts "Preview (Watch)")
+				vim.keymap.set("n", "P", api.fs.paste, opts "Paste")
+				vim.keymap.set("n", "<Esc>", preview.unwatch, opts "Close Preview/Unwatch")
+				vim.keymap.set("n", "<C-f>", function() return preview.scroll(4) end, opts "Scroll Down")
+				vim.keymap.set("n", "<C-b>", function() return preview.scroll(-4) end, opts "Scroll Up")
 
-				vim.keymap.set('n', 'l', api.tree.change_root_to_node, opts('CD'))
-				vim.keymap.set('n', 'h', api.tree.change_root_to_parent, opts('Up'))
-				vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
-				vim.keymap.set('n', 'd', api.fs.remove, opts('Delete'))
-				vim.keymap.set('n', 'D', api.fs.trash, opts('Trash'))
-				vim.keymap.set('n', 'e', api.tree.expand_all, opts('Expand All'))
-				vim.keymap.set('n', 'E', api.tree.collapse_all, opts('Collapse'))
-				vim.keymap.set('n', 'q', api.tree.close, opts('Close'))
-				vim.keymap.set('n', 'fs', api.tree.close, opts('Close'))
-				vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
-				vim.keymap.set('n', 'H', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
-				vim.keymap.set('n', 'o', api.node.open.edit, opts('Open'))
-				vim.keymap.set('n', 'O', api.node.open.no_window_picker, opts('Open: No Window Picker'))
-				vim.keymap.set('n', 'M', api.marks.bulk.move, opts('Move Bookmarked'))
-				vim.keymap.set('n', 'm', api.marks.toggle, opts('Toggle Bookmark'))
+				vim.keymap.set("n", "l", api.tree.change_root_to_node, opts("CD"))
+				vim.keymap.set("n", "h", api.tree.change_root_to_parent, opts("Up"))
+				vim.keymap.set("n", "a", api.fs.create, opts("Create"))
+				vim.keymap.set("n", "d", api.fs.remove, opts("Delete"))
+				vim.keymap.set("n", "D", api.fs.trash, opts("Trash"))
+				vim.keymap.set("n", "e", api.tree.expand_all, opts("Expand All"))
+				vim.keymap.set("n", "E", api.tree.collapse_all, opts("Collapse"))
+				vim.keymap.set("n", "q", api.tree.close, opts("Close"))
+				vim.keymap.set("n", "fs", api.tree.close, opts("Close"))
+				vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
+				vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
+				vim.keymap.set("n", "o", api.node.open.edit, opts("Open"))
+				vim.keymap.set("n", "O", api.node.open.no_window_picker, opts("Open: No Window Picker"))
+				vim.keymap.set("n", "M", api.marks.bulk.move, opts("Move Bookmarked"))
+				vim.keymap.set("n", "m", api.marks.toggle, opts("Toggle Bookmark"))
 
 
-				vim.keymap.set('n', '<C-e>', api.node.open.replace_tree_buffer, opts('Open: In Place'))
-				vim.keymap.set('n', '<C-k>', api.node.show_info_popup, opts('Info'))
-				vim.keymap.set('n', '<C-r>', api.fs.rename_sub, opts('Rename: Omit Filename'))
-				vim.keymap.set('n', '<C-v>', api.node.open.vertical, opts('Open: Vertical Split'))
-				vim.keymap.set('n', '<BS>', api.node.navigate.parent_close, opts('Close Directory'))
-				vim.keymap.set('n', '<CR>', api.node.open.no_window_picker, opts('Open'))
-				vim.keymap.set('n', '<C-o>', api.node.open.no_window_picker, opts('Open'))
-				vim.keymap.set('n', 'B', api.tree.toggle_no_buffer_filter, opts('Toggle No Buffer'))
-				vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
-				vim.keymap.set('n', 'C', api.tree.toggle_git_clean_filter, opts('Toggle Git Clean'))
-				vim.keymap.set('n', '[c', api.node.navigate.git.prev, opts('Prev Git'))
-				vim.keymap.set('n', ']c', api.node.navigate.git.next, opts('Next Git'))
-				vim.keymap.set('n', ']e', api.node.navigate.diagnostics.next, opts('Next Diagnostic'))
-				vim.keymap.set('n', '[e', api.node.navigate.diagnostics.prev, opts('Prev Diagnostic'))
-				vim.keymap.set('n', 'F', api.live_filter.clear, opts 'Clean Filter')
-				vim.keymap.set('n', 'g?', api.tree.toggle_help, opts('Help'))
-				vim.keymap.set('n', 'gy', api.fs.copy.absolute_path, opts('Copy Absolute Path'))
-				vim.keymap.set('n', 'I', api.tree.toggle_gitignore_filter, opts('Toggle Git Ignore'))
-				vim.keymap.set('n', 'J', api.node.navigate.sibling.last, opts('Last Sibling'))
-				vim.keymap.set('n', 'K', api.node.navigate.sibling.first, opts('First Sibling'))
-				vim.keymap.set('n', 'R', api.tree.reload, opts('Refresh'))
-				vim.keymap.set('n', 'S', api.tree.search_node, opts('Search'))
-				vim.keymap.set('n', 'U', api.tree.toggle_custom_filter, opts('Toggle Hidden'))
-				vim.keymap.set('n', 'x', api.fs.cut, opts('Cut'))
-				vim.keymap.set('n', 'y', api.fs.copy.filename, opts('Copy Name'))
-				vim.keymap.set('n', 'Y', api.fs.copy.relative_path, opts('Copy Relative Path'))
+				vim.keymap.set("n", "<C-e>", api.node.open.replace_tree_buffer, opts("Open: In Place"))
+				vim.keymap.set("n", "<C-k>", api.node.show_info_popup, opts("Info"))
+				vim.keymap.set("n", "<C-r>", api.fs.rename_sub, opts("Rename: Omit Filename"))
+				vim.keymap.set("n", "<C-v>", api.node.open.vertical, opts("Open: Vertical Split"))
+				vim.keymap.set("n", "<BS>", api.node.navigate.parent_close, opts("Close Directory"))
+				vim.keymap.set("n", "<CR>", api.node.open.no_window_picker, opts("Open"))
+				vim.keymap.set("n", "<C-o>", api.node.open.no_window_picker, opts("Open"))
+				vim.keymap.set("n", "B", api.tree.toggle_no_buffer_filter, opts("Toggle No Buffer"))
+				vim.keymap.set("n", "c", api.fs.copy.node, opts("Copy"))
+				vim.keymap.set("n", "C", api.tree.toggle_git_clean_filter, opts("Toggle Git Clean"))
+				vim.keymap.set("n", "[c", api.node.navigate.git.prev, opts("Prev Git"))
+				vim.keymap.set("n", "]c", api.node.navigate.git.next, opts("Next Git"))
+				vim.keymap.set("n", "]e", api.node.navigate.diagnostics.next, opts("Next Diagnostic"))
+				vim.keymap.set("n", "[e", api.node.navigate.diagnostics.prev, opts("Prev Diagnostic"))
+				vim.keymap.set("n", "F", api.live_filter.clear, opts "Clean Filter")
+				vim.keymap.set("n", "g?", api.tree.toggle_help, opts("Help"))
+				vim.keymap.set("n", "gy", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
+				vim.keymap.set("n", "I", api.tree.toggle_gitignore_filter, opts("Toggle Git Ignore"))
+				vim.keymap.set("n", "J", api.node.navigate.sibling.last, opts("Last Sibling"))
+				vim.keymap.set("n", "K", api.node.navigate.sibling.first, opts("First Sibling"))
+				vim.keymap.set("n", "R", api.tree.reload, opts("Refresh"))
+				vim.keymap.set("n", "S", api.tree.search_node, opts("Search"))
+				vim.keymap.set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Hidden"))
+				vim.keymap.set("n", "x", api.fs.cut, opts("Cut"))
+				vim.keymap.set("n", "y", api.fs.copy.filename, opts("Copy Name"))
+				vim.keymap.set("n", "Y", api.fs.copy.relative_path, opts("Copy Relative Path"))
 			end
 
 			-- OR setup with some options
@@ -618,14 +618,14 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		end
 	},
 	-- MISC
-	{ 'markonm/traces.vim',         lazy = true, event = 'VeryLazy' },                      -- live preview of replaces
-	{ 'nvim-lua/plenary.nvim',      lazy = true },                                          -- dependency for many plugins
-	{ 'tpope/vim-repeat',           lazy = true, event = 'VeryLazy' },                      -- enhance . repeat
-	{ "terryma/vim-expand-region",  lazy = true, event = 'VeryLazy' },                      -- expand visual selection with +/_
-	{ 'dhruvasagar/vim-table-mode', lazy = true, cmd = { 'TableModeToggle' } },             -- markdown table mode
-	{ 'djoshea/vim-autoread',       lazy = true, event = 'VeryLazy' },                      -- auto reload edited file
-	{ 'tpope/vim-surround',         lazy = true, event = 'VeryLazy' },                      -- ysaw [, Ctrl-V + S + <tag>, ds', yss {, yss <tag,  cs" ', ...
-	{ 'tpope/vim-commentary',       lazy = true, keys = { { 'gc', mode = { 'n', 'v' } } } }, -- comment/uncomment with visual selection + gc
+	{ "markonm/traces.vim",         lazy = true, event = "VeryLazy" },                      -- live preview of replaces
+	{ "nvim-lua/plenary.nvim",      lazy = true },                                          -- dependency for many plugins
+	{ "tpope/vim-repeat",           lazy = true, event = "VeryLazy" },                      -- enhance . repeat
+	{ "terryma/vim-expand-region",  lazy = true, event = "VeryLazy" },                      -- expand visual selection with +/_
+	{ "dhruvasagar/vim-table-mode", lazy = true, cmd = { "TableModeToggle" } },             -- markdown table mode
+	{ "djoshea/vim-autoread",       lazy = true, event = "VeryLazy" },                      -- auto reload edited file
+	{ "tpope/vim-surround",         lazy = true, event = "VeryLazy" },                      -- ysaw [, Ctrl-V + S + <tag>, ds", yss {, yss <tag,  cs" ", ...
+	{ "tpope/vim-commentary",       lazy = true, keys = { { "gc", mode = { "n", "v" } } } }, -- comment/uncomment with visual selection + gc
 	{                                                                                       -- Preview markdown on browser
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -635,17 +635,17 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 	{
 		-- remove trailing whitespaces
 		-- disable with `:DisableWhitespace `
-		'ntpeters/vim-better-whitespace',
-		event = { 'BufReadPre', 'BufNewFile' },
+		"ntpeters/vim-better-whitespace",
+		event = { "BufReadPre", "BufNewFile" },
 		config = function()
-			vim.cmd('let g:better_whitespace_enabled=1')
-			vim.cmd('let g:strip_whitespace_on_save=1')
-			vim.cmd('let g:strip_whitespace_confirm=0')
+			vim.cmd("let g:better_whitespace_enabled=1")
+			vim.cmd("let g:strip_whitespace_on_save=1")
+			vim.cmd("let g:strip_whitespace_confirm=0")
 		end,
 	},
 	{
 		-- align selection
-		'junegunn/vim-easy-align',
+		"junegunn/vim-easy-align",
 		lazy = true,
 		keys = {
 			{ "ga", mode = { "n", "v" }, "<Plug>(EasyAlign)" },
@@ -673,7 +673,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 			{ "<Space>cm", ":Neogen<CR>", mode = { "n" } },
 		},
 		config = function()
-			require('neogen').setup {
+			require("neogen").setup {
 				enabled = true,
 				input_after_comment = false,
 			}
