@@ -311,7 +311,10 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		config = function()
 			require("aerial").setup({
 				-- optionally use on_attach to set keymaps when aerial has attached to a buffer
-				layout = { width = 40 },
+				layout = {
+					width = 40,
+					default_direction = "prefer_left",
+				},
 				autojump = true,
 				on_attach = function(bufnr)
 					-- Jump forwards/backwards with "{" and "}"
