@@ -15,7 +15,7 @@ vim.g.mapleader = "<Space>"
 
 require("lazy").setup("lazyvim/plugins")
 -- vim.cmd.colorscheme("iceberg")
--- vim.cmd.colorscheme("catppuccin")vim
+-- vim.cmd.colorscheme("catppuccin")
 
 vim.cmd("hi clear")
 -- vim.cmd("colorscheme vim")
