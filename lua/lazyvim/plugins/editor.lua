@@ -36,7 +36,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 				function()
 					require("zen-mode").setup {
 						window = {
-							width = 90,
+							width = 150,
 							options = {}
 						},
 					}
