@@ -13,6 +13,9 @@ return {
 			global_keymaps = false,
 			global_keymaps_prefix = "<space>R",
 			kulala_keymaps_prefix = "",
+			ui = {
+				split_direction = "horizontal",
+			},
 		},
 		config = function(_, opts)
 			require("kulala").setup(opts)
