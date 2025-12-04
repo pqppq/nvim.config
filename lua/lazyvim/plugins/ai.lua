@@ -1,13 +1,65 @@
 return {
 	{
 		"Exafunction/windsurf.vim",
-		event = { "InsertEnter" },
-		keys = {
-			{ "<C-]>", function() return vim.fn["codeium#CycleCompletions"](1) end,  mode = "i", expr = true, silent = false, desc = "Codeium Next" },
-			{ "<C-[>", function() return vim.fn["codeium#CycleCompletions"](-1) end, mode = "i", expr = true, silent = false, desc = "Codeium Prev" },
-			{ "<C-;>", function() return vim.fn["codeium#Complete"]() end,           mode = "i", expr = true, silent = true,  desc = "Codeium Complete" },
-			{ "<C-x>", function() return vim.fn["codeium#Clear"]() end,              mode = "i", expr = true, silent = true,  desc = "Codeium Clear" },
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"hrsh7th/nvim-cmp",
 		},
+		keys = {
+			{
+				"<tab>",
+				function()
+					-- Fallback to a literal <Tab> if Codeium is unavailable
+					if vim.fn.exists("*codeium#Accept") == 1 then
+						return vim.fn["codeium#Accept"]()
+					end
+					return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
+				end,
+				mode = "i",
+				expr = true,
+				silent = true,
+				desc = "Codeium Accept"
+			},
+			{
+				"<C-[>",
+				function()
+					if vim.fn.exists("*codeium#CycleCompletions") == 1 then
+						return vim.fn["codeium#CycleCompletions"](1)
+					end
+					return vim.api.nvim_replace_termcodes("<C-[>", true, true, true)
+				end,
+				mode = "i",
+				expr = true,
+				silent = false,
+				desc = "Codeium Next"
+			},
+			{
+				"<C-]>",
+				function()
+					if vim.fn.exists("*codeium#CycleCompletions") == 1 then
+						return vim.fn["codeium#CycleCompletions"](-1)
+					end
+					return vim.api.nvim_replace_termcodes("<C-]>", true, true, true)
+				end,
+				mode = "i",
+				expr = true,
+				silent = false,
+				desc = "Codeium Prev"
+			},
+		},
+		config = function()
+			local ok, codeium = pcall(require, "codeium")
+			if ok then
+				codeium.setup({
+					-- Optionally disable cmp source if using virtual text only
+					enable_cmp_source = false,
+					virtual_text = {
+						enabled = true,
+						manual = true,
+					}
+				})
+			end
+		end
 	},
 	{
 		"folke/sidekick.nvim",

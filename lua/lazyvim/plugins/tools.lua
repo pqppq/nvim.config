@@ -6,7 +6,7 @@ return {
 		keys = {
 			{ "<space>ss", function() require("kulala").run() end,        mode = { "n", "v" }, desc = "Send request" },
 			{ "<space>sa", function() require("kulala").run_all() end,    mode = { "n", "v" }, desc = "Send all request" },
-			{ "<space>st", function() require("kulala").show_stats() end, mode = { "n" }, desc = "Open scratchpad" },
+			{ "<space>st", function() require("kulala").show_stats() end, mode = { "n" },      desc = "Open scratchpad" },
 		},
 		ft = { "http", "rest" },
 		opts = {
