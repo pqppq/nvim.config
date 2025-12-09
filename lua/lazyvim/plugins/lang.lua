@@ -14,7 +14,8 @@ return {
 		ft = { "go", "gomod" },
 		keys = {
 			{ "<Space>gd", mode = { "n" }, ":GoDocBrowser<CR>" },
-			{ "<Space>gi", mode = { "n" }, ":GoImpl " },
+			{ "<Space>gi", mode = { "n" }, ":GoImplements<CR>" },
+			{ "<Space>ggi", mode = { "n" }, ":GoImpl " },
 			{ "<Space>gs", mode = { "n" }, ":GoFillStruct<CR>" },
 			{ "<Space>gt", mode = { "n" }, ":GoAddTag<CR>" },
 		},
