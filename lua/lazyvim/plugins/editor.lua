@@ -628,6 +628,10 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		build = function() vim.fn["mkdp#util#install"]() end,
 	},
 	{
+		'MeanderingProgrammer/render-markdown.nvim',
+		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
+		opts = {},
+	}, {
 		-- remove trailing whitespaces
 		-- disable with `:DisableWhitespace `
 		"ntpeters/vim-better-whitespace",
