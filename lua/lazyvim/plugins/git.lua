@@ -1,6 +1,19 @@
 return {
 	{
 		"tpope/vim-fugitive",
+		cmd = {
+			"G",
+			"Git",
+			"Gdiffsplit",
+			"Gread",
+			"Gwrite",
+			"Ggrep",
+			"GMove",
+			"GDelete",
+			"GBrowse",
+			"Gline",
+			"GLog",
+		},
 		keys = {
 			{ "<C-g><C-g>", mode = { "n" }, ":Git<CR>", silent = true },
 		}
