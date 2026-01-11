@@ -14,11 +14,11 @@ return {
 		},
 		ft = { "go", "gomod" },
 		keys = {
-			{ "<Space>gd", mode = { "n" }, ":GoDocBrowser<CR>" },
-			{ "<Space>gi", mode = { "n" }, ":GoImplements<CR>" },
+			{ "<Space>gd",  mode = { "n" }, ":GoDocBrowser<CR>" },
+			{ "<Space>gi",  mode = { "n" }, ":GoImplements<CR>" },
 			{ "<Space>ggi", mode = { "n" }, ":GoImpl " },
-			{ "<Space>gs", mode = { "n" }, ":GoFillStruct<CR>" },
-			{ "<Space>gt", mode = { "n" }, ":GoAddTag<CR>" },
+			{ "<Space>gs",  mode = { "n" }, ":GoFillStruct<CR>" },
+			{ "<Space>gt",  mode = { "n" }, ":GoAddTag<CR>" },
 		},
 		config = function(lp, opts)
 			require("go").setup(opts)
@@ -53,7 +53,7 @@ return {
 	{
 		"Saecki/crates.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		lazy = true,
+		ft = "toml",
 		event = { "BufRead Cargo.toml" },
 		keys = {
 			{ "<Space>ct", ":lua require('crates').toggle()<CR>",                             mode = { "n" } },
