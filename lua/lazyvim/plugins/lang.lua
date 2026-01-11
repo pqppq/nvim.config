@@ -1,4 +1,5 @@
 return {
+	-- Go
 	{
 		"ray-x/go.nvim",
 		dependencies = { -- optional packages
@@ -34,6 +35,12 @@ return {
 		build = ":lua require('go.install').update_all_sync()" -- if you need to install/update all binaries
 	},
 	{
+		"maxandron/goplements.nvim",
+		ft = "go",
+		opts = {}
+	},
+	-- Rust
+	{
 		"mrcjkb/rustaceanvim",
 		version = "^4", -- Recommended
 		ft = { "rust" },
@@ -42,11 +49,6 @@ return {
 			{
 				"<Space>e", mode = { "n" }, ":RustLsp expandMacro<CR>" },
 		},
-	},
-	{
-		"maxandron/goplements.nvim",
-		ft = "go",
-		opts = {}
 	},
 	{
 		"Saecki/crates.nvim",
