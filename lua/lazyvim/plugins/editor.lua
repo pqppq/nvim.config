@@ -656,7 +656,7 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		opts = {
 			parser = { comments = { "#", "//" } },
 		},
-		lazy = true,
+		ft = { 'csv' },
 		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
 		keys = {
 			{

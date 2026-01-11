@@ -38,8 +38,13 @@ return {
 		lazy = true,
 		keys = {
 			{
-				"T",
+				"<space>t",
 				"<cmd>Trouble diagnostics toggle focus=false filter.buf=0<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<space>T",
+				"<cmd>Trouble diagnostics toggle<cr>",
 				desc = "Diagnostics (Trouble)",
 			},
 		},
