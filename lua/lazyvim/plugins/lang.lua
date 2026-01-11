@@ -53,23 +53,34 @@ return {
 	{
 		"Saecki/crates.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		ft = "toml",
 		event = { "BufRead Cargo.toml" },
-		keys = {
-			{ "<Space>ct", ":lua require('crates').toggle()<CR>",                             mode = { "n" } },
-			{ "<Space>cr", ":lua require('crates').reload()<CR>",                             mode = { "n" } },
-			{ "<Space>cv", ":lua require('crates').show_versions_popup()<CR>",                mode = { "n" } },
-			{ "<Space>cf", ":lua require('crates').show_features_popup()<CR>",                mode = { "n" } },
-			{ "<Space>cd", ":lua require('crates').show_dependencies_popup()<CR>",            mode = { "n" } },
-			{ "<Space>cu", ":lua require('crates').update_crate()<CR>",                       mode = { "n" } },
-			{ "<Space>cu", ":lua require('crates').update_crates()<CR>",                      mode = { "v" } },
-			{ "<Space>cA", ":lua require('crates').upgrade_all_crates()<CR>",                 mode = { "n" } },
-			{ "<Space>cx", ":lua require('crates').expand_plain_crate_to_inline_table()<CR>", mode = { "n" } },
-			{ "<Space>cX", ":lua require('crates').extract_crate_into_table()<CR>",           mode = { "n" } },
-			{ "<Space>cH", ":lua require('crates').open_homepage()<CR>",                      mode = { "n" } },
-			{ "<Space>cR", ":lua require('crates').open_repository()<CR>",                    mode = { "n" } },
-			{ "<Space>cD", ":lua require('crates').open_documentation()<CR>",                 mode = { "n" } },
-			{ "<Space>cC", ":lua require('crates').open_crates_io()<CR>",                     mode = { "n" } },
-		},
+		config = function()
+			local group = vim.api.nvim_create_augroup("CratesNvimKeys", { clear = true })
+			vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+				group = group,
+				pattern = "Cargo.toml",
+				callback = function(args)
+					local bufnr = args.buf
+					local crates = require("crates")
+					local function map(mode, lhs, rhs)
+						vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true, noremap = true })
+					end
+					map("n", "<Space>ct", crates.toggle)
+					map("n", "<Space>cr", crates.reload)
+					map("n", "<Space>cv", crates.show_versions_popup)
+					map("n", "<Space>cf", crates.show_features_popup)
+					map("n", "<Space>cd", crates.show_dependencies_popup)
+					map("n", "<Space>cu", crates.update_crate)
+					map("v", "<Space>cu", crates.update_crates)
+					map("n", "<Space>cA", crates.upgrade_all_crates)
+					map("n", "<Space>cx", crates.expand_plain_crate_to_inline_table)
+					map("n", "<Space>cX", crates.extract_crate_into_table)
+					map("n", "<Space>cH", crates.open_homepage)
+					map("n", "<Space>cR", crates.open_repository)
+					map("n", "<Space>cD", crates.open_documentation)
+					map("n", "<Space>cC", crates.open_crates_io)
+				end,
+			})
+		end,
 	}
 }

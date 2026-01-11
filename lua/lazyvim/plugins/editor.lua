@@ -659,10 +659,22 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		},
 		ft = { 'csv' },
 		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
-		keys = {
-			{
-				"<Space>t", mode = { "n" }, ":CsvViewToggle delimiter=, display_mode=border header_lnum=1<CR>" },
-		},
+		config = function()
+			local group = vim.api.nvim_create_augroup("CsvViewKeys", { clear = true })
+			vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+				group = group,
+				pattern = "csv",
+				callback = function(args)
+					local bufnr = args.buf
+					vim.keymap.set(
+						"n",
+						"<Space>ct",
+						":CsvViewToggle delimiter=, display_mode=border header_lnum=1<CR>",
+						{ buffer = bufnr, silent = true, noremap = true }
+					)
+				end,
+			})
+		end,
 
 	},
 	{
