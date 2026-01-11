@@ -631,7 +631,8 @@ return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi
 		'MeanderingProgrammer/render-markdown.nvim',
 		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
 		opts = {},
-	}, {
+	},
+	{
 		-- remove trailing whitespaces
 		-- disable with `:DisableWhitespace `
 		"ntpeters/vim-better-whitespace",
