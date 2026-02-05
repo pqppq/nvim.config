@@ -6,7 +6,7 @@ vim.api.nvim_set_keymap('n', '<Space><Space>', ":let @/ = '\\<' . expand('<cword
 vim.api.nvim_set_keymap('n', 'R', ":%s/<C-r>=expand('<cword>')<CR>//g<Left><Left>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'm', 'daw', { noremap = true })
 vim.api.nvim_set_keymap('n', 'X', ':bdelete<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-S>', ':w<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true })
 vim.api.nvim_set_keymap('i', '<C-o>', '()<Left>', { noremap = true })
 vim.api.nvim_set_keymap('i', '<C-l>', '{}<Left>', { noremap = true })
