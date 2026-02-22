@@ -1,5 +1,6 @@
-return { { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi cursor selection with Ctrl-n
-	{ "kevinhwang91/nvim-bqf",      ft = "qf" },                          -- Quickfix preview
+return {
+	{ "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi cursor selection with Ctrl-n
+	{ "kevinhwang91/nvim-bqf",  ft = "qf" },                      -- Quickfix preview
 	{
 		-- Quickfix enhance
 		"stevearc/quicker.nvim",
