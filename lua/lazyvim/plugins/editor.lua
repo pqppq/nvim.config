@@ -691,13 +691,22 @@ return {
 		lazy = true,
 		event = { "BufReadPost", "BufNewFile" },
 		config = function()
-			require "nvim-treesitter.configs".setup {
-				ensure_installed = { "python", "lua", "javascript", "typescript", "tsx", "html", "css", "json", "yaml", "toml",
-					"bash", "cpp", "rust", "go", "dockerfile" },
-				highlight = {
-					enable = true,
-					disable = {},
-				},
+			require('nvim-treesitter').install {
+				"python",
+				"lua",
+				"javascript",
+				"typescript",
+				"tsx",
+				"html",
+				"css",
+				"json",
+				"yaml",
+				"toml",
+				"bash",
+				"cpp",
+				"rust",
+				"go",
+				"dockerfile",
 			}
 		end
 	},
