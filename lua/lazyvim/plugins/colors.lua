@@ -1,8 +1,8 @@
 return {
-	{ "cocopon/iceberg.vim",   lazy = true },
-	{ "rose-pine/neovim",      lazy = true, name = "rose-pine" },
-	{ "catppuccin/nvim",       lazy = true, name = "catppuccin" },
-	{ "Mofiqul/dracula.nvim",  lazy = true, name = "dracula" },
-	{ "rebelot/kanagawa.nvim", lazy = true, name = "kanagawa" },
-	{ "folke/tokyonight.nvim", lazy = true, name = "tokyonight" }
+	{ "cocopon/iceberg.vim",   name = "iceberg" },
+	{ "rose-pine/neovim",      name = "rose-pine" },
+	{ "catppuccin/nvim",       name = "catppuccin" },
+	{ "Mofiqul/dracula.nvim",  name = "dracula" },
+	{ "rebelot/kanagawa.nvim", name = "kanagawa" },
+	{ "folke/tokyonight.nvim", name = "tokyonight" }
 }
