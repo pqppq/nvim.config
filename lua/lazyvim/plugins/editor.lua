@@ -739,95 +739,68 @@ return {
 	},
 	-- Filer
 	{
-		"nvim-tree/nvim-tree.lua",
-		dependencies = {
-			"b0o/nvim-tree-preview.lua",
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-		},
-		lazy = true,
+		'nvim-mini/mini.files',
+		version = '*',
 		keys = {
-			{ "fs", ":NvimTreeToggle<CR>" },
-		},
-		config = function()
-			-- disable netrw at the very start of your init.lua
-			vim.g.loaded_netrw = 1
-			vim.g.loaded_netrwPlugin = 1
-
-			-- set termguicolors to enable highlight groups
-			vim.opt.termguicolors = true
-
-			local function my_on_attach(bufnr)
-				local api = require "nvim-tree.api"
-
-				local function opts(desc)
-					return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = false, silent = true, nowait = true }
+			{ "fs",
+				function(...)
+					if not MiniFiles.close() then MiniFiles.open(...) end
 				end
+			},
+		},
+		config =
+		{
+			-- Customization of shown content
+			content = {
+				-- Predicate for which file system entries to show
+				filter = nil,
+				-- Highlight group to use for a file system entry
+				highlight = nil,
+				-- Prefix text and highlight to show to the left of file system entry
+				prefix = nil,
+				-- Order in which to show file system entries
+				sort = nil,
+			},
+			-- Module mappings created only inside explorer.
+			-- Use `''` (empty string) to not create one.
+			mappings = {
+				close       = 'q',
+				go_in       = 'l',
+				go_in_plus  = 'L',
+				go_out      = 'h',
+				go_out_plus = 'H',
+				mark_goto   = "'",
+				mark_set    = 'm',
+				reset       = '<BS>',
+				reveal_cwd  = '@',
+				show_help   = 'g?',
+				synchronize = '=',
+				trim_left   = '<',
+				trim_right  = '>',
+			},
 
-				-- open/close
-				vim.keymap.set("n", "fs", api.tree.toggle, opts("Toggle"))
-				vim.keymap.set("n", "q", api.tree.close, opts("Close"))
+			-- General options
+			options = {
+				-- Whether to delete permanently or move into module-specific trash
+				permanent_delete = true,
+				-- Whether to use for editing directories
+				use_as_default_explorer = true,
+			},
 
-				-- preview
-				local preview = require("nvim-tree-preview")
-				vim.keymap.set("n", "P", preview.watch, opts "Preview (Watch)")
-				vim.keymap.set("n", "<C-f>", function() return preview.scroll(4) end, opts "Scroll Down")
-				vim.keymap.set("n", "<C-b>", function() return preview.scroll(-4) end, opts "Scroll Up")
-				vim.keymap.set("n", "<Esc>", preview.unwatch, opts "Close Preview/Unwatch")
-
-				-- move
-				vim.keymap.set("n", "l", api.tree.change_root_to_node, opts("CD"))
-				vim.keymap.set("n", "h", api.tree.change_root_to_parent, opts("Up"))
-
-				-- file ops
-				vim.keymap.set("n", "a", api.fs.create, opts("Create"))
-				vim.keymap.set("n", "d", api.fs.remove, opts("Delete"))
-				vim.keymap.set("n", "D", api.fs.trash, opts("Trash"))
-				vim.keymap.set("n", "c", api.fs.copy.node, opts("Copy"))
-				vim.keymap.set("n", "C", api.tree.toggle_git_clean_filter, opts("Toggle Git Clean"))
-				vim.keymap.set("n", "F", api.live_filter.clear, opts "Clean Filter")
-				vim.keymap.set("n", "y", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
-				vim.keymap.set("n", "Y", api.fs.copy.filename, opts("Copy Name"))
-				vim.keymap.set("n", "p", api.fs.paste, opts "Paste")
-				vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
-				vim.keymap.set("n", "<C-r>", api.fs.rename_sub, opts("Rename: Omit Filename"))
-				vim.keymap.set("n", "M", api.marks.bulk.move, opts("Move Bookmarked"))
-				vim.keymap.set("n", "m", api.marks.toggle, opts("Toggle Bookmark"))
-
-				-- tree ops
-				vim.keymap.set("n", "<CR>", api.node.open.no_window_picker, opts("Open"))
-				vim.keymap.set("n", "o", api.node.open.vertical, opts("Open: Vertical Split"))
-				vim.keymap.set("n", "<C-o>", api.node.open.edit, opts("Open"))
-				vim.keymap.set("n", "e", api.tree.expand_all, opts("Expand All"))
-				vim.keymap.set("n", "E", api.tree.collapse_all, opts("Collapse"))
-				vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
-				vim.keymap.set("n", "O", api.node.open.no_window_picker, opts("Open: No Window Picker"))
-
-				-- meta
-				vim.keymap.set("n", "<C-i>", api.node.show_info_popup, opts("Info"))
-			end
-
-			-- OR setup with some options
-			require("nvim-tree").setup({
-				on_attach = my_on_attach,
-				sort_by = "case_sensitive",
-				view = {
-					width = 50,
-				},
-				renderer = {
-					group_empty = true,
-				},
-				filters = {
-					dotfiles = false,
-				},
-				actions = {
-					open_file = {
-						quit_on_open = true,
-					}
-
-				}
-			})
-		end
+			-- Customization of explorer windows
+			windows = {
+				-- Maximum number of windows to show side by side
+				max_number = math.huge,
+				-- Whether to show preview of file/directory under cursor
+				preview = true,
+				-- Width of focused window
+				width_focus = 50,
+				-- Width of non-focused window
+				width_nofocus = 15,
+				-- Width of preview window
+				width_preview = 50,
+			},
+		}
 	},
 	-- MISC
 	{ "markonm/traces.vim",         lazy = true, event = "VeryLazy" },                      -- live preview of replaces
