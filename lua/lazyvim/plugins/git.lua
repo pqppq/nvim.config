@@ -25,12 +25,20 @@ return {
 		config = function()
 			require("gitsigns").setup {
 				signs                        = {
-					add          = { text = "┃" },
-					change       = { text = "┃" },
-					delete       = { text = "▁" },
-					topdelete    = { text = "▔" },
+					add          = { text = "*" },
+					change       = { text = "~" },
+					delete       = { text = "x" },
+					topdelete    = { text = "x" },
 					changedelete = { text = "~" },
-					untracked    = { text = "┆" },
+					untracked    = { text = "=" },
+				},
+				signs_staged                 = {
+					add          = { text = '*' },
+					change       = { text = '~' },
+					delete       = { text = 'x' },
+					topdelete    = { text = 'x' },
+					changedelete = { text = '~' },
+					untracked    = { text = '┆' },
 				},
 				signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
 				numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -92,10 +100,17 @@ return {
 					map("n", "<Space>hu", gs.undo_stage_hunk)
 					map("n", "<Space>hR", gs.reset_buffer)
 					map("n", "<Space>hp", gs.preview_hunk)
-					map("n", "<Space>td", gs.toggle_deleted)
+					map("n", "<Space>hd", gs.toggle_deleted)
 
 					-- Text object
 					map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+
+					vim.cmd("highlight GitSignsAdd    guifg=white")
+					vim.cmd("highlight GitSignsChange guifg=yellow")
+					vim.cmd("highlight GitSignsDelete guifg=red")
+					vim.cmd("highlight GitSignsStagedAdd guifg=orange")
+					vim.cmd("highlight GitSignsStagedChange guifg=orange")
+					vim.cmd("highlight GitSignsStagedDelete guifg=orange")
 				end
 			}
 		end,
