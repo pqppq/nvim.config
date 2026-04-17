@@ -20,15 +20,6 @@ return {
 		}
 	},
 	{
-		"airblade/vim-gitgutter",
-		event = { "BufReadPre", "BufNewFile" },
-		keys = {
-			{ "ghp", "<Plug>(GitGutterPreviewHunk)" },
-			{ "ghs", "<Plug>(GitGutterStageHunk)" },
-			{ "ghu", "<Plug>(GitGutterUndoHunk)" },
-		}
-	},
-	{
 		"lewis6991/gitsigns.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
