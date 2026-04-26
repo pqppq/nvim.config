@@ -267,7 +267,7 @@ return {
 	{
 		"ThePrimeagen/refactoring.nvim",
 		requires = { { "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" }
+			{ "nvim-treesitter/nvim-treesitter", branch = "main" }
 		},
 		lazy = true,
 		keys = {
@@ -686,30 +686,6 @@ return {
 			})
 		end
 	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		lazy = true,
-		event = { "BufReadPost", "BufNewFile" },
-		config = function()
-			require('nvim-treesitter').install {
-				"python",
-				"lua",
-				"javascript",
-				"typescript",
-				"tsx",
-				"html",
-				"css",
-				"json",
-				"yaml",
-				"toml",
-				"bash",
-				"cpp",
-				"rust",
-				"go",
-				"dockerfile",
-			}
-		end
-	},
 	{ -- Motion
 		"phaazon/hop.nvim",
 		lazy = true,
@@ -828,7 +804,7 @@ return {
 	},
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
-		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
+		dependencies = { { 'nvim-treesitter/nvim-treesitter', branch = "main" }, 'nvim-mini/mini.nvim' },
 		opts = {},
 	},
 	{

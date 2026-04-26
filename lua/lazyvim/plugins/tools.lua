@@ -51,7 +51,9 @@ return {
 	},
 	{ -- fond/unfold
 		"Wansmer/treesj",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		dependencies = {
+			{ "nvim-treesitter/nvim-treesitter", branch = "main" }
+		},
 		lazy = true,
 		keys = {
 			{ "<space>m", mode = { "n" }, ":lua require('treesj').toggle()<CR>" },
