@@ -796,20 +796,28 @@ return {
 	{ "djoshea/vim-autoread",       lazy = true, event = "VeryLazy" },                      -- auto reload edited file
 	{ "tpope/vim-surround",         lazy = true, event = "VeryLazy" },                      -- ysaw [, Ctrl-V + S + <tag>, ds", yss {, yss <tag,  cs" ", ...
 	{ "tpope/vim-commentary",       lazy = true, keys = { { "gc", mode = { "n", "v" } } } }, -- comment/uncomment with visual selection + gc
-	{                                                                                       -- Preview markdown on browser
+	-- Preview markdown on browser {
+	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 		ft = { "markdown" },
 		build = function() vim.fn["mkdp#util#install"]() end,
+	},
+	-- highlight color codes
+	{
+		"brenoprata10/nvim-highlight-colors",
+		config = function()
+			require('nvim-highlight-colors').setup({})
+		end
 	},
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
 		dependencies = { { 'nvim-treesitter/nvim-treesitter', branch = "main" }, 'nvim-mini/mini.nvim' },
 		opts = {},
 	},
+	-- remove trailing whitespaces
+	-- disable with `:DisableWhitespace `
 	{
-		-- remove trailing whitespaces
-		-- disable with `:DisableWhitespace `
 		"ntpeters/vim-better-whitespace",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
