@@ -267,7 +267,7 @@ return {
 	{
 		"ThePrimeagen/refactoring.nvim",
 		requires = { { "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter", branch = "main" }
+			{ "nvim-treesitter/nvim-treesitter" }
 		},
 		lazy = true,
 		keys = {
@@ -529,7 +529,7 @@ return {
 			require("aerial").setup({
 				-- optionally use on_attach to set keymaps when aerial has attached to a buffer
 				layout = {
-					width = 40,
+					width = 160,
 					default_direction = "prefer_left",
 				},
 				autojump = true,
@@ -812,8 +812,12 @@ return {
 	},
 	{
 		'MeanderingProgrammer/render-markdown.nvim',
-		dependencies = { { 'nvim-treesitter/nvim-treesitter', branch = "main" }, 'nvim-mini/mini.nvim' },
+		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
 		opts = {},
+		config = function()
+			vim.g.mkdp_port = "9999"
+			vim.g.mkdp_theme = "light"
+		end,
 	},
 	-- remove trailing whitespaces
 	-- disable with `:DisableWhitespace `
