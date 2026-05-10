@@ -15,10 +15,17 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			"Saecki/crates.nvim"
 		},
-		config = function()
+		config = function(_, opts)
 			local cmp = require("cmp")
 			local types = require("cmp.types")
 			local comparator = require("cmp-under-comparator")
+
+			-- for lua
+			opts.sources = opts.sources or {}
+      table.insert(opts.sources, {
+        name = "lazydev",
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      })
 
 			-- for rust crate
 			require("crates").setup({
