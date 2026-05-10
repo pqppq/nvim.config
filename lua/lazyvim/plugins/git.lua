@@ -94,10 +94,10 @@ return {
 					-- Actions
 					map({ "n", "v" }, "<Space>hs", ":Gitsigns stage_hunk<CR>")
 					map({ "n", "v" }, "<Space>hr", ":Gitsigns reset_hunk<CR>")
+					map({ "n", "v" }, "<Space>hu", ":Gitsigns undo_stage_hunk<CR>")
 					map("n", "<Space>gb", function() gs.blame_line { full = true } end)
 					map("n", "<Space>df", function() gs.diffthis("~", { split = "botright" }) end)
 					map("n", "<Space>hS", gs.stage_buffer)
-					map("n", "<Space>hu", gs.undo_stage_hunk)
 					map("n", "<Space>hR", gs.reset_buffer)
 					map("n", "<Space>hp", gs.preview_hunk)
 					map("n", "<Space>hd", gs.toggle_deleted)
