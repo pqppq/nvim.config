@@ -687,15 +687,15 @@ return {
 		end
 	},
 	{ -- Motion
-		"phaazon/hop.nvim",
+		"pqppq/jump.nvim",
 		lazy = true,
 		keys = {
-			{ "<Space>k", "<cmd>HopWord<CR>",            mode = { "n", "v" }, noremap = true },
-			{ "<Space>l", "<cmd>HopWordCurrentLine<CR>", mode = { "n", "v" }, noremap = true },
-			-- { "<Space>k", "<cmd>HopLine<CR>",            mode = { "n", "v" }, noremap = true },
+			{ "<Space>k", "<cmd>JumpWord<CR>",            mode = { "n", "v" }, noremap = true },
+			{ "<Space>l", "<cmd>JumpWordCurrentLine<CR>", mode = { "n", "v" }, noremap = true },
+			-- { "<Space>k", "<cmd>JumpLine<CR>",            mode = { "n", "v" }, noremap = true },
 		},
 		config = function()
-			require("hop").setup({})
+			require("jump-nvim").setup({})
 		end
 	},
 	{
