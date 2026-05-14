@@ -729,10 +729,52 @@ return {
 		keys = {
 			{ "fs",
 				function(...)
-					if not MiniFiles.close() then MiniFiles.open(...) end
+					local mini = require('mini.files')
+					if not mini.close() then mini.open(...) end
 				end
 			},
 		},
+		init = function()
+			local show_hidden = true
+
+			-- Cache git-ignored files per directory
+			local git_ignored_cache = {}
+			local function get_git_ignored(cwd)
+				if git_ignored_cache[cwd] then return git_ignored_cache[cwd] end
+				local result = vim.fn.systemlist('git -C ' ..
+					vim.fn.shellescape(cwd) .. ' ls-files --others --ignored --exclude-standard --directory 2>/dev/null')
+				local ignored = {}
+				for _, f in ipairs(result) do
+					ignored[f:gsub('/$', '')] = true
+				end
+				git_ignored_cache[cwd] = ignored
+				return ignored
+			end
+
+			local toggle_hidden = function()
+				show_hidden = not show_hidden
+				git_ignored_cache = {}
+				local filter = show_hidden
+						and function(_) return true end
+						or function(fs_entry)
+							if vim.startswith(fs_entry.name, '.') then return false end
+							local dir = vim.fn.fnamemodify(fs_entry.path, ':h')
+							local ignored = get_git_ignored(dir)
+							if ignored[fs_entry.name] then return false end
+							return true
+						end
+				MiniFiles.refresh({ content = { filter = filter } })
+			end
+
+			vim.api.nvim_create_autocmd('User', {
+				pattern = 'MiniFilesBufferCreate',
+				callback = function(args)
+					local buf_id = args.data.buf_id
+					vim.keymap.set('n', '<C-h>', toggle_hidden,
+						{ buffer = buf_id, desc = 'Toggle hidden files (dotfiles & git-ignored)' })
+				end,
+			})
+		end,
 		config =
 		{
 			-- Customization of shown content
