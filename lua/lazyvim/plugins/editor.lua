@@ -738,7 +738,10 @@ return {
 			-- Customization of shown content
 			content = {
 				-- Predicate for which file system entries to show
-				filter = nil,
+				filter = function(fs_entry)
+					local to_ignore = { '.git', 'node_modules', '.DS_Store' }
+					return not vim.tbl_contains(to_ignore, fs_entry.name)
+				end,
 				-- Highlight group to use for a file system entry
 				highlight = nil,
 				-- Prefix text and highlight to show to the left of file system entry
