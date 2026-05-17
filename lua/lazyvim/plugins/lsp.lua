@@ -206,6 +206,15 @@ return {
 			-- Completion
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/nvim-cmp" },
+			-- Formatter
+			{
+				"stevearc/conform.nvim",
+				opts = {
+					formatters_by_ft = {
+						swift = { "swiftformat" },
+					},
+				},
+			},
 			-- Snippets
 			{ "L3MON4D3/LuaSnip" },
 		},
@@ -229,7 +238,7 @@ return {
 			{
 				"F",
 				function()
-					if next(vim.lsp.get_clients({ bufnr = 0 })) then vim.lsp.buf.format() end
+					require("conform").format({ bufnr = 0, lsp_fallback = true })
 				end,
 				mode = "n",
 				desc = "LSP Format"

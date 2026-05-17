@@ -1,3 +1,6 @@
+-- Swift
+vim.lsp.enable("sourcekit")
+
 return {
 	{
 		"folke/lazydev.nvim",
