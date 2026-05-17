@@ -688,15 +688,14 @@ return {
 	},
 	{ -- Motion
 		"pqppq/jump.nvim",
-		lazy = true,
 		keys = {
 			{ "<Space>k", "<cmd>JumpWord<CR>",            mode = { "n", "v" }, noremap = true },
 			{ "<Space>l", "<cmd>JumpWordCurrentLine<CR>", mode = { "n", "v" }, noremap = true },
 			-- { "<Space>k", "<cmd>JumpLine<CR>",            mode = { "n", "v" }, noremap = true },
 		},
 		config = function()
-			require("jump-nvim").setup({})
-		end
+			require("jump-nvim").setup()
+		end,
 	},
 	{
 		"folke/flash.nvim",
