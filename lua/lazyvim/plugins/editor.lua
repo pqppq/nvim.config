@@ -466,6 +466,7 @@ return {
 		lazy = true,
 		keys = {
 			{ "<Esc>", mode = { "t" },                        "<C-\\><C-n>" },
+			{ "<C-q>", mode = { "t" },                        "<Esc>" },
 			{ "<C-t>", mode = { "t" },                        "<Cmd>exe v:count1 . 'ToggleTerm'<CR>" },
 			{ "<C-t>", "<Cmd>exe v:count1 . 'ToggleTerm'<CR>" },
 		},
