@@ -687,6 +687,14 @@ return {
 			})
 		end
 	},
+	-- Copy path of pointed lines
+	{
+		'pqppq/point.nvim',
+		config = true,
+		keys = {
+			{ '<Space>pp', ':PointGitRoot<CR>', mode = { 'n', 'x' } },
+		},
+	},
 	{ -- Motion
 		"pqppq/jump.nvim",
 		keys = {
