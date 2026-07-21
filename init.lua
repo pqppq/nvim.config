@@ -28,10 +28,7 @@ vim.cmd("cnoreabbrev <expr> s getcmdtype() .. getcmdline() ==# ':s' ? [getchar()
 vim.g.netrw_http_cmd = 'open'
 vim.opt.laststatus = 2
 vim.opt.number = true
-vim.opt.statusline = '%t'
-vim.opt.statusline:append '%m'
-vim.opt.statusline:append '%='
-vim.opt.statusline:append '[%l/%L]'
+vim.opt.statusline = '%t%m%=[%l/%L]'
 vim.opt.ambiwidth = 'single'
 vim.opt.hidden = true
 vim.opt.cmdheight = 1
