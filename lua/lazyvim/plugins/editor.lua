@@ -870,6 +870,19 @@ return {
 		config = function()
 			vim.g.mkdp_port = "9999"
 			vim.g.mkdp_theme = "light"
+			require('render-markdown').setup({
+				bullet = {
+					icons = { '●' },
+				},
+				checkbox = {
+					unchecked = {
+						icon = '□',
+					},
+					checked = {
+						icon = '✓',
+					},
+				},
+			})
 		end,
 	},
 	-- remove trailing whitespaces
