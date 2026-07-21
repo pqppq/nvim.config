@@ -5,4 +5,5 @@ return {
 	{ "Mofiqul/dracula.nvim",  name = "dracula" },
 	{ "rebelot/kanagawa.nvim", name = "kanagawa" },
 	{ "folke/tokyonight.nvim", name = "tokyonight" },
+	{ "pqppq/monokai.nvim",      name = "monokai" },
 }
