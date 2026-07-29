@@ -48,18 +48,9 @@ return {
 				desc = "Codeium Prev"
 			},
 		},
-		config = function()
-			local ok, codeium = pcall(require, "codeium")
-			if ok then
-				codeium.setup({
-					-- Optionally disable cmp source if using virtual text only
-					enable_cmp_source = false,
-					virtual_text = {
-						enabled = true,
-						manual = true,
-					}
-				})
-			end
+		init = function()
+			vim.g.codeium_os = 'Darwin'
+			vim.g.codeium_arch = 'arm64'
 		end
 	},
 	{
