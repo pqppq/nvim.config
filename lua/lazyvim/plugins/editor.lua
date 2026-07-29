@@ -870,16 +870,25 @@ return {
 		config = function()
 			vim.g.mkdp_port = "9999"
 			vim.g.mkdp_theme = "light"
+			local function set_check_hl()
+				vim.api.nvim_set_hl(0, 'RenderMarkdownChecked', { fg = '#00ff00' })
+				vim.api.nvim_set_hl(0, 'RenderMarkdownUnchecked', { fg = '#ffff00' })
+			end
+			vim.api.nvim_create_autocmd('ColorScheme', { callback = set_check_hl })
+			set_check_hl()
+
 			require('render-markdown').setup({
 				bullet = {
 					icons = { '●' },
 				},
 				checkbox = {
-					unchecked = {
-						icon = '□',
-					},
 					checked = {
 						icon = '✓',
+						highlight = 'RenderMarkdownChecked',
+					},
+					unchecked = {
+						icon = '□',
+						highlight = 'RenderMarkdownUnchecked',
 					},
 				},
 			})
