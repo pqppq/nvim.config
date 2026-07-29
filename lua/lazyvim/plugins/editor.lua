@@ -1,956 +1,950 @@
 return {
-	{
-		"y3owk1n/undo-glow.nvim",
-		event = { "VeryLazy" },
-		---@type UndoGlow.Config
-		opts = {
-			animation = {
-				enabled = true,
-				duration = 300,
-				animation_type = "zoom",
-				window_scoped = true,
-			},
-			highlights = {
-				undo = {
-					hl_color = { bg = "#693232" }, -- Dark muted red
-				},
-				redo = {
-					hl_color = { bg = "#2F4640" }, -- Dark muted green
-				},
-				yank = {
-					hl_color = { bg = "#7A683A" }, -- Dark muted yellow
-				},
-				paste = {
-					hl_color = { bg = "#325B5B" }, -- Dark muted cyan
-				},
-				search = {
-					hl_color = { bg = "#5C475C" }, -- Dark muted purple
-				},
-				comment = {
-					hl_color = { bg = "#7A5A3D" }, -- Dark muted orange
-				},
-				cursor = {
-					hl_color = { bg = "#793D54" }, -- Dark muted pink
-				},
-			},
-			priority = 2048 * 3,
-		},
-		keys = {
-			{
-				"u",
-				function()
-					require("undo-glow").undo()
-				end,
-				mode = "n",
-				desc = "Undo with highlight",
-				noremap = true,
-			},
-			{
-				"U",
-				function()
-					require("undo-glow").redo()
-				end,
-				mode = "n",
-				desc = "Redo with highlight",
-				noremap = true,
-			},
-			{
-				"p",
-				function()
-					require("undo-glow").paste_below()
-				end,
-				mode = "n",
-				desc = "Paste below with highlight",
-				noremap = true,
-			},
-			{
-				"P",
-				function()
-					require("undo-glow").paste_above()
-				end,
-				mode = "n",
-				desc = "Paste above with highlight",
-				noremap = true,
-			},
-			{
-				"n",
-				function()
-					require("undo-glow").search_next({
-						animation = {
-							animation_type = "strobe",
-						},
-					})
-				end,
-				mode = "n",
-				desc = "Search next with highlight",
-				noremap = true,
-			},
-			{
-				"N",
-				function()
-					require("undo-glow").search_prev({
-						animation = {
-							animation_type = "strobe",
-						},
-					})
-				end,
-				mode = "n",
-				desc = "Search prev with highlight",
-				noremap = true,
-			},
-			{
-				"*",
-				function()
-					require("undo-glow").search_star({
-						animation = {
-							animation_type = "strobe",
-						},
-					})
-				end,
-				mode = "n",
-				desc = "Search star with highlight",
-				noremap = true,
-			},
-			{
-				"#",
-				function()
-					require("undo-glow").search_hash({
-						animation = {
-							animation_type = "strobe",
-						},
-					})
-				end,
-				mode = "n",
-				desc = "Search hash with highlight",
-				noremap = true,
-			},
-			{
-				"gc",
-				function()
-					-- This is an implementation to preserve the cursor position
-					local pos = vim.fn.getpos(".")
-					vim.schedule(function()
-						vim.fn.setpos(".", pos)
-					end)
-					return require("undo-glow").comment()
-				end,
-				mode = { "n", "x" },
-				desc = "Toggle comment with highlight",
-				expr = true,
-				noremap = true,
-			},
-			{
-				"gc",
-				function()
-					require("undo-glow").comment_textobject()
-				end,
-				mode = "o",
-				desc = "Comment textobject with highlight",
-				noremap = true,
-			},
-			{
-				"gcc",
-				function()
-					return require("undo-glow").comment_line()
-				end,
-				mode = "n",
-				desc = "Toggle comment line with highlight",
-				expr = true,
-				noremap = true,
-			},
-		},
-		init = function()
-			vim.api.nvim_create_autocmd("TextYankPost", {
-				desc = "Highlight when yanking (copying) text",
-				callback = function()
-					require("undo-glow").yank()
-				end,
-			})
+  {
+    "y3owk1n/undo-glow.nvim",
+    event = { "VeryLazy" },
+    ---@type UndoGlow.Config
+    opts = {
+      animation = {
+        enabled = true,
+        duration = 300,
+        animation_type = "zoom",
+        window_scoped = true,
+      },
+      highlights = {
+        undo = {
+          hl_color = { bg = "#693232" }, -- Dark muted red
+        },
+        redo = {
+          hl_color = { bg = "#2F4640" }, -- Dark muted green
+        },
+        yank = {
+          hl_color = { bg = "#7A683A" }, -- Dark muted yellow
+        },
+        paste = {
+          hl_color = { bg = "#325B5B" }, -- Dark muted cyan
+        },
+        search = {
+          hl_color = { bg = "#5C475C" }, -- Dark muted purple
+        },
+        comment = {
+          hl_color = { bg = "#7A5A3D" }, -- Dark muted orange
+        },
+        cursor = {
+          hl_color = { bg = "#793D54" }, -- Dark muted pink
+        },
+      },
+      priority = 2048 * 3,
+    },
+    keys = {
+      {
+        "u",
+        function()
+          require("undo-glow").undo()
+        end,
+        mode = "n",
+        desc = "Undo with highlight",
+        noremap = true,
+      },
+      {
+        "U",
+        function()
+          require("undo-glow").redo()
+        end,
+        mode = "n",
+        desc = "Redo with highlight",
+        noremap = true,
+      },
+      {
+        "p",
+        function()
+          require("undo-glow").paste_below()
+        end,
+        mode = "n",
+        desc = "Paste below with highlight",
+        noremap = true,
+      },
+      {
+        "P",
+        function()
+          require("undo-glow").paste_above()
+        end,
+        mode = "n",
+        desc = "Paste above with highlight",
+        noremap = true,
+      },
+      {
+        "n",
+        function()
+          require("undo-glow").search_next({
+            animation = {
+              animation_type = "strobe",
+            },
+          })
+        end,
+        mode = "n",
+        desc = "Search next with highlight",
+        noremap = true,
+      },
+      {
+        "N",
+        function()
+          require("undo-glow").search_prev({
+            animation = {
+              animation_type = "strobe",
+            },
+          })
+        end,
+        mode = "n",
+        desc = "Search prev with highlight",
+        noremap = true,
+      },
+      {
+        "*",
+        function()
+          require("undo-glow").search_star({
+            animation = {
+              animation_type = "strobe",
+            },
+          })
+        end,
+        mode = "n",
+        desc = "Search star with highlight",
+        noremap = true,
+      },
+      {
+        "#",
+        function()
+          require("undo-glow").search_hash({
+            animation = {
+              animation_type = "strobe",
+            },
+          })
+        end,
+        mode = "n",
+        desc = "Search hash with highlight",
+        noremap = true,
+      },
+      {
+        "gc",
+        function()
+          -- This is an implementation to preserve the cursor position
+          local pos = vim.fn.getpos(".")
+          vim.schedule(function()
+            vim.fn.setpos(".", pos)
+          end)
+          return require("undo-glow").comment()
+        end,
+        mode = { "n", "x" },
+        desc = "Toggle comment with highlight",
+        expr = true,
+        noremap = true,
+      },
+      {
+        "gc",
+        function()
+          require("undo-glow").comment_textobject()
+        end,
+        mode = "o",
+        desc = "Comment textobject with highlight",
+        noremap = true,
+      },
+      {
+        "gcc",
+        function()
+          return require("undo-glow").comment_line()
+        end,
+        mode = "n",
+        desc = "Toggle comment line with highlight",
+        expr = true,
+        noremap = true,
+      },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("TextYankPost", {
+        desc = "Highlight when yanking (copying) text",
+        callback = function()
+          require("undo-glow").yank()
+        end,
+      })
 
-			-- This only handles neovim instance and do not highlight when switching panes in tmux
-			vim.api.nvim_create_autocmd("CursorMoved", {
-				desc = "Highlight when cursor moved significantly",
-				callback = function()
-					require("undo-glow").cursor_moved({
-						animation = {
-							animation_type = "slide",
-						},
-					})
-				end,
-			})
+      -- This only handles neovim instance and do not highlight when switching panes in tmux
+      vim.api.nvim_create_autocmd("CursorMoved", {
+        desc = "Highlight when cursor moved significantly",
+        callback = function()
+          require("undo-glow").cursor_moved({
+            animation = {
+              animation_type = "slide",
+            },
+          })
+        end,
+      })
 
-			-- This will handle highlights when focus gained, including switching panes in tmux
-			vim.api.nvim_create_autocmd("FocusGained", {
-				desc = "Highlight when focus gained",
-				callback = function()
-					---@type UndoGlow.CommandOpts
-					local opts = {
-						animation = {
-							animation_type = "slide",
-						},
-					}
+      -- This will handle highlights when focus gained, including switching panes in tmux
+      vim.api.nvim_create_autocmd("FocusGained", {
+        desc = "Highlight when focus gained",
+        callback = function()
+          ---@type UndoGlow.CommandOpts
+          local opts = {
+            animation = {
+              animation_type = "slide",
+            },
+          }
 
-					opts = require("undo-glow.utils").merge_command_opts("UgCursor", opts)
-					local pos = require("undo-glow.utils").get_current_cursor_row()
+          opts = require("undo-glow.utils").merge_command_opts("UgCursor", opts)
+          local pos = require("undo-glow.utils").get_current_cursor_row()
 
-					require("undo-glow").highlight_region(vim.tbl_extend("force", opts, {
-						s_row = pos.s_row,
-						s_col = pos.s_col,
-						e_row = pos.e_row,
-						e_col = pos.e_col,
-						force_edge = opts.force_edge == nil and true or opts.force_edge,
-					}))
-				end,
-			})
+          require("undo-glow").highlight_region(vim.tbl_extend("force", opts, {
+            s_row = pos.s_row,
+            s_col = pos.s_col,
+            e_row = pos.e_row,
+            e_col = pos.e_col,
+            force_edge = opts.force_edge == nil and true or opts.force_edge,
+          }))
+        end,
+      })
 
-			vim.api.nvim_create_autocmd("CmdlineLeave", {
-				desc = "Highlight when search cmdline leave",
-				callback = function()
-					require("undo-glow").search_cmd({
-						animation = {
-							animation_type = "fade",
-						},
-					})
-				end,
-			})
-		end,
-	},
-	{ "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi cursor selection with Ctrl-n
-	{ "kevinhwang91/nvim-bqf",  ft = "qf" },                      -- Quickfix preview
-	{
-		-- Quickfix enhance
-		"stevearc/quicker.nvim",
-		ft = "qf",
-		---@module "quicker"
-		---@type quicker.SetupOptions
-		opts = {},
-	},
-	{
-		"monaqa/dial.nvim",
-		lazy = true,
-		keys = {
-			{ "<C-a>", mode = { "n" }, "<Plug>(dial-increment)" },
-			{ "<C-x>", mode = { "n" }, "<Plug>(dial-decrement)" },
-		},
-		config = function()
-			local augend = require("dial.augend")
-			require("dial.config").augends:register_group {
-				default = {
-					augend.integer.alias.decimal,
-					augend.integer.alias.hex,
-					augend.date.alias["%Y/%m/%d"],
-					augend.constant.alias.bool,
-				},
-			}
-		end
-	},
-	{
-		"folke/zen-mode.nvim",
-		lazy = true,
-		keys = {
-			{
-				"<Space>zz",
-				function()
-					require("zen-mode").setup {
-						window = {
-							width = 150,
-							options = {}
-						},
-					}
-					require("zen-mode").toggle()
-				end
-				,
-				mode = { "n" }
-			},
-		},
-	},
-	{
-		"ThePrimeagen/refactoring.nvim",
-		requires = { { "nvim-lua/plenary.nvim" },
-			{ "nvim-treesitter/nvim-treesitter" }
-		},
-		lazy = true,
-		keys = {
-			{
-				"<space>dv", function()
-				require("refactoring").debug.print_var()
-			end
-			},
-			{
-				"<space>dc", function()
-				require("refactoring").debug.cleanup {}
-			end
-			},
-		},
-	},
-	{
-		-- auto close brackets
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = true
-	},
-	{
-		-- snippet engine
-		"L3MON4D3/LuaSnip",
-		-- follow latest release.
-		version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-		-- install jsregexp (optional!).
-		build = "make install_jsregexp",
-		lazy = true,
-		config = function()
-			local ls = require("luasnip")
-			local types = require("luasnip.util.types")
+      vim.api.nvim_create_autocmd("CmdlineLeave", {
+        desc = "Highlight when search cmdline leave",
+        callback = function()
+          require("undo-glow").search_cmd({
+            animation = {
+              animation_type = "fade",
+            },
+          })
+        end,
+      })
+    end,
+  },
+  { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi cursor selection with Ctrl-n
+  { "kevinhwang91/nvim-bqf",  ft = "qf" },                       -- Quickfix preview
+  {
+    -- Quickfix enhance
+    "stevearc/quicker.nvim",
+    ft = "qf",
+    ---@module "quicker"
+    ---@type quicker.SetupOptions
+    opts = {},
+  },
+  {
+    "monaqa/dial.nvim",
+    lazy = true,
+    keys = {
+      { "<C-a>", mode = { "n" }, "<Plug>(dial-increment)" },
+      { "<C-x>", mode = { "n" }, "<Plug>(dial-decrement)" },
+    },
+    config = function()
+      local augend = require("dial.augend")
+      require("dial.config").augends:register_group {
+        default = {
+          augend.integer.alias.decimal,
+          augend.integer.alias.hex,
+          augend.date.alias["%Y/%m/%d"],
+          augend.constant.alias.bool,
+        },
+      }
+    end
+  },
+  {
+    "folke/zen-mode.nvim",
+    lazy = true,
+    keys = {
+      {
+        "<Space>zz",
+        function()
+          require("zen-mode").setup {
+            window = {
+              width = 150,
+              options = {}
+            },
+          }
+          require("zen-mode").toggle()
+        end
+        ,
+        mode = { "n" }
+      },
+    },
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    requires = { { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" }
+    },
+    lazy = true,
+    keys = {
+      {
+        "<space>dv", function()
+        require("refactoring").debug.print_var()
+      end
+      },
+      {
+        "<space>dc", function()
+        require("refactoring").debug.cleanup {}
+      end
+      },
+    },
+  },
+  {
+    -- auto close brackets
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true
+  },
+  {
+    -- snippet engine
+    "L3MON4D3/LuaSnip",
+    -- follow latest release.
+    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    -- install jsregexp (optional!).
+    build = "make install_jsregexp",
+    lazy = true,
+    config = function()
+      local ls = require("luasnip")
+      local types = require("luasnip.util.types")
 
-			-- If you"re reading this file for the first time, best skip to around line 190
-			-- where the actual snippet-definitions start.
+      -- If you"re reading this file for the first time, best skip to around line 190
+      -- where the actual snippet-definitions start.
 
-			-- Every unspecified option will be set to the default.
-			ls.config.set_config({
-				history = true,
-				-- Update more often, :h events for more info.
-				updateevents = "TextChanged,TextChangedI",
-				-- Snippets aren"t automatically removed if their text is deleted.
-				-- `delete_check_events` determines on which events (:h events) a check for
-				-- deleted snippets is performed.
-				-- This can be especially useful when `history` is enabled.
-				delete_check_events = "TextChanged",
-				ext_opts = { [types.choiceNode] = { active = { virt_text = { { "choiceNode", "Comment" } } } } },
-				-- treesitter-hl has 100, use something higher (default is 200).
-				ext_base_prio = 300,
-				-- minimal increase in priority.
-				ext_prio_increase = 1,
-				enable_autosnippets = true,
-				-- mapping for cutting selected text so it"s usable as SELECT_DEDENT,
-				-- SELECT_RAW or TM_SELECTED_TEXT (mapped via xmap).
-				-- store_selection_keys = "<Tab>",
-				-- luasnip uses this function to get the currently active filetype. This
-				-- is the (rather uninteresting) default, but it"s possible to use
-				-- eg. treesitter for getting the current filetype by setting ft_func to
-				-- require("luasnip.extras.filetype_functions").from_cursor (requires
-				-- `nvim-treesitter/nvim-treesitter`). This allows correctly resolving
-				-- the current filetype in eg. a markdown-code block or `vim.cmd()`.
-				ft_func = function()
-					return vim.split(vim.bo.filetype, ".", true)
-				end,
-			})
+      -- Every unspecified option will be set to the default.
+      ls.config.set_config({
+        history = true,
+        -- Update more often, :h events for more info.
+        updateevents = "TextChanged,TextChangedI",
+        -- Snippets aren"t automatically removed if their text is deleted.
+        -- `delete_check_events` determines on which events (:h events) a check for
+        -- deleted snippets is performed.
+        -- This can be especially useful when `history` is enabled.
+        delete_check_events = "TextChanged",
+        ext_opts = { [types.choiceNode] = { active = { virt_text = { { "choiceNode", "Comment" } } } } },
+        -- treesitter-hl has 100, use something higher (default is 200).
+        ext_base_prio = 300,
+        -- minimal increase in priority.
+        ext_prio_increase = 1,
+        enable_autosnippets = true,
+        -- mapping for cutting selected text so it"s usable as SELECT_DEDENT,
+        -- SELECT_RAW or TM_SELECTED_TEXT (mapped via xmap).
+        -- store_selection_keys = "<Tab>",
+        -- luasnip uses this function to get the currently active filetype. This
+        -- is the (rather uninteresting) default, but it"s possible to use
+        -- eg. treesitter for getting the current filetype by setting ft_func to
+        -- require("luasnip.extras.filetype_functions").from_cursor (requires
+        -- `nvim-treesitter/nvim-treesitter`). This allows correctly resolving
+        -- the current filetype in eg. a markdown-code block or `vim.cmd()`.
+        ft_func = function()
+          return vim.split(vim.bo.filetype, ".", true)
+        end,
+      })
 
-			-- in a lua file: search lua-, then c-, then all-snippets.
-			-- ls.filetype_extend("lua", { "c" })
-			-- in a cpp file: search c-snippets, then all-snippets only (no cpp-snippets!!).
-			-- ls.filetype_set("cpp", { "c" })
+      -- in a lua file: search lua-, then c-, then all-snippets.
+      -- ls.filetype_extend("lua", { "c" })
+      -- in a cpp file: search c-snippets, then all-snippets only (no cpp-snippets!!).
+      -- ls.filetype_set("cpp", { "c" })
 
-			-- Beside defining your own snippets you can also load snippets from "vscode-like" packages
-			-- that expose snippets in json files, for example <https://github.com/rafamadriz/friendly-snippets>.
-			-- Mind that this will extend  `ls.snippets` so you need to do it after your own snippets or you
-			-- will need to extend the table yourself instead of setting a new one.
+      -- Beside defining your own snippets you can also load snippets from "vscode-like" packages
+      -- that expose snippets in json files, for example <https://github.com/rafamadriz/friendly-snippets>.
+      -- Mind that this will extendg`ls.snippets` so you need to do it after your own snippets or you
+      -- will need to extend the table yourself instead of setting a new one.
 
-			-- require("luasnip.loaders.from_vscode").load() -- Load only python snippets
-			-- require("luasnip.loaders.from_vscode").load({include = {"python"}}) -- Load only python snippets
+      -- require("luasnip.loaders.from_vscode").load() -- Load only python snippets
+      -- require("luasnip.loaders.from_vscode").load({include = {"python"}}) -- Load only python snippets
 
-			-- The directories will have to be structured like eg. <https://github.com/rafamadriz/friendly-snippets> (include
-			-- a similar `package.json`)
-			require("luasnip.loaders.from_vscode").lazy_load()
-			require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/repos/nvim.config/snipets/friendly-snippets/" } })
+      -- The directories will have to be structured like eg. <https://github.com/rafamadriz/friendly-snippets> (include
+      -- a similar `package.json`)
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/repos/nvim.config/snipets/friendly-snippets/" } })
 
-			-- You can also use snippets in snipmate format, for example <https://github.com/honza/vim-snippets>.
-			-- The usage is similar to vscode.
+      -- You can also use snippets in snipmate format, for example <https://github.com/honza/vim-snippets>.
+      -- The usage is similar to vscode.
 
-			-- One peculiarity of honza/vim-snippets is that the file with the global snippets is _.snippets, so global snippets
-			-- are stored in `ls.snippets._`.
-			-- We need to tell luasnip that "_" contains global snippets:
-			ls.filetype_extend("all", { "_" })
+      -- One peculiarity of honza/vim-snippets is that the file with the global snippets is _.snippets, so global snippets
+      -- are stored in `ls.snippets._`.
+      -- We need to tell luasnip that "_" contains global snippets:
+      ls.filetype_extend("all", { "_" })
 
-			-- require("luasnip.loaders.from_snipmate").load({include = {"c"}}) -- Load only python snippets
+      -- require("luasnip.loaders.from_snipmate").load({include = {"c"}}) -- Load only python snippets
 
-			-- require("luasnip.loaders.from_snipmate").load({path = {"./my-snippets"}}) -- Load snippets from my-snippets folder
-			-- If path is not specified, luasnip will look for the `snippets` directory in rtp (for custom-snippet probably
-			-- `~/.config/nvim/snippets`).
+      -- require("luasnip.loaders.from_snipmate").load({path = {"./my-snippets"}}) -- Load snippets from my-snippets folder
+      -- If path is not specified, luasnip will look for the `snippets` directory in rtp (for custom-snippet probably
+      -- `~/.config/nvim/snippets`).
 
-			-- require("luasnip.loaders.from_snipmate").lazy_load() -- Lazy loading
+      -- require("luasnip.loaders.from_snipmate").lazy_load() -- Lazy loading
 
-			-- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
-			-- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
-			-- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-			-- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
-			-- vim.api.nvim_set_keymap("i", "<C-Down>", "<Plug>luasnip-next-choice", {})
-			-- vim.api.nvim_set_keymap("s", "<C-Down>", "<Plug>luasnip-next-choice", {})
-		end,
-	},
-	{
-		-- telescope
-		"nvim-telescope/telescope.nvim",
-		dependeicies = { "plenary.nvim" },
-		lazy = true,
-		keys = {
-			{ "<Space>ff", "<cmd>Telescope find_files hidden=true theme=dropdown<CR>" },
-			{ "<Space>fj", "<cmd>Telescope live_grep theme=dropdown<CR>" },
-			{ "<Space>b",  "<cmd>Telescope buffers theme=dropdown<CR>" },
-			{ "<Space>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>" },
-			-- refactoring
-			{ "<Space>R",  "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", mode = { "v" } },
-		},
-		config = function()
-			require("telescope").setup {
-				defaults = {
-					file_ignore_patterns = { "node_modules", ".git" },
-					vimgrep_arguments = {
-						"rg",
-						"--color=never",
-						"--no-heading",
-						"--with-filename",
-						"--line-number",
-						"--column",
-						"--smart-case",
-						"--trim"
-					},
-					mappings = {
-						i = {
-							-- map actions.which_key to <C-h> (default: <C-/>)
-							-- actions.which_key shows the mappings for your picker,
-							-- e.g. git_{create, delete, ...}_branch for the git_branches picker
-							["<esc>"] = require("telescope.actions").close,
-							["jk"] = require("telescope.actions").close,
-						},
-					},
-					pickers = {
-						-- Default configuration for builtin pickers goes here:
-						-- picker_name = {
-						--   picker_config_key = value,
-						--   ...
-						-- }
-						-- Now the picker_config_key will be applied every time you call this
-						-- builtin picker
-					},
-					extensions = {
-						"refactoring"
-					},
-				},
-				prompt = "> ",
-				selection_caret = "> ",
-				entry_prefix = "  ",
-				selection_strategy = "reset",
-				sorting_strategy = "ascending",
-				layout_strategy = "center",
-				layout_config = {
-					width = 0.8,
-					horizontal = {
-						mirror = false,
-						prompt_position = "top",
-						preview_cutoff = 120,
-						preview_width = 0.5,
-					},
-					vertic = {
-						mirror = false,
-						prompt_position = "top",
-						preview_cut = 120,
-						preview_width = 0.5,
-					},
-				},
-				file_sorter = require("telescope.sorters").get_fuzzy_file,
-				file_ignore_patterns = { "node_modules/*" },
-				generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-				path_display = { "truncate" },
-				dynamic_preview_title = true,
-				winblend = 0,
-				border = {},
-				color_devicons = true,
-				use_less = true,
-				scroll_strategy = "cycle",
-				buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
-			}
-		end
-	},
-	{
-		-- quick teminal
-		"akinsho/toggleterm.nvim",
-		lazy = true,
-		keys = {
-			{ "<Esc>", mode = { "t" },                        "<C-\\><C-n>" },
-			{ "<C-q>", mode = { "t" },                        "<Esc>" },
-			{ "<C-t>", mode = { "t" },                        "<Cmd>exe v:count1 . 'ToggleTerm'<CR>" },
-			{ "<C-t>", "<Cmd>exe v:count1 . 'ToggleTerm'<CR>" },
-		},
-		config = function()
-			require("toggleterm").setup {
-				-- size can be a number or function which is passed the current terminal
-				size = function(term)
-					if term.direction == "horizontal" then
-						return 40
-					elseif term.direction == "vertical" then
-						return vim.o.columns * 0.4
-					end
-				end,
-				open_mapping = [[<c-\>]],
-				-- on_open = fun(t: Terminal), -- function to run when the terminal opens
-				-- on_close = fun(t: Terminal), -- function to run when the terminal closes
-				-- on_stdout = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stdout
-				-- on_stderr = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stderr
-				-- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string) -- function to run when terminal process exits
-				hide_numbers = true,  -- hide the number column in toggleterm buffers
-				shade_filetypes = {},
-				autochdir = false,    -- when neovim changes it current directory the terminal will change it"s own when next it"s opened
-				shade_terminals = false, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
-				shading_factor = 1,   -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-				start_in_insert = true,
-				insert_mappings = true, -- whether or not the open mapping applies in insert mode
-				terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-				persist_size = true,
-				persist_mode = true,  -- if set to true (default) the previous terminal mode will be remembered
-				direction = "float",  -- "vertical" | "horizontal" | "tab" | "float",
-				close_on_exit = true, -- close the terminal window when the process exits
-				-- shell = "/bin/zsh",   -- change the default shell
-				auto_scroll = true,   -- automatically scroll to the bottom on terminal output
-				-- This field is only relevant if direction is set to "float"
-				float_opts = {
-					-- The border key is *almost* the same as "nvim_open_win"
-					-- see :h nvim_open_win for details on borders however
-					-- the "curved" border is a custom border type
-					-- not natively supported but implemented in this plugin.
-					border = "single", -- "single" | "double" | "shadow" | "curved" | ... other options supported by win open
-					-- like `size`, width and height can be a number or function which is passed the current terminal
-					width = math.floor(vim.o.columns * 0.8),
-					height = math.floor(vim.o.columns * 1),
-					winblend = 0,
-					highlight = { border = "ColorColumn", background = "ColorColumn" },
-				},
-				winbar = {
-					enabled = false, -- Enable winbar for the preview (requires neovim-0.8+)
-				},
-			}
-		end,
-	},
-	{
-		-- code outline
-		"stevearc/aerial.nvim",
-		lazy = true,
-		keys = {
-			{ "<Space>a", "<cmd>AerialToggle<CR>", mode = { "n" } },
-		},
-		config = function()
-			require("aerial").setup({
-				-- optionally use on_attach to set keymaps when aerial has attached to a buffer
-				layout = {
-					width = 160,
-					default_direction = "prefer_left",
-				},
-				autojump = true,
-				on_attach = function(bufnr)
-					-- Jump forwards/backwards with "{" and "}"
-					vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
-					vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
-				end,
-			})
-			-- You probably also want to set a keymap to toggle aerial
-			-- vim.keymap.set("n", "<Space>a", "<cmd>AerialToggle!<CR>")
-		end
-	},
-	{
-		"shellRaining/hlchunk.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			require("hlchunk").setup({
-				chunk = {
-					enable = true
-				},
-				indent = {
-					enable = true
-				}
-			})
-		end
-	},
-	{
-		"dnlhc/glance.nvim",
-		cmd = "Glance",
-		lazy = true,
-		keys = {
-			{ "gld", mode = { "n" }, "<cmd>Glance definitions<CR>" },
-			{ "glr", mode = { "n" }, "<cmd>Glance references<CR>" },
-			{ "glt", mode = { "n" }, "<cmd>Glance type_definitions<CR>" },
-			{ "gli", mode = { "n" }, "<cmd>Glance implementations<CR>" },
-		},
-		config = function()
-			-- Lua configuration
-			local glance = require("glance")
-			local actions = glance.actions
+      -- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", { expr = true })
+      -- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", { expr = true })
+      -- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
+      -- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
+      -- vim.api.nvim_set_keymap("i", "<C-Down>", "<Plug>luasnip-next-choice", {})
+      -- vim.api.nvim_set_keymap("s", "<C-Down>", "<Plug>luasnip-next-choice", {})
+    end,
+  },
+  {
+    -- telescope
+    "nvim-telescope/telescope.nvim",
+    dependeicies = { "plenary.nvim" },
+    lazy = true,
+    keys = {
+      { "<Space>ff", "<cmd>Telescope find_files hidden=true theme=dropdown<CR>" },
+      { "<Space>fj", "<cmd>Telescope live_grep theme=dropdown<CR>" },
+      { "<Space>b",  "<cmd>Telescope buffers theme=dropdown<CR>" },
+      { "<Space>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>" },
+      -- refactoring
+      { "<Space>R",  "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", mode = { "v" } },
+    },
+    config = function()
+      require("telescope").setup {
+        defaults = {
+          file_ignore_patterns = { "node_modules", ".git" },
+          vimgrep_arguments = {
+            "rg",
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+            "--smart-case",
+            "--trim"
+          },
+          mappings = {
+            i = {
+              -- map actions.which_key to <C-h> (default: <C-/>)
+              -- actions.which_key shows the mappings for your picker,
+              -- e.g. git_{create, delete, ...}_branch for the git_branches picker
+              ["<esc>"] = require("telescope.actions").close,
+              ["jk"] = require("telescope.actions").close,
+            },
+          },
+          pickers = {
+            -- Default configuration for builtin pickers goes here:
+            -- picker_name = {
+            --g picker_config_key = value,
+            --g ...
+            -- }
+            -- Now the picker_config_key will be applied every time you call this
+            -- builtin picker
+          },
+          extensions = {
+            "refactoring"
+          },
+        },
+        prompt = "> ",
+        selection_caret = "> ",
+        entry_prefix = "g",
+        selection_strategy = "reset",
+        sorting_strategy = "ascending",
+        layout_strategy = "center",
+        layout_config = {
+          width = 0.8,
+          horizontal = {
+            mirror = false,
+            prompt_position = "top",
+            preview_cutoff = 120,
+            preview_width = 0.5,
+          },
+          vertic = {
+            mirror = false,
+            prompt_position = "top",
+            preview_cut = 120,
+            preview_width = 0.5,
+          },
+        },
+        file_sorter = require("telescope.sorters").get_fuzzy_file,
+        file_ignore_patterns = { "node_modules/*" },
+        generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
+        path_display = { "truncate" },
+        dynamic_preview_title = true,
+        winblend = 0,
+        border = {},
+        color_devicons = true,
+        use_less = true,
+        scroll_strategy = "cycle",
+        buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
+      }
+    end
+  },
+  {
+    -- quick teminal
+    "akinsho/toggleterm.nvim",
+    lazy = true,
+    keys = {
+      { "<Esc>", mode = { "t" },                        "<C-\\><C-n>" },
+      { "<C-q>", mode = { "t" },                        "<Esc>" },
+      { "<C-t>", mode = { "t" },                        "<Cmd>exe v:count1 . 'ToggleTerm'<CR>" },
+      { "<C-t>", "<Cmd>exe v:count1 . 'ToggleTerm'<CR>" },
+    },
+    config = function()
+      require("toggleterm").setup {
+        -- size can be a number or function which is passed the current terminal
+        size = function(term)
+          if term.direction == "horizontal" then
+            return 40
+          elseif term.direction == "vertical" then
+            return vim.o.columns * 0.4
+          end
+        end,
+        open_mapping = [[<c-\>]],
+        -- on_open = fun(t: Terminal), -- function to run when the terminal opens
+        -- on_close = fun(t: Terminal), -- function to run when the terminal closes
+        -- on_stdout = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stdout
+        -- on_stderr = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stderr
+        -- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string) -- function to run when terminal process exits
+        hide_numbers = true,  -- hide the number column in toggleterm buffers
+        shade_filetypes = {},
+        autochdir = false,    -- when neovim changes it current directory the terminal will change it"s own when next it"s opened
+        shade_terminals = false, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+        shading_factor = 1,   -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+        start_in_insert = true,
+        insert_mappings = true, -- whether or not the open mapping applies in insert mode
+        terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
+        persist_size = true,
+        persist_mode = true,  -- if set to true (default) the previous terminal mode will be remembered
+        direction = "float",  -- "vertical" | "horizontal" | "tab" | "float",
+        close_on_exit = true, -- close the terminal window when the process exits
+        -- unset inherited XDG_CONFIG_HOME so fish reads ~/.config/fish (z fn + v abbr); -i for interactive
+        shell = "env -u XDG_CONFIG_HOME " .. vim.o.shell .. " -i",
+        auto_scroll = true, -- automatically scroll to the bottom on terminal output
+        -- This field is only relevant if direction is set to "float"
+        float_opts = {
+          -- The border key is *almost* the same as "nvim_open_win"
+          -- see :h nvim_open_win for details on borders however
+          -- the "curved" border is a custom border type
+          -- not natively supported but implemented in this plugin.
+          border = "single", -- "single" | "double" | "shadow" | "curved" | ... other options supported by win open
+          -- like `size`, width and height can be a number or function which is passed the current terminal
+          width = math.floor(vim.o.columns * 0.8),
+          height = math.floor(vim.o.columns * 1),
+          winblend = 0,
+          highlight = { border = "ColorColumn", background = "ColorColumn" },
+        },
+        winbar = {
+          enabled = false, -- Enable winbar for the preview (requires neovim-0.8+)
+        },
+      }
+    end,
+  },
+  {
+    -- code outline
+    "stevearc/aerial.nvim",
+    lazy = true,
+    keys = {
+      { "<Space>a", "<cmd>AerialToggle<CR>", mode = { "n" } },
+    },
+    config = function()
+      require("aerial").setup({
+        -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+        layout = {
+          width = 160,
+          default_direction = "prefer_left",
+        },
+        autojump = true,
+        on_attach = function(bufnr)
+          -- Jump forwards/backwards with "{" and "}"
+          vim.keymap.set("n", "{", "<cmd>AerialPrev<CR>", { buffer = bufnr })
+          vim.keymap.set("n", "}", "<cmd>AerialNext<CR>", { buffer = bufnr })
+        end,
+      })
+      -- You probably also want to set a keymap to toggle aerial
+      -- vim.keymap.set("n", "<Space>a", "<cmd>AerialToggle!<CR>")
+    end
+  },
+  {
+    "shellRaining/hlchunk.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("hlchunk").setup({
+        chunk = {
+          enable = true
+        },
+        indent = {
+          enable = true
+        }
+      })
+    end
+  },
+  {
+    "dnlhc/glance.nvim",
+    cmd = "Glance",
+    lazy = true,
+    keys = {
+      { "gld", mode = { "n" }, "<cmd>Glance definitions<CR>" },
+      { "glr", mode = { "n" }, "<cmd>Glance references<CR>" },
+      { "glt", mode = { "n" }, "<cmd>Glance type_definitions<CR>" },
+      { "gli", mode = { "n" }, "<cmd>Glance implementations<CR>" },
+    },
+    config = function()
+      -- Lua configuration
+      local glance = require("glance")
+      local actions = glance.actions
 
-			glance.setup({
-				height = 25, -- Height of the window
-				zindex = 45,
+      glance.setup({
+        height = 25, -- Height of the window
+        zindex = 45,
 
-				-- When enabled, adds virtual lines behind the preview window to maintain context in the parent window
-				-- Requires Neovim >= 0.10.0
-				preserve_win_context = true,
+        -- When enabled, adds virtual lines behind the preview window to maintain context in the parent window
+        -- Requires Neovim >= 0.10.0
+        preserve_win_context = true,
 
-				-- Controls whether the preview window is "embedded" within your parent window or floating
-				-- above all windows.
-				detached = function(winid)
-					-- Automatically detach when parent window width < 100 columns
-					return vim.api.nvim_win_get_width(winid) < 100
-				end,
-				-- Or use a fixed setting: detached = true,
+        -- Controls whether the preview window is "embedded" within your parent window or floating
+        -- above all windows.
+        detached = function(winid)
+          -- Automatically detach when parent window width < 100 columns
+          return vim.api.nvim_win_get_width(winid) < 100
+        end,
+        -- Or use a fixed setting: detached = true,
 
-				preview_win_opts = { -- Configure preview window options
-					cursorline = true,
-					number = true,
-					wrap = true,
-				},
+        preview_win_opts = { -- Configure preview window options
+          cursorline = true,
+          number = true,
+          wrap = true,
+        },
 
-				border = {
-					enable = false, -- Show window borders. Only horizontal borders allowed
-					top_char = "―",
-					bottom_char = "―",
-				},
+        border = {
+          enable = false, -- Show window borders. Only horizontal borders allowed
+          top_char = "―",
+          bottom_char = "―",
+        },
 
-				list = {
-					position = "right", -- Position of the list window "left"|"right"
-					width = 0.33,  -- Width as percentage (0.1 to 0.5)
-				},
+        list = {
+          position = "right", -- Position of the list window "left"|"right"
+          width = 0.33,  -- Width as percentage (0.1 to 0.5)
+        },
 
-				theme = {
-					enable = true, -- Generate colors based on current colorscheme
-					mode = "auto", -- "brighten"|"darken"|"auto", "auto" will set mode based on the brightness of your colorscheme
-				},
+        theme = {
+          enable = true, -- Generate colors based on current colorscheme
+          mode = "auto", -- "brighten"|"darken"|"auto", "auto" will set mode based on the brightness of your colorscheme
+        },
 
-				mappings = {
-					list = {
-						["j"] = actions.next, -- Next item
-						["k"] = actions.previous, -- Previous item
-						["<Down>"] = actions.next,
-						["<Up>"] = actions.previous,
-						["<Tab>"] = actions.next_location,    -- Next location (skips groups, cycles)
-						["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
-						["<C-f>"] = actions.preview_scroll_win(5), -- Scroll up the preview window
-						["<C-b>"] = actions.preview_scroll_win(-5), -- Scroll down the preview window
-						["v"] = actions.jump_vsplit,          -- Open location in vertical split
-						["s"] = actions.jump_split,           -- Open location in horizontal split
-						["t"] = actions.jump_tab,             -- Open in new tab
-						["<CR>"] = actions.jump,              -- Jump to location
-						["o"] = actions.jump,
-						["l"] = actions.open_fold,
-						["h"] = actions.close_fold,
-						["<space>l"] = actions.enter_win("preview"), -- Focus preview window
-						["q"] = actions.close,                 -- Closes Glance window
-						["Q"] = actions.close,
-						["<Esc>"] = actions.close,
-						["<C-q>"] = actions.quickfix, -- Send all locations to quickfix list
-						-- ["<Esc>"] = false -- Disable a mapping
-					},
+        mappings = {
+          list = {
+            ["j"] = actions.next, -- Next item
+            ["k"] = actions.previous, -- Previous item
+            ["<Down>"] = actions.next,
+            ["<Up>"] = actions.previous,
+            ["<Tab>"] = actions.next_location,    -- Next location (skips groups, cycles)
+            ["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
+            ["<C-f>"] = actions.preview_scroll_win(5), -- Scroll up the preview window
+            ["<C-b>"] = actions.preview_scroll_win(-5), -- Scroll down the preview window
+            ["v"] = actions.jump_vsplit,          -- Open location in vertical split
+            ["s"] = actions.jump_split,           -- Open location in horizontal split
+            ["t"] = actions.jump_tab,             -- Open in new tab
+            ["<CR>"] = actions.jump,              -- Jump to location
+            ["o"] = actions.jump,
+            ["l"] = actions.open_fold,
+            ["h"] = actions.close_fold,
+            ["<space>l"] = actions.enter_win("preview"), -- Focus preview window
+            ["q"] = actions.close,                 -- Closes Glance window
+            ["Q"] = actions.close,
+            ["<Esc>"] = actions.close,
+            ["<C-q>"] = actions.quickfix, -- Send all locations to quickfix list
+            -- ["<Esc>"] = false -- Disable a mapping
+          },
 
-					preview = {
-						["Q"] = actions.close,
-						["<Tab>"] = actions.next_location,  -- Next location (skips groups, cycles)
-						["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
-						["<space>l"] = actions.enter_win("list"), -- Focus list window
-					},
-				},
+          preview = {
+            ["Q"] = actions.close,
+            ["<Tab>"] = actions.next_location,  -- Next location (skips groups, cycles)
+            ["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
+            ["<space>l"] = actions.enter_win("list"), -- Focus list window
+          },
+        },
 
-				hooks = {}, -- Described in Hooks section
+        hooks = {}, -- Described in Hooks section
 
-				folds = {
-					fold_closed = "",
-					fold_open = "",
-					folded = true, -- Automatically fold list on startup
-				},
+        folds = {
+          fold_closed = "",
+          fold_open = "",
+          folded = true, -- Automatically fold list on startup
+        },
 
-				indent_lines = {
-					enable = true, -- Show indent guidelines
-					icon = "│",
-				},
+        indent_lines = {
+          enable = true, -- Show indent guidelines
+          icon = "│",
+        },
 
-				winbar = {
-					enable = true, -- Enable winbar for the preview (requires neovim-0.8+)
-				},
+        winbar = {
+          enable = true, -- Enable winbar for the preview (requires neovim-0.8+)
+        },
 
-				use_trouble_qf = false -- Quickfix action will open trouble.nvim instead of built-in quickfix list
-			})
-		end
-	},
-	{ -- Diff view
-		"sindrets/diffview.nvim",
-		dependencies = { "plenary.nvim" },
-		cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose", "DiffviewFocusFiles" },
-		config = function()
-			require("diffview").setup({
-				enhanced_diff_hl = true,
-				use_icons = true,
-				view = {
-					merge_tool = {
-						layout = "diff3_mixed",
-						winbar_info = false,
-						disable_diagnostics = true,
-					},
-					file_history = {
-						layout = "diff2_horizontal",
-						winbar_info = false,
-					}
-				}
-			})
-		end
-	},
-	-- Copy path of pointed lines
-	{
-		'pqppq/point.nvim',
-		config = true,
-		keys = {
-			{ '<Space>pp', ':PointGitRoot<CR>', mode = { 'n', 'x' } },
-		},
-	},
-	{ -- Motion
-		"pqppq/jump.nvim",
-		keys = {
-			{ "<Space>k", "<cmd>JumpWord<CR>",            mode = { "n", "v" }, noremap = true },
-			{ "<Space>l", "<cmd>JumpWordCurrentLine<CR>", mode = { "n", "v" }, noremap = true },
-			-- { "<Space>k", "<cmd>JumpLine<CR>",            mode = { "n", "v" }, noremap = true },
-		},
-		config = function()
-			require("jump-nvim").setup()
-		end,
-	},
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		lazy = true,
-		opts = {
-			modes = {
-				search = {
-					enabled = false,
-				},
-				char = {
-					enabled = false,
-				},
-			},
-		},
-		keys = {
-			{
-				"<Space>v",
-				mode = { "n" },
-				function()
-					require("flash").treesitter()
-				end,
-			},
-		},
-	},
-	-- Filer
-	{
-		'nvim-mini/mini.files',
-		version = '*',
-		keys = {
-			{ "fs",
-				function(...)
-					local mini = require('mini.files')
-					if not mini.close() then mini.open(...) end
-				end
-			},
-		},
-		init = function()
-			local show_hidden = true
+        use_trouble_qf = false -- Quickfix action will open trouble.nvim instead of built-in quickfix list
+      })
+    end
+  },
+  { -- Diff view
+    "sindrets/diffview.nvim",
+    dependencies = { "plenary.nvim" },
+    cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose", "DiffviewFocusFiles" },
+    config = function()
+      require("diffview").setup({
+        enhanced_diff_hl = true,
+        use_icons = true,
+        view = {
+          merge_tool = {
+            layout = "diff3_horizontal",
+            winbar_info = false,
+            disable_diagnostics = true,
+          },
+          file_history = {
+            layout = "diff2_horizontal",
+            winbar_info = false,
+          }
+        }
+      })
+    end
+  },
+  -- Copy path of pointed lines
+  {
+    'pqppq/point.nvim',
+    config = true,
+    keys = {
+      { '<Space>pp', ':PointRelative<CR>', mode = { 'n', 'x' } },
+    },
+  },
+  { -- Motion
+    "pqppq/jump.nvim",
+    keys = {
+      { "<Space>k", "<cmd>JumpWord<CR>",            mode = { "n", "v" }, noremap = true },
+      { "<Space>l", "<cmd>JumpWordCurrentLine<CR>", mode = { "n", "v" }, noremap = true },
+      -- { "<Space>k", "<cmd>JumpLine<CR>",g					mode = { "n", "v" }, noremap = true },
+    },
+    config = function()
+      require("jump-nvim").setup()
+    end,
+  },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    lazy = true,
+    opts = {
+      modes = {
+        search = {
+          enabled = false,
+        },
+        char = {
+          enabled = false,
+        },
+      },
+    },
+    keys = {
+      {
+        "<Space>v",
+        mode = { "n" },
+        function()
+          require("flash").treesitter()
+        end,
+      },
+    },
+  },
+  -- Filer
+  {
+    'nvim-mini/mini.files',
+    version = '*',
+    keys = {
+      { "fs",
+        function(...)
+          local mini = require('mini.files')
+          if not mini.close() then mini.open(...) end
+        end
+      },
+    },
+    init = function()
+      local show_hidden = true
 
-			-- Cache git-ignored files per directory
-			local git_ignored_cache = {}
-			local function get_git_ignored(cwd)
-				if git_ignored_cache[cwd] then return git_ignored_cache[cwd] end
-				local result = vim.fn.systemlist('git -C ' ..
-					vim.fn.shellescape(cwd) .. ' ls-files --others --ignored --exclude-standard --directory 2>/dev/null')
-				local ignored = {}
-				for _, f in ipairs(result) do
-					ignored[f:gsub('/$', '')] = true
-				end
-				git_ignored_cache[cwd] = ignored
-				return ignored
-			end
+      -- Cache git-ignored files per directory
+      local git_ignored_cache = {}
+      local function get_git_ignored(cwd)
+        if git_ignored_cache[cwd] then return git_ignored_cache[cwd] end
+        local result = vim.fn.systemlist('git -C ' ..
+          vim.fn.shellescape(cwd) .. ' ls-files --others --ignored --exclude-standard --directory 2>/dev/null')
+        local ignored = {}
+        for _, f in ipairs(result) do
+          ignored[f:gsub('/$', '')] = true
+        end
+        git_ignored_cache[cwd] = ignored
+        return ignored
+      end
 
-			local toggle_hidden = function()
-				show_hidden = not show_hidden
-				git_ignored_cache = {}
-				local filter = show_hidden
-						and function(_) return true end
-						or function(fs_entry)
-							if vim.startswith(fs_entry.name, '.') then return false end
-							local dir = vim.fn.fnamemodify(fs_entry.path, ':h')
-							local ignored = get_git_ignored(dir)
-							if ignored[fs_entry.name] then return false end
-							return true
-						end
-				MiniFiles.refresh({ content = { filter = filter } })
-			end
+      local toggle_hidden = function()
+        show_hidden = not show_hidden
+        git_ignored_cache = {}
+        local filter = show_hidden
+            and function(_) return true end
+            or function(fs_entry)
+              if vim.startswith(fs_entry.name, '.') then return false end
+              local dir = vim.fn.fnamemodify(fs_entry.path, ':h')
+              local ignored = get_git_ignored(dir)
+              if ignored[fs_entry.name] then return false end
+              return true
+            end
+        MiniFiles.refresh({ content = { filter = filter } })
+      end
 
-			vim.api.nvim_create_autocmd('User', {
-				pattern = 'MiniFilesBufferCreate',
-				callback = function(args)
-					local buf_id = args.data.buf_id
-					vim.keymap.set('n', '<C-h>', toggle_hidden,
-						{ buffer = buf_id, desc = 'Toggle hidden files (dotfiles & git-ignored)' })
-				end,
-			})
-		end,
-		config =
-		{
-			-- Customization of shown content
-			content = {
-				-- Predicate for which file system entries to show
-				filter = function(fs_entry)
-					local to_ignore = { '.git', 'node_modules', '.DS_Store' }
-					return not vim.tbl_contains(to_ignore, fs_entry.name)
-				end,
-				-- Highlight group to use for a file system entry
-				highlight = nil,
-				-- Prefix text and highlight to show to the left of file system entry
-				prefix = nil,
-				-- Order in which to show file system entries
-				sort = nil,
-			},
-			-- Module mappings created only inside explorer.
-			-- Use `''` (empty string) to not create one.
-			mappings = {
-				close       = 'q',
-				go_in       = 'l',
-				go_in_plus  = 'L',
-				go_out      = 'h',
-				go_out_plus = 'H',
-				mark_goto   = "'",
-				mark_set    = 'm',
-				reset       = '<BS>',
-				reveal_cwd  = '@',
-				show_help   = 'g?',
-				synchronize = '=',
-				trim_left   = '<',
-				trim_right  = '>',
-			},
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesBufferCreate',
+        callback = function(args)
+          local buf_id = args.data.buf_id
+          vim.keymap.set('n', '<C-h>', toggle_hidden,
+            { buffer = buf_id, desc = 'Toggle hidden files (dotfiles & git-ignored)' })
+        end,
+      })
+    end,
+    config =
+    {
+      -- Customization of shown content
+      content = {
+        -- Predicate for which file system entries to show
+        filter = function(fs_entry)
+          local to_ignore = { '.git', 'node_modules', '.DS_Store' }
+          return not vim.tbl_contains(to_ignore, fs_entry.name)
+        end,
+        -- Highlight group to use for a file system entry
+        highlight = nil,
+        -- Prefix text and highlight to show to the left of file system entry
+        prefix = nil,
+        -- Order in which to show file system entries
+        sort = nil,
+      },
+      -- Module mappings created only inside explorer.
+      -- Use `''` (empty string) to not create one.
+      mappings = {
+        close       = 'q',
+        go_in       = 'l',
+        go_in_plus  = 'L',
+        go_out      = 'h',
+        go_out_plus = 'H',
+        mark_goto   = "'",
+        mark_set    = 'm',
+        reset       = '<BS>',
+        reveal_cwd  = '@',
+        show_help   = 'g?',
+        synchronize = '=',
+        trim_left   = '<',
+        trim_right  = '>',
+      },
 
-			-- General options
-			options = {
-				-- Whether to delete permanently or move into module-specific trash
-				permanent_delete = true,
-				-- Whether to use for editing directories
-				use_as_default_explorer = true,
-			},
+      -- General options
+      options = {
+        -- Whether to delete permanently or move into module-specific trash
+        permanent_delete = true,
+        -- Whether to use for editing directories
+        use_as_default_explorer = true,
+      },
 
-			-- Customization of explorer windows
-			windows = {
-				-- Maximum number of windows to show side by side
-				max_number = math.huge,
-				-- Whether to show preview of file/directory under cursor
-				preview = true,
-				-- Width of focused window
-				width_focus = 50,
-				-- Width of non-focused window
-				width_nofocus = 15,
-				-- Width of preview window
-				width_preview = 50,
-			},
-		}
-	},
-	-- MISC
-	{ "markonm/traces.vim",         lazy = true, event = "VeryLazy" },                      -- live preview of replaces
-	{ "nvim-lua/plenary.nvim",      lazy = true },                                          -- dependency for many plugins
-	{ "tpope/vim-repeat",           lazy = true, event = "VeryLazy" },                      -- enhance . repeat
-	{ "terryma/vim-expand-region",  lazy = true, event = "VeryLazy" },                      -- expand visual selection with +/_
-	{ "dhruvasagar/vim-table-mode", lazy = true, cmd = { "TableModeToggle" } },             -- markdown table mode
-	{ "djoshea/vim-autoread",       lazy = true, event = "VeryLazy" },                      -- auto reload edited file
-	{ "tpope/vim-surround",         lazy = true, event = "VeryLazy" },                      -- ysaw [, Ctrl-V + S + <tag>, ds", yss {, yss <tag,  cs" ", ...
-	{ "tpope/vim-commentary",       lazy = true, keys = { { "gc", mode = { "n", "v" } } } }, -- comment/uncomment with visual selection + gc
-	-- Preview markdown on browser {
-	{
-		"iamcco/markdown-preview.nvim",
-		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-		ft = { "markdown" },
-		build = function() vim.fn["mkdp#util#install"]() end,
-	},
-	-- highlight color codes
-	{
-		"brenoprata10/nvim-highlight-colors",
-		config = function()
-			require('nvim-highlight-colors').setup({})
-		end
-	},
-	{
-		'MeanderingProgrammer/render-markdown.nvim',
-		dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
-		opts = {},
-		config = function()
-			vim.g.mkdp_port = "9999"
-			vim.g.mkdp_theme = "light"
-			local function set_check_hl()
-				vim.api.nvim_set_hl(0, 'RenderMarkdownChecked', { fg = '#00ff00' })
-				vim.api.nvim_set_hl(0, 'RenderMarkdownUnchecked', { fg = '#ffff00' })
-			end
-			vim.api.nvim_create_autocmd('ColorScheme', { callback = set_check_hl })
-			set_check_hl()
+      -- Customization of explorer windows
+      windows = {
+        -- Maximum number of windows to show side by side
+        max_number = math.huge,
+        -- Whether to show preview of file/directory under cursor
+        preview = true,
+        -- Width of focused window
+        width_focus = 50,
+        -- Width of non-focused window
+        width_nofocus = 15,
+        -- Width of preview window
+        width_preview = 50,
+      },
+    }
+  },
+  -- MISC
+  { "markonm/traces.vim",         lazy = true, event = "VeryLazy" },                   -- live preview of replaces
+  { "nvim-lua/plenary.nvim",      lazy = true },                                       -- dependency for many plugins
+  { "tpope/vim-repeat",           lazy = true, event = "VeryLazy" },                   -- enhance . repeat
+  { "terryma/vim-expand-region",  lazy = true, event = "VeryLazy" },                   -- expand visual selection with +/_
+  { "dhruvasagar/vim-table-mode", lazy = true, cmd = { "TableModeToggle" } },          -- markdown table mode
+  { "djoshea/vim-autoread",       lazy = true, event = "VeryLazy" },                   -- auto reload edited file
+  { "tpope/vim-surround",         lazy = true, event = "VeryLazy" },                   -- ysaw [, Ctrl-V + S + <tag>, ds", yss {, yss <tag,gcs" ", ...
+  { "tpope/vim-commentary",       lazy = true, keys = { { "gc", mode = { "n", "v" } } } }, -- comment/uncomment with visual selection + gc
+  -- Preview markdown on browser {
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
+    opts = {},
+    config = function()
+      vim.g.mkdp_port = "9999"
+      vim.g.mkdp_theme = "light"
+      local function set_check_hl()
+        vim.api.nvim_set_hl(0, 'RenderMarkdownChecked', { fg = '#00ff00' })
+        vim.api.nvim_set_hl(0, 'RenderMarkdownUnchecked', { fg = '#ffff00' })
+      end
+      vim.api.nvim_create_autocmd('ColorScheme', { callback = set_check_hl })
+      set_check_hl()
 
-			require('render-markdown').setup({
-				bullet = {
-					icons = { '●' },
-				},
-				checkbox = {
-					checked = {
-						icon = '✓',
-						highlight = 'RenderMarkdownChecked',
-					},
-					unchecked = {
-						icon = '□',
-						highlight = 'RenderMarkdownUnchecked',
-					},
-				},
-			})
-		end,
-	},
-	-- remove trailing whitespaces
-	-- disable with `:DisableWhitespace `
-	{
-		"ntpeters/vim-better-whitespace",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			vim.cmd("let g:better_whitespace_enabled=1")
-			vim.cmd("let g:strip_whitespace_on_save=1")
-			vim.cmd("let g:strip_whitespace_confirm=0")
-		end,
-	},
-	{
-		-- align selection
-		"junegunn/vim-easy-align",
-		lazy = true,
-		keys = {
-			{ "ga", mode = { "n", "v" }, "<Plug>(EasyAlign)" },
-		},
-	},
-	{
-		-- Enpower csv view
-		"hat0uma/csvview.nvim",
-		opts = {
-			parser = { comments = { "#", "//" } },
-		},
-		ft = { 'csv' },
-		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
-		config = function()
-			local group = vim.api.nvim_create_augroup("CsvViewKeys", { clear = true })
-			vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
-				group = group,
-				pattern = "csv",
-				callback = function(args)
-					local bufnr = args.buf
-					vim.keymap.set(
-						"n",
-						"<Space>ct",
-						":CsvViewToggle delimiter=, display_mode=border header_lnum=1<CR>",
-						{ buffer = bufnr, silent = true, noremap = true }
-					)
-				end,
-			})
-		end,
+      require('render-markdown').setup({
+        bullet = {
+          icons = { '●' },
+        },
+        checkbox = {
+          checked = {
+            icon = '✓',
+            highlight = 'RenderMarkdownChecked',
+          },
+          unchecked = {
+            icon = '□',
+            highlight = 'RenderMarkdownUnchecked',
+          },
+        },
+      })
+    end,
+  },
+  -- remove trailing whitespaces
+  -- disable with `:DisableWhitespace `
+  {
+    "ntpeters/vim-better-whitespace",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      vim.cmd("let g:better_whitespace_enabled=1")
+      vim.cmd("let g:strip_whitespace_on_save=1")
+      vim.cmd("let g:strip_whitespace_confirm=0")
+    end,
+  },
+  {
+    -- align selection
+    "junegunn/vim-easy-align",
+    lazy = true,
+    keys = {
+      { "ga", mode = { "n", "v" }, "<Plug>(EasyAlign)" },
+    },
+  },
+  {
+    -- Enpower csv view
+    "hat0uma/csvview.nvim",
+    opts = {
+      parser = { comments = { "#", "//" } },
+    },
+    ft = { 'csv' },
+    cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
+    config = function()
+      local group = vim.api.nvim_create_augroup("CsvViewKeys", { clear = true })
+      vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
+        group = group,
+        pattern = "csv",
+        callback = function(args)
+          local bufnr = args.buf
+          vim.keymap.set(
+            "n",
+            "<Space>ct",
+            ":CsvViewToggle delimiter=, display_mode=border header_lnum=1<CR>",
+            { buffer = bufnr, silent = true, noremap = true }
+          )
+        end,
+      })
+    end,
 
-	},
-	{
-		-- document generator
-		"danymat/neogen",
-		lazy = true,
-		keys = {
-			{ "<Space>cm", ":Neogen<CR>", mode = { "n" } },
-		},
-		config = function()
-			require("neogen").setup {
-				enabled = true,
-				input_after_comment = false,
-			}
-		end
-	}
+  },
+  {
+    -- document generator
+    "danymat/neogen",
+    lazy = true,
+    keys = {
+      { "<Space>cm", ":Neogen<CR>", mode = { "n" } },
+    },
+    config = function()
+      require("neogen").setup {
+        enabled = true,
+        input_after_comment = false,
+      }
+    end
+  },
 }
