@@ -1,9 +1,11 @@
 return {
-	{ "cocopon/iceberg.vim",   name = "iceberg" },
-	{ "rose-pine/neovim",      name = "rose-pine" },
-	{ "catppuccin/nvim",       name = "catppuccin" },
-	{ "Mofiqul/dracula.nvim",  name = "dracula" },
-	{ "rebelot/kanagawa.nvim", name = "kanagawa" },
-	{ "folke/tokyonight.nvim", name = "tokyonight" },
+	{ "cocopon/iceberg.vim",     name = "iceberg" },
+	{ "rose-pine/neovim",        name = "rose-pine" },
+	{ "catppuccin/nvim",         name = "catppuccin" },
+	{ "Mofiqul/dracula.nvim",    name = "dracula" },
+	{ "rebelot/kanagawa.nvim",   name = "kanagawa" },
+	{ "folke/tokyonight.nvim",   name = "tokyonight" },
+	{ "logico/typewriter-vim",   name = "typewriter" },
+	{ "tomasiser/vim-code-dark", name = "code-dark" },
 	{ "pqppq/monokai.nvim",      name = "monokai" },
 }
