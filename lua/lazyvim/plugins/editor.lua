@@ -667,7 +667,7 @@ return {
     end
   },
   { -- Diff view
-    "sindrets/diffview.nvim",
+    "dlyongemallo/diffview-plus.nvim",
     dependencies = { "plenary.nvim" },
     cmd = { "DiffviewOpen", "DiffviewFileHistory", "DiffviewClose", "DiffviewFocusFiles" },
     config = function()
