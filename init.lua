@@ -32,6 +32,7 @@ vim.cmd('autocmd FileType haskell set expandtab')
 -- set options
 vim.g.netrw_http_cmd = 'open'
 vim.opt.laststatus = 2
+vim.opt.autoread = true
 vim.opt.number = true
 vim.opt.statusline = '%t%m%=[%l/%L]'
 vim.opt.ambiwidth = 'single'
