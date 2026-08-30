@@ -1,121 +1,140 @@
 return {
-	{
-		"tpope/vim-fugitive",
-		dependencies = { "tpope/vim-rhubarb" },
-		cmd = {
-			"G",
-			"Git",
-			"Gdiffsplit",
-			"Gread",
-			"Gwrite",
-			"Ggrep",
-			"GMove",
-			"GDelete",
-			"GBrowse",
-			"Gline",
-			"GLog",
-		},
-		keys = {
-			{ "<C-g><C-g>", mode = { "n" }, ":Git<CR>", silent = true },
-		}
-	},
-	{
-		"lewis6991/gitsigns.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			require("gitsigns").setup {
-				signs                        = {
-					add          = { text = "*" },
-					change       = { text = "~" },
-					delete       = { text = "x" },
-					topdelete    = { text = "x" },
-					changedelete = { text = "~" },
-					untracked    = { text = "=" },
-				},
-				signs_staged                 = {
-					add          = { text = '*' },
-					change       = { text = '~' },
-					delete       = { text = 'x' },
-					topdelete    = { text = 'x' },
-					changedelete = { text = '~' },
-					untracked    = { text = '┆' },
-				},
-				signcolumn                   = true, -- Toggle with `:Gitsigns toggle_signs`
-				numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
-				linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
-				word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
-				watch_gitdir                 = {
-					interval = 1000,
-					follow_files = true
-				},
-				attach_to_untracked          = true,
-				current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-				current_line_blame_opts      = {
-					virt_text = true,
-					virt_text_pos = "eol", -- "eol" | "overlay" | "right_align"
-					delay = 1000,
-					ignore_whitespace = false,
-				},
-				current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
-				sign_priority                = 100,
-				update_debounce              = 100,
-				status_formatter             = nil, -- Use default
-				max_file_length              = 40000, -- Disable if file is longer than this (in lines)
-				preview_config               = {
-					-- Options passed to nvim_open_win
-					border = "single",
-					style = "minimal",
-					relative = "cursor",
-					row = 0,
-					col = 1
-				},
-				on_attach                    = function(bufnr)
-					local gs = package.loaded.gitsigns
+  {
+    "tpope/vim-fugitive",
+    dependencies = { "tpope/vim-rhubarb" },
+    cmd = {
+      "G",
+      "Git",
+      "Gdiffsplit",
+      "Gread",
+      "Gwrite",
+      "Ggrep",
+      "GMove",
+      "GDelete",
+      "GBrowse",
+      "Gline",
+      "GLog",
+    },
+    keys = {
+      { "<C-g><C-g>", mode = { "n" }, ":Git<CR>", silent = true },
+    }
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require("gitsigns").setup {
+        signs                        = {
+          add          = { text = "*" },
+          change       = { text = "~" },
+          delete       = { text = "x" },
+          topdelete    = { text = "x" },
+          changedelete = { text = "~" },
+          untracked    = { text = "=" },
+        },
+        signs_staged                 = {
+          add          = { text = '*' },
+          change       = { text = '~' },
+          delete       = { text = 'x' },
+          topdelete    = { text = 'x' },
+          changedelete = { text = '~' },
+          untracked    = { text = '┆' },
+        },
+        signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
+        numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
+        linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
+        word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
+        watch_gitdir                 = {
+          interval = 1000,
+          follow_files = true
+        },
+        attach_to_untracked          = true,
+        current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+        current_line_blame_opts      = {
+          virt_text = true,
+          virt_text_pos = "eol", -- "eol" | "overlay" | "right_align"
+          delay = 1000,
+          ignore_whitespace = false,
+        },
+        current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d> - <summary>",
+        sign_priority                = 100,
+        update_debounce              = 100,
+        status_formatter             = nil,   -- Use default
+        max_file_length              = 40000, -- Disable if file is longer than this (in lines)
+        preview_config               = {
+          -- Options passed to nvim_open_win
+          border = "single",
+          style = "minimal",
+          relative = "cursor",
+          row = 0,
+          col = 1
+        },
+        on_attach                    = function(bufnr)
+          local gs = package.loaded.gitsigns
 
-					local function map(mode, l, r, opts)
-						opts = opts or {}
-						opts.buffer = bufnr
-						vim.keymap.set(mode, l, r, opts)
-					end
+          local function map(mode, l, r, opts)
+            opts = opts or {}
+            opts.buffer = bufnr
+            vim.keymap.set(mode, l, r, opts)
+          end
 
-					-- Navigation
-					map("n", "]c", function()
-						if vim.wo.diff then return "]c" end
-						vim.schedule(function() gs.next_hunk() end)
-						return "<Ignore>"
-					end, { expr = true })
+          -- Navigation
+          map("n", "]c", function()
+            if vim.wo.diff then return "]c" end
+            vim.schedule(function() gs.next_hunk() end)
+            return "<Ignore>"
+          end, { expr = true })
 
-					map("n", "[c", function()
-						if vim.wo.diff then return "[c" end
-						vim.schedule(function() gs.prev_hunk() end)
-						return "<Ignore>"
-					end, { expr = true })
+          map("n", "[c", function()
+            if vim.wo.diff then return "[c" end
+            vim.schedule(function() gs.prev_hunk() end)
+            return "<Ignore>"
+          end, { expr = true })
 
-					-- Actions
-					map({ "n", "v" }, "<Space>hs", ":Gitsigns stage_hunk<CR>")
-					map({ "n", "v" }, "<Space>hr", ":Gitsigns reset_hunk<CR>")
-					map({ "n", "v" }, "<Space>hu", ":Gitsigns undo_stage_hunk<CR>")
-					map("n", "<Space>gb", function() gs.blame_line { full = true } end)
-					map("n", "<Space>df", function() gs.diffthis("~", { split = "botright" }) end)
-					map("n", "<Space>hS", gs.stage_buffer)
-					map("n", "<Space>hR", gs.reset_buffer)
-					map("n", "<Space>hp", gs.preview_hunk)
-					map("n", "<Space>hd", gs.toggle_deleted)
+          -- Actions
+          map({ "n", "v" }, "<Space>hs", ":Gitsigns stage_hunk<CR>")
+          map({ "n", "v" }, "<Space>hr", ":Gitsigns reset_hunk<CR>")
+          map({ "n", "v" }, "<Space>hu", ":Gitsigns undo_stage_hunk<CR>")
+          map("n", "<Space>gb", function() gs.blame_line { full = true } end)
+          map("n", "<Space>df", function() gs.diffthis("~", { split = "botright" }) end)
+          map("n", "<Space>hS", gs.stage_buffer)
+          map("n", "<Space>hR", gs.reset_buffer)
+          map("n", "<Space>hp", gs.preview_hunk)
+          map("n", "<Space>hd", gs.toggle_deleted)
 
-					-- Text object
-					map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+          -- Text object
+          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
 
-					vim.cmd("highlight GitSignsAdd    guifg=white")
-					vim.cmd("highlight GitSignsChange guifg=yellow")
-					vim.cmd("highlight GitSignsDelete guifg=red")
-					vim.cmd("highlight GitSignsStagedAdd guifg=orange")
-					vim.cmd("highlight GitSignsStagedChange guifg=orange")
-					vim.cmd("highlight GitSignsStagedDelete guifg=orange")
-				end
-			}
-		end,
-	},
-	-- {"pwntester/octo.nvim",
-	-- dependencies = { "plenary.nvim", "telescope.nvim", "nvim-web-devicons" },
-	-- },
+          vim.cmd("highlight GitSignsAdd    guifg=white")
+          vim.cmd("highlight GitSignsChange guifg=yellow")
+          vim.cmd("highlight GitSignsDelete guifg=red")
+          vim.cmd("highlight GitSignsStagedAdd guifg=orange")
+          vim.cmd("highlight GitSignsStagedChange guifg=orange")
+          vim.cmd("highlight GitSignsStagedDelete guifg=orange")
+        end
+      }
+    end,
+  },
+  -- {"pwntester/octo.nvim",
+  -- dependencies = { "plenary.nvim", "telescope.nvim", "nvim-web-devicons" },
+  -- },
+  {
+    "NeogitOrg/neogit",
+    lazy = true,
+    dependencies = {
+      -- Only one of these is needed.
+      "sindrets/diffview.nvim",
+      -- "esmuellert/codediff.nvim",
+
+      -- For a custom log pager
+      "m00qek/baleia.nvim", -- optional
+
+      -- Only one of these is needed.
+      "nvim-telescope/telescope.nvim",
+      -- "ibhagwan/fzf-lua",
+      -- "nvim-mini/mini.pick",
+      -- "folke/snacks.nvim",
+    },
+    cmd = "Neogit",
+  }
 }
