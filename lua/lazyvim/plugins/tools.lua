@@ -1,26 +1,26 @@
 return {
-  {
-    -- Network request client
-    "mistweaverco/kulala.nvim",
-    lazy = true,
-    keys = {
-      { "<space>ss", function() require("kulala").run() end,        mode = { "n", "v" }, desc = "Send request" },
-      { "<space>sa", function() require("kulala").run_all() end,    mode = { "n", "v" }, desc = "Send all request" },
-      { "<space>st", function() require("kulala").show_stats() end, mode = { "n" },      desc = "Open scratchpad" },
-    },
-    ft = { "http", "rest" },
-    opts = {
-      global_keymaps = false,
-      global_keymaps_prefix = "<space>R",
-      kulala_keymaps_prefix = "",
-      ui = {
-        split_direction = "horizontal",
-      },
-    },
-    config = function(_, opts)
-      require("kulala").setup(opts)
-    end
-  },
+  -- {
+  --   -- Network request client
+  --   "dont-be-evil-company/kulala.nvim",
+  --   lazy = true,
+  --   keys = {
+  --     { "<space>ss", function() require("kulala").run() end,        mode = { "n", "v" }, desc = "Send request" },
+  --     { "<space>sa", function() require("kulala").run_all() end,    mode = { "n", "v" }, desc = "Send all request" },
+  --     { "<space>st", function() require("kulala").show_stats() end, mode = { "n" },      desc = "Open scratchpad" },
+  --   },
+  --   ft = { "http", "rest" },
+  --   opts = {
+  --     global_keymaps = false,
+  --     global_keymaps_prefix = "<space>R",
+  --     kulala_keymaps_prefix = "",
+  --     ui = {
+  --       split_direction = "horizontal",
+  --     },
+  --   },
+  --   config = function(_, opts)
+  --     require("kulala").setup(opts)
+  --   end
+  -- },
   {
     -- D2 renderer
     "terrastruct/d2-vim",
