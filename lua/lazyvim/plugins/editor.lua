@@ -215,8 +215,19 @@ return {
       })
     end,
   },
-  { "mg979/vim-visual-multi", lazy = true, event = "VeryLazy" }, -- multi cursor selection with Ctrl-n
-  { "kevinhwang91/nvim-bqf",  ft = "qf" },                       -- Quickfix preview
+  { "mg979/vim-visual-multi",     lazy = true, event = "VeryLazy" }, -- multi cursor selection with Ctrl-n
+  -- Quickfix preview
+  {
+    "kevinhwang91/nvim-bqf",
+    ft = "qf",
+    config = function()
+      require('bqf').setup({
+        preview = {
+          win_height = 50,
+        }
+      })
+    end
+  },
   {
     -- Quickfix enhance
     "stevearc/quicker.nvim",
@@ -377,90 +388,6 @@ return {
     end,
   },
   {
-    -- telescope
-    "nvim-telescope/telescope.nvim",
-    dependeicies = { "plenary.nvim" },
-    lazy = true,
-    keys = {
-      { "<Space>ff", "<cmd>Telescope find_files hidden=true theme=dropdown<CR>" },
-      { "<Space>fj", "<cmd>Telescope live_grep theme=dropdown<CR>" },
-      { "<Space>b",  "<cmd>Telescope buffers theme=dropdown<CR>" },
-      { "<Space>fs", "<cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>" },
-      -- refactoring
-      { "<Space>R",  "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", mode = { "v" } },
-    },
-    config = function()
-      require("telescope").setup {
-        defaults = {
-          file_ignore_patterns = { "node_modules", ".git" },
-          vimgrep_arguments = {
-            "rg",
-            "--color=never",
-            "--no-heading",
-            "--with-filename",
-            "--line-number",
-            "--column",
-            "--smart-case",
-            "--trim"
-          },
-          mappings = {
-            i = {
-              -- map actions.which_key to <C-h> (default: <C-/>)
-              -- actions.which_key shows the mappings for your picker,
-              -- e.g. git_{create, delete, ...}_branch for the git_branches picker
-              ["<esc>"] = require("telescope.actions").close,
-              ["jk"] = require("telescope.actions").close,
-            },
-          },
-          pickers = {
-            -- Default configuration for builtin pickers goes here:
-            -- picker_name = {
-            --g picker_config_key = value,
-            --g ...
-            -- }
-            -- Now the picker_config_key will be applied every time you call this
-            -- builtin picker
-          },
-          extensions = {
-            "refactoring"
-          },
-        },
-        prompt = "> ",
-        selection_caret = "> ",
-        entry_prefix = "g",
-        selection_strategy = "reset",
-        sorting_strategy = "ascending",
-        layout_strategy = "center",
-        layout_config = {
-          width = 0.8,
-          horizontal = {
-            mirror = false,
-            prompt_position = "top",
-            preview_cutoff = 120,
-            preview_width = 0.5,
-          },
-          vertic = {
-            mirror = false,
-            prompt_position = "top",
-            preview_cut = 120,
-            preview_width = 0.5,
-          },
-        },
-        file_sorter = require("telescope.sorters").get_fuzzy_file,
-        file_ignore_patterns = { "node_modules/*" },
-        generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-        path_display = { "truncate" },
-        dynamic_preview_title = true,
-        winblend = 0,
-        border = {},
-        color_devicons = true,
-        use_less = true,
-        scroll_strategy = "cycle",
-        buffer_previewer_maker = require("telescope.previewers").buffer_previewer_maker,
-      }
-    end
-  },
-  {
     -- quick teminal
     "akinsho/toggleterm.nvim",
     lazy = true,
@@ -486,18 +413,18 @@ return {
         -- on_stdout = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stdout
         -- on_stderr = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stderr
         -- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string) -- function to run when terminal process exits
-        hide_numbers = true,  -- hide the number column in toggleterm buffers
+        hide_numbers = true,      -- hide the number column in toggleterm buffers
         shade_filetypes = {},
-        autochdir = false,    -- when neovim changes it current directory the terminal will change it"s own when next it"s opened
-        shade_terminals = false, -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
-        shading_factor = 1,   -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
+        autochdir = false,        -- when neovim changes it current directory the terminal will change it"s own when next it"s opened
+        shade_terminals = false,  -- NOTE: this option takes priority over highlights specified so if you specify Normal highlights you should set this to false
+        shading_factor = 1,       -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
         start_in_insert = true,
-        insert_mappings = true, -- whether or not the open mapping applies in insert mode
+        insert_mappings = true,   -- whether or not the open mapping applies in insert mode
         terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
         persist_size = true,
-        persist_mode = true,  -- if set to true (default) the previous terminal mode will be remembered
-        direction = "float",  -- "vertical" | "horizontal" | "tab" | "float",
-        close_on_exit = true, -- close the terminal window when the process exits
+        persist_mode = true,      -- if set to true (default) the previous terminal mode will be remembered
+        direction = "float",      -- "vertical" | "horizontal" | "tab" | "float",
+        close_on_exit = true,     -- close the terminal window when the process exits
         -- unset inherited XDG_CONFIG_HOME so fish reads ~/.config/fish (z fn + v abbr); -i for interactive
         shell = "env -u XDG_CONFIG_HOME " .. vim.o.shell .. " -i",
         auto_scroll = true, -- automatically scroll to the bottom on terminal output
@@ -604,7 +531,7 @@ return {
 
         list = {
           position = "right", -- Position of the list window "left"|"right"
-          width = 0.33,  -- Width as percentage (0.1 to 0.5)
+          width = 0.33,       -- Width as percentage (0.1 to 0.5)
         },
 
         theme = {
@@ -614,23 +541,23 @@ return {
 
         mappings = {
           list = {
-            ["j"] = actions.next, -- Next item
+            ["j"] = actions.next,     -- Next item
             ["k"] = actions.previous, -- Previous item
             ["<Down>"] = actions.next,
             ["<Up>"] = actions.previous,
-            ["<Tab>"] = actions.next_location,    -- Next location (skips groups, cycles)
-            ["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
-            ["<C-f>"] = actions.preview_scroll_win(5), -- Scroll up the preview window
+            ["<Tab>"] = actions.next_location,          -- Next location (skips groups, cycles)
+            ["<S-Tab>"] = actions.previous_location,    -- Previous location (skips groups, cycles)
+            ["<C-f>"] = actions.preview_scroll_win(5),  -- Scroll up the preview window
             ["<C-b>"] = actions.preview_scroll_win(-5), -- Scroll down the preview window
-            ["v"] = actions.jump_vsplit,          -- Open location in vertical split
-            ["s"] = actions.jump_split,           -- Open location in horizontal split
-            ["t"] = actions.jump_tab,             -- Open in new tab
-            ["<CR>"] = actions.jump,              -- Jump to location
+            ["v"] = actions.jump_vsplit,                -- Open location in vertical split
+            ["s"] = actions.jump_split,                 -- Open location in horizontal split
+            ["t"] = actions.jump_tab,                   -- Open in new tab
+            ["<CR>"] = actions.jump,                    -- Jump to location
             ["o"] = actions.jump,
             ["l"] = actions.open_fold,
             ["h"] = actions.close_fold,
             ["<space>l"] = actions.enter_win("preview"), -- Focus preview window
-            ["q"] = actions.close,                 -- Closes Glance window
+            ["q"] = actions.close,                       -- Closes Glance window
             ["Q"] = actions.close,
             ["<Esc>"] = actions.close,
             ["<C-q>"] = actions.quickfix, -- Send all locations to quickfix list
@@ -639,8 +566,8 @@ return {
 
           preview = {
             ["Q"] = actions.close,
-            ["<Tab>"] = actions.next_location,  -- Next location (skips groups, cycles)
-            ["<S-Tab>"] = actions.previous_location, -- Previous location (skips groups, cycles)
+            ["<Tab>"] = actions.next_location,        -- Next location (skips groups, cycles)
+            ["<S-Tab>"] = actions.previous_location,  -- Previous location (skips groups, cycles)
             ["<space>l"] = actions.enter_win("list"), -- Focus list window
           },
         },
@@ -842,13 +769,13 @@ return {
     }
   },
   -- MISC
-  { "markonm/traces.vim",         lazy = true, event = "VeryLazy" },                   -- live preview of replaces
-  { "nvim-lua/plenary.nvim",      lazy = true },                                       -- dependency for many plugins
-  { "tpope/vim-repeat",           lazy = true, event = "VeryLazy" },                   -- enhance . repeat
-  { "terryma/vim-expand-region",  lazy = true, event = "VeryLazy" },                   -- expand visual selection with +/_
-  { "dhruvasagar/vim-table-mode", lazy = true, cmd = { "TableModeToggle" } },          -- markdown table mode
-  { "djoshea/vim-autoread",       lazy = true, event = "VeryLazy" },                   -- auto reload edited file
-  { "tpope/vim-surround",         lazy = true, event = "VeryLazy" },                   -- ysaw [, Ctrl-V + S + <tag>, ds", yss {, yss <tag,gcs" ", ...
+  { "markonm/traces.vim",         lazy = true, event = "VeryLazy" },                       -- live preview of replaces
+  { "nvim-lua/plenary.nvim",      lazy = true },                                           -- dependency for many plugins
+  { "tpope/vim-repeat",           lazy = true, event = "VeryLazy" },                       -- enhance . repeat
+  { "terryma/vim-expand-region",  lazy = true, event = "VeryLazy" },                       -- expand visual selection with +/_
+  { "dhruvasagar/vim-table-mode", lazy = true, cmd = { "TableModeToggle" } },              -- markdown table mode
+  { "djoshea/vim-autoread",       lazy = true, event = "VeryLazy" },                       -- auto reload edited file
+  { "tpope/vim-surround",         lazy = true, event = "VeryLazy" },                       -- ysaw [, Ctrl-V + S + <tag>, ds", yss {, yss <tag,gcs" ", ...
   { "tpope/vim-commentary",       lazy = true, keys = { { "gc", mode = { "n", "v" } } } }, -- comment/uncomment with visual selection + gc
   -- Preview markdown on browser {
   {
@@ -951,4 +878,35 @@ return {
       }
     end
   },
+  {
+    'dmtrKovalenko/fff',
+    build = function()
+      -- downloads a prebuilt binary or falls back to cargo build
+      require("fff.download").download_or_build_binary()
+    end,
+    -- for nixos:
+    -- build = "nix run .#release",
+    opts = {
+      debug = {
+        enabled = true,
+        show_scores = true,
+      },
+    },
+    lazy = false, -- the plugin lazy-initialises itself
+    keys = {
+      { "ff", function() require('fff').find_files() end, desc = 'FFFind files' },
+      { "fj", function() require('fff').live_grep() end,  desc = 'LiFFFe grep' },
+      {
+        "fz",
+        function() require('fff').live_grep({ grep = { modes = { 'fuzzy', 'plain' } } }) end,
+        desc = 'Live fffuzy grep',
+      },
+      {
+        "fw",
+        function() require('fff').live_grep_under_cursor() end,
+        mode = { 'n', 'x' },
+        desc = 'Search current word / selection',
+      },
+    },
+  }
 }
