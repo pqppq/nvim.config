@@ -16,7 +16,7 @@ return {
       "GLog",
     },
     keys = {
-      { "<C-g><C-g>", mode = { "n" }, ":Git<CR>", silent = true },
+      { "<C-g><C-g>", mode = { "n" }, ":vert Git<CR>", silent = true },
     }
   },
   {
