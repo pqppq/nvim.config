@@ -8,6 +8,8 @@ vim.keymap.set('n', 'm', 'daw')
 vim.keymap.set('n', 'X', ':bdelete<CR>')
 vim.keymap.set('n', '<C-s>', ':w<CR>', { silent = true })
 vim.keymap.set('n', '<C-c>', '"+yiw') -- yank word under cursor
+vim.keymap.set('n', '<Space>b', ':b <C-d>')
+vim.keymap.set('n', '<Space>q', ':copen <CR>')
 vim.keymap.set('i', 'jk', '<Esc>')
 vim.keymap.set('i', '<C-o>', '()<Left>')
 vim.keymap.set('i', '<C-l>', '{}<Left>')
@@ -74,6 +76,7 @@ vim.wo.linebreak = true
 
 -- set highlight
 vim.cmd('hi! StatusLine guibg=white guifg=black')
+vim.cmd('hi! StatusLineNC guibg=black guifg=white')
 vim.cmd('hi! Cursor guibg=#DFE015 guifg=#DFE015')
 vim.cmd('hi! DiffAdd ctermbg=NONE guibg=#083700')
 vim.cmd('hi! DiffDelete ctermbg=NONE guibg=#6E0801')
